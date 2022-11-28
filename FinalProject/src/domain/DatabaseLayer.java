@@ -1,5 +1,6 @@
 package domain;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -7,9 +8,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DatabaseLayer {
-    private static String connectionString = "jdbc:sqlite:/D:\\OneDrive - Northeastern University\\Assignments\\AED\\KakkadSasikumar_SharunKumar_002774079\\Assignment2\\db\\database.db";
+    private static String connectionString;
 
     DatabaseLayer() {
+        connectionString = "jdbc:sqlite:/" + new File(".").getAbsolutePath() + "\\db\\database.db";
     }
 
     public Connection getConnection() throws SQLException {
