@@ -14,9 +14,13 @@ public class HomePage extends BaseFrame {
     private JButton collegePortalButton;
     private JButton trainingPortalButton;
     private JButton logoutButton;
+    private JLabel heading;
 
     HomePage() {
         super();
+
+        heading.setText("Welcome, " + Application.getCurrentlyLoggedInPerson().getFirstName());
+
         setContentPane(mainPanel);
         logoutButton.addActionListener(new ActionListener() {
             @Override

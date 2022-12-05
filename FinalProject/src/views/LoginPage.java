@@ -39,6 +39,8 @@ public class LoginPage extends BaseFrame {
                         if (Encryption.verify(password.getText(), dbperson.getPassword())) {
                             System.out.println("Password is correct");
 
+                            Application.setCurrentlyLoggedInPerson(dbperson);
+
                             switchToWindow(new HomePage());
 
                         } else {
