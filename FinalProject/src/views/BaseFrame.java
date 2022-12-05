@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BaseFrame extends JFrame {
-    BaseFrame() {
+    public BaseFrame() {
         setResizable(false);
         setSize(500, 500);
         setLocationRelativeTo(null);
