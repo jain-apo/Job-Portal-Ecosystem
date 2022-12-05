@@ -22,6 +22,7 @@ public class BaseFrame extends JFrame {
     }
 
     protected void switchToWindow(JFrame nextWindow) {
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(false);
         nextWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         nextWindow.setVisible(true);

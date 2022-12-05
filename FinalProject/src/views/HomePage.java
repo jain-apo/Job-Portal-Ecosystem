@@ -12,6 +12,5 @@ public class HomePage extends BaseFrame {
     HomePage() {
         super();
         setContentPane(mainPanel);
-
     }
 }
