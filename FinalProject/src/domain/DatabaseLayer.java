@@ -13,7 +13,7 @@ public class DatabaseLayer {
     private static String connectionString;
 
     DatabaseLayer() {
-        connectionString = "jdbc:sqlite:/" + new File(".").getAbsolutePath() + "\\db\\database.db";
+        connectionString = "jdbc:sqlite:/" + new File(".").getAbsolutePath() + "/db/database.db";
     }
 
     public Connection getConnection() throws SQLException {
