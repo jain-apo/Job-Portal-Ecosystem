@@ -1,4 +1,9 @@
 package enterprise.company;
 
-public class CandidatePage {
+import views.BaseFrame;
+
+import javax.swing.*;
+
+public class CandidatePage extends BaseFrame {
+    private JPanel mainPane;
 }
