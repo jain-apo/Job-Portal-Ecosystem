@@ -1,6 +1,6 @@
 package domain;
 
-import models.Person;
+import entities.Person;
 
 import java.io.File;
 import java.sql.Connection;
@@ -13,7 +13,7 @@ public class DatabaseLayer {
     private static String connectionString;
 
     DatabaseLayer() {
-        connectionString = "jdbc:sqlite:/" + new File(".").getAbsolutePath() + "/db/database.db";
+        connectionString = "jdbc:sqlite:/" + new File(".").getAbsolutePath() + "/db/prisma/database.db";
     }
 
     public Connection getConnection() throws SQLException {
@@ -23,7 +23,7 @@ public class DatabaseLayer {
     public ArrayList<Person> getPersons() throws SQLException {
         Connection connection = getConnection();
 
-        ResultSet resultSet = connection.createStatement().executeQuery("Select * from Persons");
+        ResultSet resultSet = connection.createStatement().executeQuery("Select * from Person");
 
         ArrayList<Person> persons = new ArrayList<>();
 
@@ -35,7 +35,9 @@ public class DatabaseLayer {
                     resultSet.getString("lastName"),
                     resultSet.getDate("dateOfBirth"),
                     resultSet.getString("username"),
-                    resultSet.getString("password")
+                    resultSet.getString("password"),
+                    resultSet.getString("email"),
+                    resultSet.getString("phone")
             );
 
             persons.add(person);
