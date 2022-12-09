@@ -26,32 +26,36 @@ public class LoginPage extends BaseFrame {
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("username is " + username.getText());
-                System.out.println("password is " + password.getText());
-
-                try {
-                    var dbperson = Application.Database.getPersons().stream().filter(person -> person.getUsername().equals(username.getText()))
-                            .findFirst().orElse(null);
-
-                    if (dbperson == null) {
-                        System.out.println("No person exists with that username");
-                    } else {
-                        if (Encryption.verify(password.getText(), dbperson.getPassword())) {
-                            System.out.println("Password is correct");
-
-                            Application.setCurrentlyLoggedInPerson(dbperson);
-
-                            switchToWindow(new HomePage());
-
-                        } else {
-                            System.out.println("Password is incorrect");
-                        }
-                    }
-
-                } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
-                }
+                login();
             }
         });
+    }
+
+    private void login() {
+        System.out.println("username is " + username.getText());
+        System.out.println("password is " + password.getText());
+
+        try {
+            var dbperson = Application.Database.getPersons().stream().filter(person -> person.getUsername().equals(username.getText()))
+                    .findFirst().orElse(null);
+
+            if (dbperson == null) {
+                System.out.println("No person exists with that username");
+            } else {
+                if (Encryption.verify(password.getText(), dbperson.getPassword())) {
+                    System.out.println("Password is correct");
+
+                    Application.setCurrentlyLoggedInPerson(dbperson);
+
+                    switchToWindow(new HomePage());
+
+                } else {
+                    System.out.println("Password is incorrect");
+                }
+            }
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 }
