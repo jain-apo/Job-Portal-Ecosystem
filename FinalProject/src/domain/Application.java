@@ -6,6 +6,10 @@ public class Application {
     public static DatabaseLayer Database = new DatabaseLayer();
     static Person currentlyLoggedInPerson;
 
+    public static void initialize() {
+        
+    }
+
     public static Person getCurrentlyLoggedInPerson() {
         return currentlyLoggedInPerson;
     }
