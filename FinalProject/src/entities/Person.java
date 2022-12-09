@@ -31,6 +31,17 @@ public class Person {
     @Column(name = "phone")
     private String phone;
 
+    public Person(int id, String firstName, String lastName, Object dateOfBirth, String username, String password, String email, String phone) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+    }
+
     public int getId() {
         return id;
     }
