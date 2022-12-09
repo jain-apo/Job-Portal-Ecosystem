@@ -7,30 +7,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model JobApplications {
-  id                Int         @id @unique @default(autoincrement())
+model JobApplication {
+  id                Int        @id @unique @default(autoincrement())
   personId          Int
   jobPostingId      Int
   yearsOfExperience Int
-  JobPostings       JobPostings @relation(fields: [jobPostingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Persons           Persons     @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  JobPosting        JobPosting @relation(fields: [jobPostingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Person            Person     @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model JobPostings {
-  id              Int               @id @unique @default(autoincrement())
-  title           String
-  jobDescription  String
-  category        String
-  JobApplications JobApplications[]
+model JobPosting {
+  id             Int              @id @unique @default(autoincrement())
+  title          String
+  jobDescription String
+  category       String
+  JobApplication JobApplication[]
 }
 
-model Persons {
-  id              Int               @id @unique @default(autoincrement())
-  firstName       String
-  lastName        String
-  dateOfBirth     DateTime
-  username        String
-  password        String
-  email           String            @unique
-  JobApplications JobApplications[]
+model Person {
+  id             Int              @id @unique @default(autoincrement())
+  firstName      String
+  lastName       String
+  dateOfBirth    DateTime
+  username       String
+  password       String
+  email          String           @unique
+  phone          String
+  JobApplication JobApplication[]
 }
