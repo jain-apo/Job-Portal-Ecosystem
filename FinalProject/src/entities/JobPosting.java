@@ -1,22 +1,11 @@
 package entities;
 
-import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
 public class JobPosting {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
     private int id;
-    @Basic
-    @Column(name = "title")
     private String title;
-    @Basic
-    @Column(name = "jobDescription")
     private String jobDescription;
-    @Basic
-    @Column(name = "category")
     private String category;
 
     public int getId() {

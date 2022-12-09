@@ -1,22 +1,11 @@
 package entities;
 
-import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
 public class JobApplication {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
     private int id;
-    @Basic
-    @Column(name = "personId")
     private int personId;
-    @Basic
-    @Column(name = "jobPostingId")
     private int jobPostingId;
-    @Basic
-    @Column(name = "yearsOfExperience")
     private int yearsOfExperience;
 
     public int getId() {
