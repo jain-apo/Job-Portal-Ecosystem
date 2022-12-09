@@ -1,4 +1,4 @@
-package entities;
+package modals;
 
 import java.util.Objects;
 

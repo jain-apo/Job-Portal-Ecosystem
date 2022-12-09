@@ -1,4 +1,4 @@
-package entities;
+package modals;
 
 import java.util.Date;
 import java.util.Objects;

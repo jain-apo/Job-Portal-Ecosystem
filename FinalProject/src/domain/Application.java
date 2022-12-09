@@ -1,6 +1,6 @@
 package domain;
 
-import entities.Person;
+import modals.Person;
 
 public class Application {
     public static DatabaseLayer Database = new DatabaseLayer();
