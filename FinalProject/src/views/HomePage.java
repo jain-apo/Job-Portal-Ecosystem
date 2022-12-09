@@ -2,6 +2,7 @@ package views;
 
 import domain.Application;
 import enterprise.company.CompanyHomePage;
+import enterprise.job.JobHomePage;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -32,7 +33,13 @@ public class HomePage extends BaseFrame {
         companyPortalButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switchToWindow(new CompanyHomePage());
+                new CompanyHomePage().setVisible(true);
+            }
+        });
+        jobPortalButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new JobHomePage().setVisible(true);
             }
         });
     }
