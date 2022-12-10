@@ -128,8 +128,17 @@ model TrainingModule {
   id                  Int                   @id @unique @default(autoincrement())
   name                String                @unique
   description         String
-  TrainingQuestion    TrainingQuestion[]
+  questions           TrainingQuestion[]
+  data                ModuleData[]
   TrainingCertificate TrainingCertificate[]
+}
+
+model ModuleData {
+  id               Int            @id @unique @default(autoincrement())
+  module           TrainingModule @relation(fields: [trainingModuleId], references: [id])
+  title            String
+  description      String
+  trainingModuleId Int
 }
 
 model TrainingCertificate {
