@@ -29,7 +29,7 @@ public class PersonsDirectoryPage extends BaseFrame {
     private JComboBox role;
     private JTextField username;
     private JPasswordField password;
-    private JComboBox cities;
+
     private JTable people;
     private JTextArea validationText;
     private JTextField email;
@@ -43,6 +43,8 @@ public class PersonsDirectoryPage extends BaseFrame {
         setContentPane(p);
 
         displayPeople();
+
+        setupActions();
 
     }
 
@@ -81,7 +83,6 @@ public class PersonsDirectoryPage extends BaseFrame {
     private void setEditMode(boolean mode) {
         editMode = mode;
         cancelEditButton.setVisible(mode);
-        cities.setSelectedItem(null);
 
         if (mode) {
             addPersonButton.setText("Update Person");
