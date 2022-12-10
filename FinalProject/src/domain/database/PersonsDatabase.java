@@ -7,17 +7,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class PersonsDatabase extends BaseDatabase<Person> {
 
-    public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-    public static String getSqlDate(java.util.Date date) {
-        return dateFormat.format(date);
-    }
 
     @Override
     public void add(Person person) throws SQLException {
@@ -28,7 +22,7 @@ public class PersonsDatabase extends BaseDatabase<Person> {
 
         statement.setString(1, person.getFirstName());
         statement.setString(2, person.getLastName());
-        statement.setString(3, getSqlDate(person.getDateOfBirth()));
+        statement.setDate(3, new java.sql.Date(person.getDateOfBirth().getTime()));
         statement.setString(4, person.getUsername());
         statement.setString(5, person.getPassword());
         statement.setString(6, person.getEmail());
