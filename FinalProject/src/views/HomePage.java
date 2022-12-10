@@ -3,6 +3,7 @@ package views;
 import domain.Application;
 import enterprise.company.CompanyHomePage;
 import enterprise.job.JobHomePage;
+import enterprise.training.TrainingHomePage;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -47,6 +48,12 @@ public class HomePage extends BaseFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new PersonsDirectoryPage().setVisible(true);
+            }
+        });
+        trainingPortalButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new TrainingHomePage().setVisible(true);
             }
         });
     }
