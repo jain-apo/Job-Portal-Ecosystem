@@ -10,4 +10,5 @@ public class DatabaseLayer {
     public CompanyTeamDatabase CompanyTeams = new CompanyTeamDatabase();
     public JobApplicationDatabase CompanyApplications = new JobApplicationDatabase();
     public JobCandidateDatabase JobCandidates = new JobCandidateDatabase();
+    public PersonNotificationDatabase PersonNotifications = new PersonNotificationDatabase();
 }

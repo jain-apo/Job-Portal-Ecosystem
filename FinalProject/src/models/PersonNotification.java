@@ -10,6 +10,14 @@ public class PersonNotification {
     private String message;
     private Date date;
 
+    public PersonNotification(int id, int personId, String title, String message, Date date) {
+        this.id = id;
+        this.personId = personId;
+        this.title = title;
+        this.message = message;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }
