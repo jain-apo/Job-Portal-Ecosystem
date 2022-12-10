@@ -1,6 +1,5 @@
 package domain.database;
 
-import domain.Application;
 import models.Person;
 
 import java.sql.Connection;
@@ -29,8 +28,6 @@ public class PersonsDatabase extends BaseDatabase<Person> {
         );
 
         statement.executeUpdate();
-
-        Application.PersonsDirectory.loadFromDatabase();
     }
 
     @Override
@@ -86,5 +83,9 @@ public class PersonsDatabase extends BaseDatabase<Person> {
         }
 
         return persons;
+    }
+
+    public Person getPersonById(int personId) throws SQLException {
+        return getAll().stream().filter(person -> person.getId() == personId).findFirst().orElse(null);
     }
 }
