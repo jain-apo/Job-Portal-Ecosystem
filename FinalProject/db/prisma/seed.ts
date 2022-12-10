@@ -29,6 +29,21 @@ async function main() {
 
     addPersonRole(sharun, admin)
 
+    await prisma.personNotification.upsert({
+        where: {
+            id: 1
+        },
+        update: {
+            title: "Welcome",
+            message: "Welcome to the dashboard, " + sharun.firstName,
+        },
+        create: {
+            personId: sharun.id,
+            title: "Welcome",
+            message: "Welcome to the dashboard, " + sharun.firstName,
+        }
+    })
+
     console.log({ sharun })
 }
 main()
