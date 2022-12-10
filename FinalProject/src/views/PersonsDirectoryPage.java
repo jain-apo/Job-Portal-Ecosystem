@@ -192,15 +192,20 @@ public class PersonsDirectoryPage extends BaseFrame {
 
                         setEditMode(true);
                         currentlyEditingEmployee = personId;
-                        Person person = Application.PersonsDirectory.getPersonById(personId);
-                        firstName.setText(person.getFirstName());
-                        lastName.setText(person.getLastName());
-                        dateOfBirth.setText(DateHelper.formatDate(person.getDateOfBirth(), "yyyy-MM-dd"));
-                        username.setText(person.getUsername());
-                        password.setText(person.getPassword());
-                        existingPassword = person.getPassword();
-                        email.setText(person.getEmail());
-                        phone.setText(person.getPhone());
+                        try {
+                            Person person = Application.Database.Persons.getPersonById(personId);
+                            firstName.setText(person.getFirstName());
+                            lastName.setText(person.getLastName());
+                            dateOfBirth.setText(DateHelper.formatDate(person.getDateOfBirth(), "yyyy-MM-dd"));
+                            username.setText(person.getUsername());
+                            password.setText(person.getPassword());
+                            existingPassword = person.getPassword();
+                            email.setText(person.getEmail());
+                            phone.setText(person.getPhone());
+                        } catch (SQLException e) {
+                            Dialog.error("Error getting person");
+                        }
+
                     }
 
                 }
@@ -212,11 +217,12 @@ public class PersonsDirectoryPage extends BaseFrame {
     private void displayPeople() {
         PersonsTableModel model = new PersonsTableModel();
 
-        var details = Application.PersonsDirectory.getPersons();
-
-        model.loadData(details);
-
-        people.setModel(model);
+        try {
+            people.setModel(new PersonsTableModel().loadData(Application.Database.Persons.getAll()));
+        } catch (SQLException e) {
+            Dialog.error("Error getting people");
+            return;
+        }
 
         TableHelpers.centerColumn(people, 0);
         TableHelpers.centerColumn(people, 3);
