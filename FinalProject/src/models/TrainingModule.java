@@ -9,6 +9,12 @@ public class TrainingModule {
     private String description;
     private Collection<TrainingCertificate> trainingCertificatesById;
 
+    public TrainingModule(int id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }

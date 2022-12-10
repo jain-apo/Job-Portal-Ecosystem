@@ -12,4 +12,5 @@ public class DatabaseLayer {
     public JobCandidateDatabase JobCandidates = new JobCandidateDatabase();
     public PersonNotificationDatabase PersonNotifications = new PersonNotificationDatabase();
     public TrainingCertificateDatabase TrainingCertificates = new TrainingCertificateDatabase();
+    public TrainingModuleDatabase TrainingModules = new TrainingModuleDatabase();
 }
