@@ -6,11 +6,14 @@ import enterprise.company.CompanyHomePage;
 import enterprise.job.JobHomePage;
 import enterprise.training.TrainingHomePage;
 import models.tablemodels.NotificationsTableModel;
+import utils.Dialog;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 public class HomePage extends BaseFrame {
@@ -35,6 +38,21 @@ public class HomePage extends BaseFrame {
         setContentPane(mainPanel);
 
         setupActions();
+        notifications.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                // handle double click
+                if (e.getClickCount() == 2) {
+                    var row = notifications.getSelectedRow();
+                    var model = (NotificationsTableModel) notifications.getModel();
+                    var notification = model.getDataAt(row);
+
+                    Dialog.info(notification.getMessage(), notification.getTitle());
+                }
+            }
+        });
     }
 
     private void setupNotifications() {
