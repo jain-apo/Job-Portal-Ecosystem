@@ -56,4 +56,4 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
         return jobCandidates;
     }
 }
-}
+

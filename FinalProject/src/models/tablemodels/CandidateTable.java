@@ -1,17 +1,20 @@
 package models.tablemodels;
 
-import javax.swing.table.DefaultTableModel;
+import models.JobCandidate;
 
-public class CandidateTable extends DefaultTableModel {
+public class CandidateTable extends BaseTableModel<JobCandidate> {
     public CandidateTable() {
-        super(new Object[][]{}, new String[]{"Id", "Full Name", "Date of Birth", "Role", "[edit]", "[delete]"});
+        super(new String[]{"Id", "Full Name", "Date of Birth", "[profile]"});
     }
 
-    public boolean isCellEditable(int row, int column) {
-        return false;
-    }
-
-    public Class getColumnClass(int column) {
-        return getValueAt(0, column).getClass();
+    @Override
+    public Object[] rowMapping(JobCandidate item) {
+        return new Object[]{
+                item.getId(),
+//                item.getFullName(),
+//                DateHelper.formatDate(item.getDateOfBirth(), "MMM-dd yyyy"),
+//                "✖",
+//                "✖"
+        };
     }
 }

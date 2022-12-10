@@ -52,4 +52,4 @@ public class CompanyDatabase extends BaseDatabase<Company> {
         return companies;
     }
 }
-}
+

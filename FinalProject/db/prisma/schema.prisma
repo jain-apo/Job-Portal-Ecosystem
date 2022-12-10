@@ -42,6 +42,7 @@ model Person {
   JobCandidate        JobCandidate[]
   CompanyEmployee     CompanyEmployee[]
   TrainingCertificate TrainingCertificate[]
+  PersonNotification  PersonNotification[]
 }
 
 model Role {
@@ -150,4 +151,13 @@ model TrainingCertificate {
   person           Person         @relation(fields: [personId], references: [id])
 
   @@unique([trainingModuleId, personId])
+}
+
+model PersonNotification {
+  id       Int      @id @unique @default(autoincrement())
+  person   Person   @relation(fields: [personId], references: [id])
+  personId Int
+  title    String
+  message  String
+  date     DateTime @default(now())
 }

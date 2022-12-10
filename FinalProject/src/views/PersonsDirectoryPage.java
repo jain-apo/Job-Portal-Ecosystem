@@ -3,9 +3,11 @@ package views;
 import domain.Application;
 import domain.Validator;
 import helpers.DateHelper;
+import helpers.Encryption;
 import helpers.TableHelpers;
 import models.Person;
 import models.tablemodels.PersonsTableModel;
+import utils.Dialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,6 +19,8 @@ import java.util.ArrayList;
 import static domain.Application.sqlDateFormat;
 
 public class PersonsDirectoryPage extends BaseFrame {
+    private final int EDIT_COLUMN_NUMBER = 3;
+    private final int DELETE_COLUMN_NUMBER = 4;
     private JPanel p;
     private JPanel mainPanel;
     private JLabel heading;
@@ -29,7 +33,7 @@ public class PersonsDirectoryPage extends BaseFrame {
     private JComboBox role;
     private JTextField username;
     private JPasswordField password;
-    private JComboBox cities;
+
     private JTable people;
     private JTextArea validationText;
     private JTextField email;
@@ -37,12 +41,15 @@ public class PersonsDirectoryPage extends BaseFrame {
 
     private boolean editMode;
     private int currentlyEditingEmployee;
+    private String existingPassword;
 
     public PersonsDirectoryPage() {
         super();
         setContentPane(p);
 
         displayPeople();
+
+        setupActions();
 
     }
 
@@ -51,14 +58,15 @@ public class PersonsDirectoryPage extends BaseFrame {
         if (!validateFields()) return;
 
 
-        var person = new Person(currentlyEditingEmployee, firstName.getText(), lastName.getText(), DateHelper.tryGetDate(dateOfBirth.getText(), "yyyy-MM-dd"), username.getText(), new String(password.getPassword()), email.getText(), phone.getText());
+        var person = new Person(currentlyEditingEmployee, firstName.getText(), lastName.getText(), DateHelper.tryGetDate(dateOfBirth.getText(), "yyyy-MM-dd"), username.getText(), Encryption.hash(password.getText()), email.getText(), phone.getText());
 
         if (!editMode) {
 
             try {
                 Application.Database.Persons.add(person);
-                JOptionPane.showMessageDialog(null, person.getFullName() + " added successfully.");
+                Dialog.show(person.getFullName() + " added successfully.");
                 displayPeople();
+
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -66,8 +74,13 @@ public class PersonsDirectoryPage extends BaseFrame {
 
         } else {
             try {
+
+                if (!existingPassword.equals(password.getText())) {
+                    person.setPassword(Encryption.hash(password.getText()));
+                }
+
                 Application.Database.Persons.update(person);
-                JOptionPane.showMessageDialog(null, person.getFullName() + " updated successfully.");
+                Dialog.show(person.getFullName() + " updated successfully.");
                 displayPeople();
 
             } catch (SQLException ex) {
@@ -81,7 +94,7 @@ public class PersonsDirectoryPage extends BaseFrame {
     private void setEditMode(boolean mode) {
         editMode = mode;
         cancelEditButton.setVisible(mode);
-        cities.setSelectedItem(null);
+        existingPassword = "";
 
         if (mode) {
             addPersonButton.setText("Update Person");
@@ -94,7 +107,7 @@ public class PersonsDirectoryPage extends BaseFrame {
                 text.setText("");
                 text.setBorder(BorderFactory.createLineBorder(Color.black));
             }
-            role.setSelectedIndex(0);
+//            role.setSelectedIndex(0);
         }
     }
 
@@ -146,21 +159,18 @@ public class PersonsDirectoryPage extends BaseFrame {
 
                     String personName = target.getModel().getValueAt(row, 1) + "";
 
-                    if (column == 5) {
+                    if (column == DELETE_COLUMN_NUMBER) {
                         System.out.println("Delete Clicked");
 
                         if (personId == 1) {
-                            JOptionPane.showMessageDialog(null, "Can't delete the admin user");
+                            Dialog.error("Can't delete the admin user");
                             return;
                         } else if (personId == Application.getCurrentlyLoggedInPerson().getId()) {
-                            JOptionPane.showMessageDialog(null, "Can't delete yourself");
+                            Dialog.error("Can't delete yourself");
                             return;
                         }
 
-                        int result = JOptionPane.showConfirmDialog(target.getParent(), "Are you sure you want to delete " + personName + "?",
-                                "Swing Tester",
-                                JOptionPane.YES_NO_OPTION,
-                                JOptionPane.QUESTION_MESSAGE);
+                        int result = Dialog.confirm("Are you sure you want to delete " + personName + "?", "Delete Person", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                         System.out.println(result);
 
@@ -172,9 +182,9 @@ public class PersonsDirectoryPage extends BaseFrame {
                                 e.printStackTrace();
                             }
                         }
-                    } else if (column == 4) {
+                    } else if (column == EDIT_COLUMN_NUMBER) {
                         if (personId == 1) {
-                            JOptionPane.showMessageDialog(null, "Can't edit the admin user");
+                            Dialog.error("Can't edit the admin user");
                             return;
                         }
 
@@ -188,10 +198,9 @@ public class PersonsDirectoryPage extends BaseFrame {
                         dateOfBirth.setText(DateHelper.formatDate(person.getDateOfBirth(), "yyyy-MM-dd"));
                         username.setText(person.getUsername());
                         password.setText(person.getPassword());
+                        existingPassword = person.getPassword();
                         email.setText(person.getEmail());
                         phone.setText(person.getPhone());
-
-
                     }
 
                 }
@@ -205,17 +214,7 @@ public class PersonsDirectoryPage extends BaseFrame {
 
         var details = Application.PersonsDirectory.getPersons();
 
-        for (var person : details) {
-            Object[] data = new Object[]{
-                    person.getId(),
-                    person.getFullName(),
-                    DateHelper.formatDate(person.getDateOfBirth(), "MMM-dd yyyy"),
-                    "✖",
-                    "✖",
-            };
-
-            model.addRow(data);
-        }
+        model.loadData(details);
 
         people.setModel(model);
 
