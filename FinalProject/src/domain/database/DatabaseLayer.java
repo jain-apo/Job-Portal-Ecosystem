@@ -6,4 +6,6 @@ public class DatabaseLayer {
     public CourseDatabase Courses = new CourseDatabase();
     public CollegeStudentDatabase CollegeStudents = new CollegeStudentDatabase();
     public CompanyDatabase Companies = new CompanyDatabase();
+    public CompanyEmployeeDatabase CompanyEmployees = new CompanyEmployeeDatabase();
+    public CompanyTeamDatabase CompanyTeams = new CompanyTeamDatabase();
 }
