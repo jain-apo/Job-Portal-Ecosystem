@@ -18,6 +18,8 @@ public class CandidatePage extends BaseFrame {
     private void displayPeople() {
         CandidateTable model = new CandidateTable();
 
+        candidate.setModel(model);
+
 //        var details = Application.PersonsDirectory.getPerson();
 //
 //        for (var person : details) {
