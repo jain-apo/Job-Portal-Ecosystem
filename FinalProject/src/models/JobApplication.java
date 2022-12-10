@@ -10,6 +10,13 @@ public class JobApplication {
     private int yearsOfExperience;
     private Collection<JobCandidate> jobCandidatesById;
 
+    public JobApplication(int id, int personId, int jobPostingId, int yearsOfExperience) {
+        this.id = id;
+        this.personId = personId;
+        this.jobPostingId = jobPostingId;
+        this.yearsOfExperience = yearsOfExperience;
+    }
+
     public int getId() {
         return id;
     }

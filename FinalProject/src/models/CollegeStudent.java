@@ -9,6 +9,14 @@ public class CollegeStudent {
     private int personId;
     private int courseId;
 
+    public CollegeStudent(int id, float gpa, int passYear, int personId, int courseId) {
+        this.id = id;
+        this.gpa = gpa;
+        this.passYear = passYear;
+        this.personId = personId;
+        this.courseId = courseId;
+    }
+
     public int getId() {
         return id;
     }
