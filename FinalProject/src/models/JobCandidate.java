@@ -9,6 +9,14 @@ public class JobCandidate {
     private int interviewRound;
     private String result;
 
+    public JobCandidate(int id, int personId, int jobApplicationId, int interviewRound, String result) {
+        this.id = id;
+        this.personId = personId;
+        this.jobApplicationId = jobApplicationId;
+        this.interviewRound = interviewRound;
+        this.result = result;
+    }
+
     public int getId() {
         return id;
     }

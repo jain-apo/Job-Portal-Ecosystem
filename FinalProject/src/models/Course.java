@@ -8,6 +8,11 @@ public class Course {
     private String name;
     private Collection<CollegeStudent> collegeStudentsById;
 
+    public Course(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
