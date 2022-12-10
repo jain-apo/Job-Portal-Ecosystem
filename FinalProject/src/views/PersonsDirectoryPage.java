@@ -42,10 +42,61 @@ public class PersonsDirectoryPage extends BaseFrame {
     }
 
 
+    private void addPerson() {
+        if (!validateFields()) return;
+
+
+        //var person = new Person(currentlyEditingEmployee, id, firstName.getText(), lastName.getText(), DateHelper.tryGetDate(dateOfBirth.getText(), "yyyy-MM-dd"), username.getText(), new String(password.getPassword()), email.getText(), phone.getText());
+
+        if (!editMode) {
+
+//            try {
+//                PersonsDatabase.add(person);
+//                JOptionPane.showMessageDialog(null, person.getFullName() + " added successfully.");
+//                displayPeople();
+//
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//            }
+//
+//        } else {
+//            try {
+//                PersonsDatabase.update(person);
+//                JOptionPane.showMessageDialog(null, person.getFullName() + " updated successfully.");
+//                displayPeople();
+//
+//            } catch (SQLException ex) {
+//                ex.printStackTrace();
+//            }
+        }
+
+        setEditMode(false);
+    }
+
+    private void setEditMode(boolean mode) {
+        editMode = mode;
+        cancelEditButton.setVisible(mode);
+        cities.setSelectedItem(null);
+
+        if (mode) {
+            addPersonButton.setText("Update Person");
+            addPersonPane.setBorder(BorderFactory.createTitledBorder("Edit Person"));
+        } else {
+            addPersonButton.setText("Add Person");
+            addPersonPane.setBorder(BorderFactory.createTitledBorder("Add Person"));
+
+//            for (var text : new JTextField[]{id, firstName, lastName, dateOfBirth, username, password, email, phone}) {
+//                text.setText("");
+//                text.setBorder(BorderFactory.createLineBorder(Color.black));
+//            }
+            role.setSelectedIndex(0);
+        }
+    }
+
     private boolean validateFields() {
         var validationMessages = new ArrayList<String>();
-        if (!Validator.checkTextsBlank(new JTextField[]{firstName, lastName, dateOfBirth, username, password}))
-            validationMessages.add("Enter all the mandatory fields");
+//        if (!Validator.checkTextsBlank(new JTextField[]{id, firstName, lastName, dateOfBirth, username, password, email, phone}))
+//            validationMessages.add("Enter all the mandatory fields");
 
         if (DateHelper.tryGetDate(dateOfBirth.getText(), sqlDateFormat) == null) {
             validationMessages.add("Date must be in yyyy-mm-dd format");
@@ -71,10 +122,10 @@ public class PersonsDirectoryPage extends BaseFrame {
         return false;
     }
 
-    //    private void setupActions() {
-//        addPersonButton.addActionListener(e -> addPerson());
-//        cancelEditButton.addActionListener(e -> setEditMode(false));
-//
+    private void setupActions() {
+        addPersonButton.addActionListener(e -> addPerson());
+        cancelEditButton.addActionListener(e -> setEditMode(false));
+
 //        people.addMouseListener(new MouseAdapter() {
 //            @Override
 //            public void mouseClicked(MouseEvent me) {
@@ -110,7 +161,7 @@ public class PersonsDirectoryPage extends BaseFrame {
 //
 //                        if (result == JOptionPane.YES_OPTION) {
 //                            try {
-//                                Application.Database.deletePerson(personId);
+//                                PersonsDatabase.delete(personId);
 //                                displayPeople();
 //                            } catch (SQLException e) {
 //                                e.printStackTrace();
@@ -127,114 +178,24 @@ public class PersonsDirectoryPage extends BaseFrame {
 //                        setEditMode(true);
 //                        currentlyEditingEmployee = personId;
 //                        Person person = Application.PersonsDirectory.getPersonById(personId);
-//
+//                        id.setText(person.getId() + "");
 //                        firstName.setText(person.getFirstName());
 //                        lastName.setText(person.getLastName());
 //                        dateOfBirth.setText(DateHelper.formatDate(person.getDateOfBirth(), "yyyy-MM-dd"));
-//                        role.setSelectedItem(person.getRole());
 //                        username.setText(person.getUsername());
 //                        password.setText(person.getPassword());
+//                        email.setText(person.getEmail());
+//                        phone.setText(person.getPhone());
 //
-//                        var address = Application.CommunitiesDirectory.getAddresses()
-//                                .stream().filter(address1 -> address1.getHouseId() == person.getHouseId())
-//                                .findFirst().orElse(null);
 //
-//                        for (var i = 0; i < cities.getItemCount(); i++) {
-//                            if (cities.getItemAt(i).getId() == address.getCityId()) {
-//                                cities.setSelectedItem(cities.getItemAt(i));
-//                                break;
-//                            }
-//                        }
-//
-//                        for (var i = 0; i < communities.getItemCount(); i++) {
-//                            if (communities.getItemAt(i).getId() == address.getCommunityId()) {
-//                                communities.setSelectedItem(communities.getItemAt(i));
-//                                break;
-//                            }
-//                        }
-//
-//                        for (var i = 0; i < houses.getItemCount(); i++) {
-//                            if (houses.getItemAt(i).getId() == address.getHouseId()) {
-//                                houses.setSelectedItem(houses.getItemAt(i));
-//                                break;
-//                            }
-//                        }
 //                    }
 //
 //                }
 //            }
 //        });
-//
-//        cities.addActionListener(e -> {
-//
-//            communities.removeAllItems();
-////            var selectedCity = (City) cities.getSelectedItem();
-////
-////
-////            if (selectedCity != null) {
-////                Application.CommunitiesDirectory.getCommunitiesInCity(selectedCity.getId()).forEach(community -> communities.addItem(community));
-////            }
-////        });
-////        communities.addActionListener(e -> {
-////            houses.removeAllItems();
-////            var selectedCommunity = (Community) communities.getSelectedItem();
-////            if (selectedCommunity != null) {
-////                Application.CommunitiesDirectory.getHousesInCommunity(selectedCommunity.getId()).forEach(house -> houses.addItem(house));
-////            }
-////        });
-//    }
-//
-//    private void addPerson() {
-//        if (!validateFields()) return;
-//
-//
-//        var person = new Person(currentlyEditingEmployee, firstName.getText(), lastName.getText(), DateHelper.tryGetDate(dateOfBirth.getText(), "yyyy-MM-dd"), (Role) role.getSelectedItem(), username.getText(), new String(password.getPassword()), house.getId());
-//
-////        if (!editMode) {
-////
-////            try {
-////                Database.insertPerson(person);
-////                JOptionPane.showMessageDialog(null, person.getFullName() + " added successfully.");
-////                displayPeople();
-////
-////            } catch (SQLException ex) {
-////                ex.printStackTrace();
-////            }
-////
-////        } else {
-////            try {
-////                Database.updatePerson(person);
-////                JOptionPane.showMessageDialog(null, person.getFullName() + " updated successfully.");
-////                displayPeople();
-////
-////            } catch (SQLException ex) {
-////                ex.printStackTrace();
-////            }
-////        }
-//
-//        setEditMode(false);
-//    }
-//
-//    private void setEditMode(boolean mode) {
-//        editMode = mode;
-//        cancelEditButton.setVisible(mode);
-//        cities.setSelectedItem(null);
-//
-//        if (mode) {
-//            addPersonButton.setText("Update Person");
-//            addPersonPane.setBorder(BorderFactory.createTitledBorder("Edit Person"));
-//        } else {
-//            addPersonButton.setText("Add Person");
-//            addPersonPane.setBorder(BorderFactory.createTitledBorder("Add Person"));
-//
-//            for (var text : new JTextField[]{firstName, lastName, dateOfBirth, username, password}) {
-//                text.setText("");
-//                text.setBorder(BorderFactory.createLineBorder(Color.black));
-//            }
-//            role.setSelectedIndex(0);
-//        }
-//    }
-//
+
+    }
+
     private void displayPeople() {
         PersonsTableModel model = new PersonsTableModel();
 
