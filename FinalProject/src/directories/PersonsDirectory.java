@@ -16,7 +16,7 @@ public class PersonsDirectory {
 
     public void loadFromDatabase() {
         try {
-            this.persons = Application.Database.getPersons();
+            this.persons = Application.Database.Persons.getAll();
             System.out.println("There are " + persons.stream().count() + " people in the database");
         } catch (Exception e) {
             e.printStackTrace();

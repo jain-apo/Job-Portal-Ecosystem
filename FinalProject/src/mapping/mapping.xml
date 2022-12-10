@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 version="3.0">
+
+    <entity class="models.CollegeStudent">
+        <table name="CollegeStudent" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="gpa">
+                <column name="gpa"/>
+            </basic>
+            <basic name="passYear">
+                <column name="passYear"/>
+            </basic>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="courseId">
+                <column name="courseId"/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="models.Company">
+        <table name="Company" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="models.CompanyEmployee">
+        <table name="CompanyEmployee" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="companyId">
+                <column name="companyId"/>
+            </basic>
+            <basic name="companyTeamId">
+                <column name="companyTeamId"/>
+            </basic>
+            <many-to-one name="companyByCompanyId" optional="true" target-entity="models.Company">
+                <join-column name="companyId" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="models.CompanyTeam">
+        <table name="CompanyTeam" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <one-to-many name="companyEmployeesById" mapped-by="companyTeamByCompanyTeamId"
+                         target-entity="models.CompanyEmployee"/>
+        </attributes>
+    </entity>
+    <entity class="models.Course">
+        <table name="Course" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <one-to-many name="collegeStudentsById" mapped-by="courseByCourseId" target-entity="models.CollegeStudent"/>
+        </attributes>
+    </entity>
+    <entity class="models.JobApplication">
+        <table name="JobApplication" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="jobPostingId">
+                <column name="jobPostingId"/>
+            </basic>
+            <basic name="yearsOfExperience">
+                <column name="yearsOfExperience"/>
+            </basic>
+            <one-to-many name="jobCandidatesById" mapped-by="jobApplicationByJobApplicationId"
+                         target-entity="models.JobCandidate"/>
+        </attributes>
+    </entity>
+    <entity class="models.JobCandidate">
+        <table name="JobCandidate" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="jobApplicationId">
+                <column name="jobApplicationId"/>
+            </basic>
+            <basic name="interviewRound">
+                <column name="interviewRound"/>
+            </basic>
+            <basic name="result">
+                <column name="result"/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="models.JobPosting">
+        <table name="JobPosting" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="title">
+                <column name="title"/>
+            </basic>
+            <basic name="jobDescription">
+                <column name="jobDescription"/>
+            </basic>
+            <basic name="category">
+                <column name="category"/>
+            </basic>
+            <basic name="companyId">
+                <column name="companyId"/>
+            </basic>
+            <many-to-one name="companyByCompanyId" optional="true" target-entity="models.Company">
+                <join-column name="companyId" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="jobApplicationsById" mapped-by="jobPostingByJobPostingId"
+                         target-entity="models.JobApplication"/>
+        </attributes>
+    </entity>
+    <entity class="models.Person">
+        <table name="Person" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="firstName">
+                <column name="firstName"/>
+            </basic>
+            <basic name="lastName">
+                <column name="lastName"/>
+            </basic>
+            <basic name="dateOfBirth">
+                <column name="dateOfBirth"/>
+            </basic>
+            <basic name="username">
+                <column name="username"/>
+            </basic>
+            <basic name="password">
+                <column name="password"/>
+            </basic>
+            <basic name="email">
+                <column name="email"/>
+            </basic>
+            <basic name="phone">
+                <column name="phone"/>
+            </basic>
+            <one-to-many name="collegeStudentsById" mapped-by="personByPersonId" target-entity="models.CollegeStudent"/>
+            <one-to-many name="companyEmployeesById" mapped-by="personByPersonId"
+                         target-entity="models.CompanyEmployee"/>
+            <one-to-many name="jobApplicationsById" mapped-by="personByPersonId" target-entity="models.JobApplication"/>
+            <one-to-many name="jobCandidatesById" mapped-by="personByPersonId" target-entity="models.JobCandidate"/>
+        </attributes>
+    </entity>
+    <entity class="models.PersonRole">
+        <table name="PersonRole" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="roleId">
+                <column name="roleId"/>
+            </basic>
+            <many-to-one name="personByPersonId" optional="true" target-entity="models.Person">
+                <join-column name="personId" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="models.Role">
+        <table name="Role" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <one-to-many name="personRolesById" mapped-by="roleByRoleId" target-entity="models.PersonRole"/>
+        </attributes>
+    </entity>
+    <entity class="models.TrainingCertificate">
+        <table name="TrainingCertificate" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <basic name="trainingModuleId">
+                <column name="trainingModuleId"/>
+            </basic>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <many-to-one name="personByPersonId" optional="true" target-entity="models.Person">
+                <join-column name="personId" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+    <entity class="models.TrainingModule">
+        <table name="TrainingModule" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <basic name="description">
+                <column name="description"/>
+            </basic>
+            <one-to-many name="trainingCertificatesById" mapped-by="trainingModuleByTrainingModuleId"
+                         target-entity="models.TrainingCertificate"/>
+        </attributes>
+    </entity>
+    <entity class="models.TrainingQuestion">
+        <table name="TrainingQuestion" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="question">
+                <column name="question"/>
+            </basic>
+            <basic name="answer">
+                <column name="answer"/>
+            </basic>
+            <basic name="option1">
+                <column name="option1"/>
+            </basic>
+            <basic name="option2">
+                <column name="option2"/>
+            </basic>
+            <basic name="option3">
+                <column name="option3"/>
+            </basic>
+            <basic name="trainingModuleId">
+                <column name="trainingModuleId"/>
+            </basic>
+            <many-to-one name="trainingModuleByTrainingModuleId" optional="true" target-entity="models.TrainingModule">
+                <join-column name="trainingModuleId" nullable="false" referenced-column-name="id"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+</entity-mappings>
