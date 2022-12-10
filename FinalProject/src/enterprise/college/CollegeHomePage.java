@@ -27,5 +27,11 @@ public class CollegeHomePage extends BaseFrame {
                 new HRPortal().setVisible(true);
             }
         });
+        studentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new StudentPortal().setVisible(true);
+            }
+        });
     }
 }
