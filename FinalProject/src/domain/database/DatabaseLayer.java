@@ -8,4 +8,6 @@ public class DatabaseLayer {
     public CompanyDatabase Companies = new CompanyDatabase();
     public CompanyEmployeeDatabase CompanyEmployees = new CompanyEmployeeDatabase();
     public CompanyTeamDatabase CompanyTeams = new CompanyTeamDatabase();
+    public JobApplicationDatabase CompanyApplications = new JobApplicationDatabase();
+    public JobCandidateDatabase JobCandidates = new JobCandidateDatabase();
 }
