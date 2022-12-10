@@ -3,6 +3,8 @@ package enterprise.college;
 import views.BaseFrame;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class CollegeHomePage extends BaseFrame {
     private JPanel mainPane;
@@ -13,5 +15,17 @@ public class CollegeHomePage extends BaseFrame {
         super();
         setContentPane(mainPane);
 
+        HRButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        HRButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new HRPortal().setVisible(true);
+            }
+        });
     }
 }
