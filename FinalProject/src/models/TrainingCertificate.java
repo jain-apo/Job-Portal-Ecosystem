@@ -9,6 +9,13 @@ public class TrainingCertificate {
     private int personId;
     private Person personByPersonId;
 
+    public TrainingCertificate(int id, String name, int trainingModuleId, int personId) {
+        this.id = id;
+        this.name = name;
+        this.trainingModuleId = trainingModuleId;
+        this.personId = personId;
+    }
+
     public int getId() {
         return id;
     }
