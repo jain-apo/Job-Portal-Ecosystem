@@ -1,14 +1,20 @@
 package models.tablemodels;
 
-import enterprise.company.CandidateProfile;
+import models.JobCandidate;
 
-public class CandidateTable extends BaseTableModel<CandidateProfile> {
+public class CandidateTable extends BaseTableModel<JobCandidate> {
     public CandidateTable() {
-        super(new String[]{"Id", "Full Name", "Date of Birth", "Role", "[edit]", "[delete]"});
+        super(new String[]{"Id", "Full Name", "Date of Birth", "[profile]"});
     }
 
     @Override
-    public Object[] rowMapping(CandidateProfile item) {
-        return new Object[0];
+    public Object[] rowMapping(JobCandidate item) {
+        return new Object[]{
+                item.getId(),
+//                item.getFullName(),
+//                DateHelper.formatDate(item.getDateOfBirth(), "MMM-dd yyyy"),
+//                "✖",
+//                "✖"
+        };
     }
 }

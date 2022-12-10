@@ -25,14 +25,13 @@ public class CandidateDirectory {
     }
 
 
-
-      public List<JobCandidate> getCandidate() {
+    public List<JobCandidate> getCandidate() {
         return jobCandidateList;
     }
 
     public JobCandidate getCandidateById(int id) {
-        return jobCandidateList.stream().filter(person -> person.getId() == id).findFirst().orElse(null);
+        return jobCandidateList.stream().filter(candidate -> candidate.getId() == id).findFirst().orElse(null);
     }
 }
 
-}
+
