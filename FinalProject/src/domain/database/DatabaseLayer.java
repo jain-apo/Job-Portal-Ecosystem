@@ -5,4 +5,5 @@ public class DatabaseLayer {
     public RoleDatabase Roles = new RoleDatabase();
     public CourseDatabase Courses = new CourseDatabase();
     public CollegeStudentDatabase CollegeStudents = new CollegeStudentDatabase();
+    public CompanyDatabase Companies = new CompanyDatabase();
 }
