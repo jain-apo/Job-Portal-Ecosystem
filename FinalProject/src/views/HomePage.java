@@ -16,6 +16,7 @@ public class HomePage extends BaseFrame {
     private JButton trainingPortalButton;
     private JButton logoutButton;
     private JLabel heading;
+    private JButton adminPersonsDirectoryButton;
 
     HomePage() {
         super();
