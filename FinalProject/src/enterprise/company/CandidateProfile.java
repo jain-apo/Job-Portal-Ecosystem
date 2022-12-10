@@ -1,4 +1,6 @@
 package enterprise.company;
 
-public class CandidateProfile {
+import views.BaseFrame;
+
+public class CandidateProfile extends BaseFrame {
 }

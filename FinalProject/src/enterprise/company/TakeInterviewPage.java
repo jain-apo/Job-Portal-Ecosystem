@@ -1,4 +1,6 @@
 package enterprise.company;
 
-public class TakeInterviewPage {
+import views.BaseFrame;
+
+public class TakeInterviewPage extends BaseFrame {
 }
