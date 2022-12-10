@@ -22,17 +22,17 @@ public class PersonsDatabase extends BaseDatabase<Person> {
     @Override
     public void add(Person person) throws SQLException {
         // TODO: Implement this
-        String sql = "insert into Person (id, firstName, lastName, dateOfBirth, username, password, email, phone) values (?,?,?,?,?,?,?,?)";
+        String sql = "insert into Person ( firstName, lastName, dateOfBirth, username, password, email, phone) values (?,?,?,?,?,?,?)";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
-        statement.setString(1, String.valueOf(person.getId()));
-        statement.setString(2, person.getFirstName());
-        statement.setString(3, person.getLastName());
-        statement.setString(4, getSqlDate(person.getDateOfBirth()));
-        statement.setString(5, person.getUsername());
-        statement.setString(6, person.getPassword());
-        statement.setString(7, person.getEmail());
-        statement.setString(8, person.getPhone()
+
+        statement.setString(1, person.getFirstName());
+        statement.setString(2, person.getLastName());
+        statement.setString(3, getSqlDate(person.getDateOfBirth()));
+        statement.setString(4, person.getUsername());
+        statement.setString(5, person.getPassword());
+        statement.setString(6, person.getEmail());
+        statement.setString(7, person.getPhone()
         );
 
         statement.executeUpdate();
@@ -41,12 +41,12 @@ public class PersonsDatabase extends BaseDatabase<Person> {
     }
 
     @Override
-    public void update(Person item) {
+    public void update(Person item) throws SQLException {
         // TODO: Implement this
     }
 
     @Override
-    public void delete(Person item) {
+    public void delete(int id) throws SQLException {
         // TODO: Implement this
     }
 
