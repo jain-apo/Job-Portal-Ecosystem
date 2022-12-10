@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "prisma:generate",
+			"problemMatcher": [],
+			"label": "npm: prisma:generate",
+			"detail": "prisma generate"
+		},
+		{
+			"type": "npm",
+			"script": "prisma:db",
+			"problemMatcher": [],
+			"label": "npm: prisma:db",
+			"detail": "prisma generate && prisma db push && prisma db seed"
+		}
+	]
+}

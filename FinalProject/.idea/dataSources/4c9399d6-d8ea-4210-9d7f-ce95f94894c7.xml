@@ -1313,163 +1313,610 @@
     <argument id="481" parent="165">
       <Position>1</Position>
     </argument>
-    <table id="482" parent="166" name="JobApplication"/>
-    <table id="483" parent="166" name="JobPosting"/>
-    <table id="484" parent="166" name="Person"/>
-    <table id="485" parent="166" name="sqlite_master">
+    <table id="482" parent="166" name="CollegeStudent"/>
+    <table id="483" parent="166" name="Company"/>
+    <table id="484" parent="166" name="CompanyEmployee"/>
+    <table id="485" parent="166" name="CompanyTeam"/>
+    <table id="486" parent="166" name="Course"/>
+    <table id="487" parent="166" name="JobApplication"/>
+    <table id="488" parent="166" name="JobCandidate"/>
+    <table id="489" parent="166" name="JobPosting"/>
+    <table id="490" parent="166" name="Person"/>
+    <table id="491" parent="166" name="PersonRole"/>
+    <table id="492" parent="166" name="Role"/>
+    <table id="493" parent="166" name="TrainingCertificate"/>
+    <table id="494" parent="166" name="TrainingModule"/>
+    <table id="495" parent="166" name="TrainingQuestion"/>
+    <table id="496" parent="166" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="486" parent="166" name="sqlite_sequence">
+    <table id="497" parent="166" name="sqlite_sequence">
       <System>1</System>
     </table>
-    <column id="487" parent="482" name="id">
+    <column id="498" parent="482" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="488" parent="482" name="personId">
-      <DasType>INTEGER|0s</DasType>
+    <column id="499" parent="482" name="gpa">
+      <DasType>REAL|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="489" parent="482" name="jobPostingId">
+    <column id="500" parent="482" name="passYear">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="490" parent="482" name="yearsOfExperience">
+    <column id="501" parent="482" name="personId">
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <foreign-key id="491" parent="482" name="JobApplication_personId_fkey">
+    <column id="502" parent="482" name="courseId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="503" parent="482" name="CollegeStudent_personId_fkey">
+      <ColNames>personId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Person</RefTableName>
+    </foreign-key>
+    <foreign-key id="504" parent="482" name="CollegeStudent_courseId_fkey">
+      <ColNames>courseId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Course</RefTableName>
+    </foreign-key>
+    <index id="505" parent="482" name="CollegeStudent_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="506" parent="482" name="CollegeStudent_personId_courseId_key">
+      <ColNames>personId
+courseId</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="507" parent="482" name="CollegeStudent_personId_key">
+      <ColNames>personId</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="508" parent="482">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>CollegeStudent_id_key</UnderlyingIndexName>
+    </key>
+    <column id="509" parent="483" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="510" parent="483" name="name">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <index id="511" parent="483" name="Company_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="512" parent="483">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>Company_id_key</UnderlyingIndexName>
+    </key>
+    <column id="513" parent="484" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="514" parent="484" name="personId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="515" parent="484" name="companyId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="516" parent="484" name="companyTeamId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <foreign-key id="517" parent="484" name="CompanyEmployee_personId_fkey">
+      <ColNames>personId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Person</RefTableName>
+    </foreign-key>
+    <foreign-key id="518" parent="484" name="CompanyEmployee_companyId_fkey">
+      <ColNames>companyId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Company</RefTableName>
+    </foreign-key>
+    <foreign-key id="519" parent="484" name="CompanyEmployee_companyTeamId_fkey">
+      <ColNames>companyTeamId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>CompanyTeam</RefTableName>
+    </foreign-key>
+    <index id="520" parent="484" name="CompanyEmployee_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="521" parent="484">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>CompanyEmployee_id_key</UnderlyingIndexName>
+    </key>
+    <column id="522" parent="485" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="523" parent="485" name="name">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <index id="524" parent="485" name="CompanyTeam_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="525" parent="485">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>CompanyTeam_id_key</UnderlyingIndexName>
+    </key>
+    <column id="526" parent="486" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="527" parent="486" name="name">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <index id="528" parent="486" name="Course_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="529" parent="486">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>Course_id_key</UnderlyingIndexName>
+    </key>
+    <column id="530" parent="487" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="531" parent="487" name="personId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="532" parent="487" name="jobPostingId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="533" parent="487" name="yearsOfExperience">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <foreign-key id="534" parent="487" name="JobApplication_personId_fkey">
       <ColNames>personId</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>Person</RefTableName>
     </foreign-key>
-    <foreign-key id="492" parent="482" name="JobApplication_jobPostingId_fkey">
+    <foreign-key id="535" parent="487" name="JobApplication_jobPostingId_fkey">
       <ColNames>jobPostingId</ColNames>
       <RefColNames>id</RefColNames>
       <RefTableName>JobPosting</RefTableName>
     </foreign-key>
-    <index id="493" parent="482" name="JobApplication_id_key">
+    <index id="536" parent="487" name="JobApplication_id_key">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="494" parent="482">
+    <key id="537" parent="487">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>JobApplication_id_key</UnderlyingIndexName>
     </key>
-    <column id="495" parent="483" name="id">
+    <column id="538" parent="488" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="496" parent="483" name="title">
+    <column id="539" parent="488" name="personId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="540" parent="488" name="jobApplicationId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="541" parent="488" name="interviewRound">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="542" parent="488" name="result">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="543" parent="488" name="JobCandidate_personId_fkey">
+      <ColNames>personId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Person</RefTableName>
+    </foreign-key>
+    <foreign-key id="544" parent="488" name="JobCandidate_jobApplicationId_fkey">
+      <ColNames>jobApplicationId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>JobApplication</RefTableName>
+    </foreign-key>
+    <index id="545" parent="488" name="JobCandidate_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="546" parent="488" name="JobCandidate_personId_jobApplicationId_key">
+      <ColNames>personId
+jobApplicationId</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="547" parent="488">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>JobCandidate_id_key</UnderlyingIndexName>
+    </key>
+    <column id="548" parent="489" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="549" parent="489" name="title">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="497" parent="483" name="jobDescription">
+    <column id="550" parent="489" name="jobDescription">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="498" parent="483" name="category">
+    <column id="551" parent="489" name="category">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <index id="499" parent="483" name="JobPosting_id_key">
+    <column id="552" parent="489" name="companyId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="553" parent="489" name="JobPosting_companyId_fkey">
+      <ColNames>companyId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Company</RefTableName>
+    </foreign-key>
+    <index id="554" parent="489" name="JobPosting_id_key">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="500" parent="483">
+    <key id="555" parent="489">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>JobPosting_id_key</UnderlyingIndexName>
     </key>
-    <column id="501" parent="484" name="id">
+    <column id="556" parent="490" name="id">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="502" parent="484" name="firstName">
+    <column id="557" parent="490" name="firstName">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="503" parent="484" name="lastName">
+    <column id="558" parent="490" name="lastName">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="504" parent="484" name="dateOfBirth">
+    <column id="559" parent="490" name="dateOfBirth">
       <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="505" parent="484" name="username">
+    <column id="560" parent="490" name="username">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="506" parent="484" name="password">
+    <column id="561" parent="490" name="password">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="507" parent="484" name="email">
+    <column id="562" parent="490" name="email">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="508" parent="484" name="phone">
+    <column id="563" parent="490" name="phone">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <index id="509" parent="484" name="Person_id_key">
+    <index id="564" parent="490" name="Person_id_key">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="510" parent="484" name="Person_email_key">
+    <index id="565" parent="490" name="Person_email_key">
       <ColNames>email</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="511" parent="484">
+    <key id="566" parent="490">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>Person_id_key</UnderlyingIndexName>
     </key>
-    <column id="512" parent="485" name="type">
+    <column id="567" parent="491" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="568" parent="491" name="personId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="569" parent="491" name="roleId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <foreign-key id="570" parent="491" name="PersonRole_personId_fkey">
+      <ColNames>personId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Person</RefTableName>
+    </foreign-key>
+    <foreign-key id="571" parent="491" name="PersonRole_roleId_fkey">
+      <ColNames>roleId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Role</RefTableName>
+    </foreign-key>
+    <index id="572" parent="491" name="PersonRole_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="573" parent="491" name="PersonRole_personId_roleId_key">
+      <ColNames>personId
+roleId</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="574" parent="491">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PersonRole_id_key</UnderlyingIndexName>
+    </key>
+    <column id="575" parent="492" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="576" parent="492" name="name">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <index id="577" parent="492" name="Role_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="578" parent="492" name="Role_name_key">
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="579" parent="492">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>Role_id_key</UnderlyingIndexName>
+    </key>
+    <column id="580" parent="493" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="581" parent="493" name="name">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="582" parent="493" name="trainingModuleId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="583" parent="493" name="personId">
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <foreign-key id="584" parent="493" name="TrainingCertificate_trainingModuleId_fkey">
+      <ColNames>trainingModuleId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>TrainingModule</RefTableName>
+    </foreign-key>
+    <foreign-key id="585" parent="493" name="TrainingCertificate_personId_fkey">
+      <ColNames>personId</ColNames>
+      <OnDelete>restrict</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>Person</RefTableName>
+    </foreign-key>
+    <index id="586" parent="493" name="TrainingCertificate_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="587" parent="493" name="TrainingCertificate_trainingModuleId_personId_key">
+      <ColNames>trainingModuleId
+personId</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="588" parent="493">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>TrainingCertificate_id_key</UnderlyingIndexName>
+    </key>
+    <column id="589" parent="494" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="590" parent="494" name="name">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="591" parent="494" name="description">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <index id="592" parent="494" name="TrainingModule_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="593" parent="494" name="TrainingModule_name_key">
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="594" parent="494">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>TrainingModule_id_key</UnderlyingIndexName>
+    </key>
+    <column id="595" parent="495" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>INTEGER|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="596" parent="495" name="question">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="597" parent="495" name="answer">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="598" parent="495" name="option1">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="599" parent="495" name="option2">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>5</Position>
+    </column>
+    <column id="600" parent="495" name="option3">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>6</Position>
+    </column>
+    <column id="601" parent="495" name="trainingModuleId">
+      <DasType>INTEGER|0s</DasType>
+      <Position>7</Position>
+    </column>
+    <foreign-key id="602" parent="495" name="TrainingQuestion_trainingModuleId_fkey">
+      <ColNames>trainingModuleId</ColNames>
+      <OnDelete>set-null</OnDelete>
+      <OnUpdate>cascade</OnUpdate>
+      <RefColNames>id</RefColNames>
+      <RefTableName>TrainingModule</RefTableName>
+    </foreign-key>
+    <index id="603" parent="495" name="TrainingQuestion_id_key">
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="604" parent="495" name="TrainingQuestion_question_key">
+      <ColNames>question</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="605" parent="495">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>TrainingQuestion_id_key</UnderlyingIndexName>
+    </key>
+    <column id="606" parent="496" name="type">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="513" parent="485" name="name">
+    <column id="607" parent="496" name="name">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="514" parent="485" name="tbl_name">
+    <column id="608" parent="496" name="tbl_name">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="515" parent="485" name="rootpage">
+    <column id="609" parent="496" name="rootpage">
       <DasType>INT|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="516" parent="485" name="sql">
+    <column id="610" parent="496" name="sql">
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="517" parent="486" name="name">
+    <column id="611" parent="497" name="name">
       <Position>1</Position>
     </column>
-    <column id="518" parent="486" name="seq">
+    <column id="612" parent="497" name="seq">
       <Position>2</Position>
     </column>
   </database-model>

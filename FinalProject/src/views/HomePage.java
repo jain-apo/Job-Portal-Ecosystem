@@ -16,6 +16,7 @@ public class HomePage extends BaseFrame {
     private JButton trainingPortalButton;
     private JButton logoutButton;
     private JLabel heading;
+    private JButton adminPersonsDirectoryButton;
 
     HomePage() {
         super();
@@ -40,6 +41,12 @@ public class HomePage extends BaseFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new JobHomePage().setVisible(true);
+            }
+        });
+        adminPersonsDirectoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PersonsDirectoryPage().setVisible(true);
             }
         });
     }

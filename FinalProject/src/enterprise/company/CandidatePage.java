@@ -1,6 +1,6 @@
 package enterprise.company;
 
-import model.tableModel.CandidateTable;
+import models.tablemodels.CandidateTable;
 import views.BaseFrame;
 
 import javax.swing.*;

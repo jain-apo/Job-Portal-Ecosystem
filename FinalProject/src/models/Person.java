@@ -1,4 +1,4 @@
-package modals;
+package models;
 
 import java.util.Date;
 import java.util.Objects;
@@ -48,7 +48,7 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public Object getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -99,5 +99,9 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, dateOfBirth, username, password, email, phone);
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 }

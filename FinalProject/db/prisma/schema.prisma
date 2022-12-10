@@ -8,12 +8,13 @@ datasource db {
 }
 
 model JobApplication {
-  id                Int        @id @unique @default(autoincrement())
+  id                Int            @id @unique @default(autoincrement())
   personId          Int
   jobPostingId      Int
   yearsOfExperience Int
-  JobPosting        JobPosting @relation(fields: [jobPostingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  Person            Person     @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  JobPosting        JobPosting     @relation(fields: [jobPostingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Person            Person         @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  JobCandidate      JobCandidate[]
 }
 
 model JobPosting {
@@ -22,16 +23,122 @@ model JobPosting {
   jobDescription String
   category       String
   JobApplication JobApplication[]
+  company        Company          @relation(fields: [companyId], references: [id])
+  companyId      Int
 }
 
 model Person {
+  id                  Int                   @id @unique @default(autoincrement())
+  firstName           String
+  lastName            String
+  dateOfBirth         DateTime
+  username            String
+  password            String
+  email               String                @unique
+  phone               String
+  jobApplications     JobApplication[]
+  PersonRole          PersonRole[]
+  CollegeStudent      CollegeStudent[]
+  JobCandidate        JobCandidate[]
+  CompanyEmployee     CompanyEmployee[]
+  TrainingCertificate TrainingCertificate[]
+}
+
+model Role {
+  id         Int          @id @unique @default(autoincrement())
+  name       String       @unique
+  PersonRole PersonRole[]
+}
+
+model PersonRole {
+  id       Int    @id @unique @default(autoincrement())
+  person   Person @relation(fields: [personId], references: [id])
+  role     Role   @relation(fields: [roleId], references: [id])
+  personId Int
+  roleId   Int
+
+  @@unique([personId, roleId])
+}
+
+model Company {
+  id              Int               @id @unique @default(autoincrement())
+  name            String
+  JobPosting      JobPosting[]
+  CompanyEmployee CompanyEmployee[]
+}
+
+model Course {
   id             Int              @id @unique @default(autoincrement())
-  firstName      String
-  lastName       String
-  dateOfBirth    DateTime
-  username       String
-  password       String
-  email          String           @unique
-  phone          String
-  JobApplication JobApplication[]
+  name           String
+  CollegeStudent CollegeStudent[]
+}
+
+model CollegeStudent {
+  id       Int    @id @unique @default(autoincrement())
+  gpa      Float
+  passYear Int
+  person   Person @relation(fields: [personId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id])
+  personId Int    @unique
+  courseId Int
+
+  @@unique([personId, courseId])
+}
+
+model JobCandidate {
+  id               Int            @id @unique @default(autoincrement())
+  person           Person         @relation(fields: [personId], references: [id])
+  jobApplication   JobApplication @relation(fields: [jobApplicationId], references: [id])
+  personId         Int
+  jobApplicationId Int
+  interviewRound   Int
+  result           String
+
+  @@unique([personId, jobApplicationId])
+}
+
+model CompanyEmployee {
+  id            Int         @id @unique @default(autoincrement())
+  person        Person      @relation(fields: [personId], references: [id])
+  company       Company     @relation(fields: [companyId], references: [id])
+  team          CompanyTeam @relation(fields: [companyTeamId], references: [id])
+  personId      Int
+  companyId     Int
+  companyTeamId Int
+}
+
+model CompanyTeam {
+  id              Int               @id @unique @default(autoincrement())
+  name            String
+  CompanyEmployee CompanyEmployee[]
+}
+
+model TrainingQuestion {
+  id               Int             @id @unique @default(autoincrement())
+  question         String          @unique
+  answer           String
+  option1          String
+  option2          String
+  option3          String
+  TrainingModule   TrainingModule? @relation(fields: [trainingModuleId], references: [id])
+  trainingModuleId Int?
+}
+
+model TrainingModule {
+  id                  Int                   @id @unique @default(autoincrement())
+  name                String                @unique
+  description         String
+  TrainingQuestion    TrainingQuestion[]
+  TrainingCertificate TrainingCertificate[]
+}
+
+model TrainingCertificate {
+  id               Int            @id @unique @default(autoincrement())
+  name             String
+  trainingModuleId Int
+  personId         Int
+  trainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id])
+  person           Person         @relation(fields: [personId], references: [id])
+
+  @@unique([trainingModuleId, personId])
 }
