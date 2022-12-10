@@ -7,6 +7,7 @@ import enterprise.job.JobHomePage;
 import enterprise.training.TrainingHomePage;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,13 +20,29 @@ public class HomePage extends BaseFrame {
     private JButton logoutButton;
     private JLabel heading;
     private JButton adminPersonsDirectoryButton;
+    private JTable notifications;
+    private JScrollPane notificationsPane;
 
     HomePage() {
         super();
 
         heading.setText("Welcome, " + Application.getCurrentlyLoggedInPerson().getFirstName());
 
+        setupNotifications();
+
         setContentPane(mainPanel);
+
+        setupActions();
+    }
+
+    private void setupNotifications() {
+        notificationsPane.setBorder(BorderFactory.createTitledBorder("Notifications"));
+
+        notifications.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Title", "Message"}));
+
+    }
+
+    private void setupActions() {
         logoutButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
