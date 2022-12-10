@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,6 +13,10 @@ public class Person {
     private String password;
     private String email;
     private String phone;
+    private Collection<CollegeStudent> collegeStudentsById;
+    private Collection<CompanyEmployee> companyEmployeesById;
+    private Collection<JobApplication> jobApplicationsById;
+    private Collection<JobCandidate> jobCandidatesById;
 
     public Person(int id, String firstName, String lastName, Date dateOfBirth, String username, String password, String email, String phone) {
         this.id = id;
@@ -103,5 +108,37 @@ public class Person {
 
     public String getFullName() {
         return firstName + " " + lastName;
+    }
+
+    public Collection<CollegeStudent> getCollegeStudentsById() {
+        return collegeStudentsById;
+    }
+
+    public void setCollegeStudentsById(Collection<CollegeStudent> collegeStudentsById) {
+        this.collegeStudentsById = collegeStudentsById;
+    }
+
+    public Collection<CompanyEmployee> getCompanyEmployeesById() {
+        return companyEmployeesById;
+    }
+
+    public void setCompanyEmployeesById(Collection<CompanyEmployee> companyEmployeesById) {
+        this.companyEmployeesById = companyEmployeesById;
+    }
+
+    public Collection<JobApplication> getJobApplicationsById() {
+        return jobApplicationsById;
+    }
+
+    public void setJobApplicationsById(Collection<JobApplication> jobApplicationsById) {
+        this.jobApplicationsById = jobApplicationsById;
+    }
+
+    public Collection<JobCandidate> getJobCandidatesById() {
+        return jobCandidatesById;
+    }
+
+    public void setJobCandidatesById(Collection<JobCandidate> jobCandidatesById) {
+        this.jobCandidatesById = jobCandidatesById;
     }
 }

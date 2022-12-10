@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Collection;
 import java.util.Objects;
 
 public class JobApplication {
@@ -7,6 +8,7 @@ public class JobApplication {
     private int personId;
     private int jobPostingId;
     private int yearsOfExperience;
+    private Collection<JobCandidate> jobCandidatesById;
 
     public int getId() {
         return id;
@@ -51,5 +53,13 @@ public class JobApplication {
     @Override
     public int hashCode() {
         return Objects.hash(id, personId, jobPostingId, yearsOfExperience);
+    }
+
+    public Collection<JobCandidate> getJobCandidatesById() {
+        return jobCandidatesById;
+    }
+
+    public void setJobCandidatesById(Collection<JobCandidate> jobCandidatesById) {
+        this.jobCandidatesById = jobCandidatesById;
     }
 }
