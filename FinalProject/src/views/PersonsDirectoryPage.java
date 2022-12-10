@@ -7,6 +7,7 @@ import helpers.Encryption;
 import helpers.TableHelpers;
 import models.Person;
 import models.tablemodels.PersonsTableModel;
+import utils.Dialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,8 +64,9 @@ public class PersonsDirectoryPage extends BaseFrame {
 
             try {
                 Application.Database.Persons.add(person);
-                JOptionPane.showMessageDialog(null, person.getFullName() + " added successfully.");
+                Dialog.show(person.getFullName() + " added successfully.");
                 displayPeople();
+
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -78,7 +80,7 @@ public class PersonsDirectoryPage extends BaseFrame {
                 }
 
                 Application.Database.Persons.update(person);
-                JOptionPane.showMessageDialog(null, person.getFullName() + " updated successfully.");
+                Dialog.show(person.getFullName() + " updated successfully.");
                 displayPeople();
 
             } catch (SQLException ex) {
@@ -161,17 +163,14 @@ public class PersonsDirectoryPage extends BaseFrame {
                         System.out.println("Delete Clicked");
 
                         if (personId == 1) {
-                            JOptionPane.showMessageDialog(null, "Can't delete the admin user");
+                            Dialog.error("Can't delete the admin user");
                             return;
                         } else if (personId == Application.getCurrentlyLoggedInPerson().getId()) {
-                            JOptionPane.showMessageDialog(null, "Can't delete yourself");
+                            Dialog.error("Can't delete yourself");
                             return;
                         }
 
-                        int result = JOptionPane.showConfirmDialog(target.getParent(), "Are you sure you want to delete " + personName + "?",
-                                "Swing Tester",
-                                JOptionPane.YES_NO_OPTION,
-                                JOptionPane.QUESTION_MESSAGE);
+                        int result = Dialog.confirm("Are you sure you want to delete " + personName + "?", "Delete Person", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                         System.out.println(result);
 
@@ -185,7 +184,7 @@ public class PersonsDirectoryPage extends BaseFrame {
                         }
                     } else if (column == EDIT_COLUMN_NUMBER) {
                         if (personId == 1) {
-                            JOptionPane.showMessageDialog(null, "Can't edit the admin user");
+                            Dialog.error("Can't edit the admin user");
                             return;
                         }
 
