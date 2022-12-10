@@ -15,7 +15,6 @@ public class PersonsDatabase extends BaseDatabase<Person> {
 
     @Override
     public void add(Person person) throws SQLException {
-        // TODO: Implement this
         String sql = "insert into Person ( firstName, lastName, dateOfBirth, username, password, email, phone) values (?,?,?,?,?,?,?)";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
@@ -36,7 +35,20 @@ public class PersonsDatabase extends BaseDatabase<Person> {
 
     @Override
     public void update(Person item) throws SQLException {
-        // TODO: Implement this
+        String sql = "update Person set firstName = ?, lastName = ?, dateOfBirth = ?, username = ?, password = ?, email = ?, phone = ? where id = ?";
+
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setString(1, item.getFirstName());
+        statement.setString(2, item.getLastName());
+        statement.setDate(3, new java.sql.Date(item.getDateOfBirth().getTime()));
+        statement.setString(4, item.getUsername());
+        statement.setString(5, item.getPassword());
+        statement.setString(6, item.getEmail());
+        statement.setString(7, item.getPhone());
+        statement.setInt(8, item.getId());
+
+        statement.executeUpdate();
     }
 
     @Override

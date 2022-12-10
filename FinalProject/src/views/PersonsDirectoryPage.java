@@ -3,6 +3,7 @@ package views;
 import domain.Application;
 import domain.Validator;
 import helpers.DateHelper;
+import helpers.Encryption;
 import helpers.TableHelpers;
 import models.Person;
 import models.tablemodels.PersonsTableModel;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import static domain.Application.sqlDateFormat;
 
 public class PersonsDirectoryPage extends BaseFrame {
+    private final int EDIT_COLUMN_NUMBER = 3;
+    private final int DELETE_COLUMN_NUMBER = 4;
     private JPanel p;
     private JPanel mainPanel;
     private JLabel heading;
@@ -37,6 +40,7 @@ public class PersonsDirectoryPage extends BaseFrame {
 
     private boolean editMode;
     private int currentlyEditingEmployee;
+    private String existingPassword;
 
     public PersonsDirectoryPage() {
         super();
@@ -53,7 +57,7 @@ public class PersonsDirectoryPage extends BaseFrame {
         if (!validateFields()) return;
 
 
-        var person = new Person(currentlyEditingEmployee, firstName.getText(), lastName.getText(), DateHelper.tryGetDate(dateOfBirth.getText(), "yyyy-MM-dd"), username.getText(), new String(password.getPassword()), email.getText(), phone.getText());
+        var person = new Person(currentlyEditingEmployee, firstName.getText(), lastName.getText(), DateHelper.tryGetDate(dateOfBirth.getText(), "yyyy-MM-dd"), username.getText(), Encryption.hash(password.getText()), email.getText(), phone.getText());
 
         if (!editMode) {
 
@@ -68,6 +72,11 @@ public class PersonsDirectoryPage extends BaseFrame {
 
         } else {
             try {
+
+                if (!existingPassword.equals(password.getText())) {
+                    person.setPassword(Encryption.hash(password.getText()));
+                }
+
                 Application.Database.Persons.update(person);
                 JOptionPane.showMessageDialog(null, person.getFullName() + " updated successfully.");
                 displayPeople();
@@ -83,6 +92,7 @@ public class PersonsDirectoryPage extends BaseFrame {
     private void setEditMode(boolean mode) {
         editMode = mode;
         cancelEditButton.setVisible(mode);
+        existingPassword = "";
 
         if (mode) {
             addPersonButton.setText("Update Person");
@@ -95,7 +105,7 @@ public class PersonsDirectoryPage extends BaseFrame {
                 text.setText("");
                 text.setBorder(BorderFactory.createLineBorder(Color.black));
             }
-            role.setSelectedIndex(0);
+//            role.setSelectedIndex(0);
         }
     }
 
@@ -147,7 +157,7 @@ public class PersonsDirectoryPage extends BaseFrame {
 
                     String personName = target.getModel().getValueAt(row, 1) + "";
 
-                    if (column == 5) {
+                    if (column == DELETE_COLUMN_NUMBER) {
                         System.out.println("Delete Clicked");
 
                         if (personId == 1) {
@@ -173,7 +183,7 @@ public class PersonsDirectoryPage extends BaseFrame {
                                 e.printStackTrace();
                             }
                         }
-                    } else if (column == 4) {
+                    } else if (column == EDIT_COLUMN_NUMBER) {
                         if (personId == 1) {
                             JOptionPane.showMessageDialog(null, "Can't edit the admin user");
                             return;
@@ -189,10 +199,9 @@ public class PersonsDirectoryPage extends BaseFrame {
                         dateOfBirth.setText(DateHelper.formatDate(person.getDateOfBirth(), "yyyy-MM-dd"));
                         username.setText(person.getUsername());
                         password.setText(person.getPassword());
+                        existingPassword = person.getPassword();
                         email.setText(person.getEmail());
                         phone.setText(person.getPhone());
-
-
                     }
 
                 }
