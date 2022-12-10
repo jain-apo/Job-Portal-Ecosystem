@@ -29,6 +29,6 @@ public class CandidatePage extends BaseFrame {
 
         TableHelpers.centerColumn(candidate, 0);
         TableHelpers.centerColumn(candidate, 3);
-        TableHelpers.centerColumn(candidate, 4);
+//        TableHelpers.centerColumn(candidate, 4);
     }
 }
