@@ -14,7 +14,7 @@ public abstract class BaseDatabase<T> {
 
     public abstract void update(T item) throws SQLException;
 
-    public abstract void delete(T item) throws SQLException;
+    public abstract void delete(int id) throws SQLException;
 
     public abstract T getById(int id) throws SQLException;
 
