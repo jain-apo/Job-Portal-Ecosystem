@@ -1,5 +1,6 @@
 package domain;
 
+import directories.CandidateDirectory;
 import directories.PersonsDirectory;
 import domain.database.DatabaseLayer;
 import models.Person;
@@ -8,6 +9,8 @@ public class Application {
     public static String sqlDateFormat = "yyyy-MM-dd";
     public static DatabaseLayer Database = new DatabaseLayer();
     public static PersonsDirectory PersonsDirectory = new PersonsDirectory();
+
+    public static CandidateDirectory CandidateDirectory = new CandidateDirectory();
     static Person currentlyLoggedInPerson;
 
     public static void initialize() {

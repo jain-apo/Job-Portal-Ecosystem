@@ -1,5 +1,7 @@
 package enterprise.company;
 
+import domain.Application;
+import helpers.TableHelpers;
 import models.tablemodels.CandidateTable;
 import views.BaseFrame;
 
@@ -18,27 +20,15 @@ public class CandidatePage extends BaseFrame {
     private void displayPeople() {
         CandidateTable model = new CandidateTable();
 
+
+        var details = Application.CandidateDirectory.getCandidate();
+
+        model.loadData(details);
+
         candidate.setModel(model);
 
-//        var details = Application.PersonsDirectory.getPerson();
-//
-//        for (var person : details) {
-//            Object[] data = new Object[]{
-//                    person.getId(),
-//                    person.getFullName(),
-//                    DateHelper.formatDate(person.getDateOfBirth(), "MMM-dd yyyy"),
-//                    person.getRole(),
-//                    "✖",
-//                    "✖",
-//            };
-//
-//            model.addRow(data);
-//        }
-//
-//        candidate.setModel(model);
-//
-//        TableHelpers.centerColumn(people, 0);
-//        TableHelpers.centerColumn(people, 4);
-//        TableHelpers.centerColumn(people, 5);
+        TableHelpers.centerColumn(candidate, 0);
+        TableHelpers.centerColumn(candidate, 3);
+        TableHelpers.centerColumn(candidate, 4);
     }
 }
