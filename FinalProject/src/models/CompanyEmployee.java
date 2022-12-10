@@ -9,11 +9,10 @@ public class CompanyEmployee {
     private int companyTeamId;
     private Company companyByCompanyId;
 
-    public CompanyEmployee(int id, int personId, int companyId, int companyTeamId) {
+    public CompanyEmployee(int id, int personId, int companyId) {
         this.id = id;
         this.personId = personId;
         this.companyId = companyId;
-        this.companyTeamId = companyTeamId;
     }
 
     public int getId() {
