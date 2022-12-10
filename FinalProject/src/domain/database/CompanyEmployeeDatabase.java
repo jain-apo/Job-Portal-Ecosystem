@@ -40,10 +40,8 @@ public class CompanyEmployeeDatabase extends BaseDatabase<models.CompanyEmployee
             models.CompanyEmployee companyEmployee = new models.CompanyEmployee(
                     resultSet.getInt("id"),
                     resultSet.getInt("personId"),
-                    resultSet.getInt("companyId"),
-                    resultSet.getInt("companyTeamId")
+                    resultSet.getInt("companyId")
             );
-
 
 
             companyEmployees.add(companyEmployee);
@@ -52,4 +50,4 @@ public class CompanyEmployeeDatabase extends BaseDatabase<models.CompanyEmployee
         return companyEmployees;
     }
 }
-}
+

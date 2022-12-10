@@ -51,4 +51,4 @@ public class CourseDatabase extends BaseDatabase<Course> {
         return courses;
     }
 }
-}
+
