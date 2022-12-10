@@ -11,6 +11,7 @@ public class TrainingListPage extends BaseFrame {
     private JButton addModuleButton;
     private JTable people;
     private JTextArea validationText;
+    private JButton startTrainingButton;
 
     public TrainingListPage() {
         setContentPane(p);
