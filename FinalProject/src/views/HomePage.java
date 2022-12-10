@@ -43,5 +43,11 @@ public class HomePage extends BaseFrame {
                 new JobHomePage().setVisible(true);
             }
         });
+        adminPersonsDirectoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PersonsDirectoryPage().setVisible(true);
+            }
+        });
     }
 }
