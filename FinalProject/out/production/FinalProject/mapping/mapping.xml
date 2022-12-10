@@ -270,4 +270,24 @@
             </many-to-one>
         </attributes>
     </entity>
+    <entity class="models.PersonNotification">
+        <table name="PersonNotification" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="title">
+                <column name="title"/>
+            </basic>
+            <basic name="message">
+                <column name="message"/>
+            </basic>
+            <basic name="date">
+                <column name="date"/>
+            </basic>
+        </attributes>
+    </entity>
 </entity-mappings>
