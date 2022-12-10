@@ -1,15 +1,14 @@
-package enterprise.college;
+package enterprise.company;
 
 import views.BaseFrame;
 
 import javax.swing.*;
 
-public class CollegeHomePage extends BaseFrame {
+public class InterviewPage extends BaseFrame {
     private JPanel mainPane;
 
-    public CollegeHomePage() {
+    public InterviewPage() {
         super();
         setContentPane(mainPane);
-
     }
 }
