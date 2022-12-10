@@ -215,17 +215,7 @@ public class PersonsDirectoryPage extends BaseFrame {
 
         var details = Application.PersonsDirectory.getPersons();
 
-        for (var person : details) {
-            Object[] data = new Object[]{
-                    person.getId(),
-                    person.getFullName(),
-                    DateHelper.formatDate(person.getDateOfBirth(), "MMM-dd yyyy"),
-                    "✖",
-                    "✖",
-            };
-
-            model.addRow(data);
-        }
+        model.loadData(details);
 
         people.setModel(model);
 
