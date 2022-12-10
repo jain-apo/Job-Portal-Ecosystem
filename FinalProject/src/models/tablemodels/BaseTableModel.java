@@ -18,10 +18,12 @@ public abstract class BaseTableModel<T> extends DefaultTableModel {
 
     public abstract Object[] rowMapping(T item);
 
-    public void loadData(List<T> items) {
+    public BaseTableModel loadData(List<T> items) {
         for (T item : items) {
             addRow(rowMapping(item));
         }
+        
+        return this;
     }
 }
 

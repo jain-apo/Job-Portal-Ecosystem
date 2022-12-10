@@ -5,11 +5,13 @@ import enterprise.college.CollegeHomePage;
 import enterprise.company.CompanyHomePage;
 import enterprise.job.JobHomePage;
 import enterprise.training.TrainingHomePage;
+import models.tablemodels.NotificationsTableModel;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class HomePage extends BaseFrame {
     private JPanel mainPanel;
@@ -38,7 +40,13 @@ public class HomePage extends BaseFrame {
     private void setupNotifications() {
         notificationsPane.setBorder(BorderFactory.createTitledBorder("Notifications"));
 
-        notifications.setModel(new DefaultTableModel(new Object[][]{}, new String[]{"Title", "Message"}));
+        try {
+            notifications.setModel(new NotificationsTableModel().loadData(Application.Database.PersonNotifications.getAll()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        notifications.setMaximumSize(new Dimension(500, 200));
 
     }
 
