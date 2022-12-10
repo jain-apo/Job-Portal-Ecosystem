@@ -6,6 +6,17 @@ async function main() {
 
     const admin = await addRole({ name: "ADMIN" })
 
+    // add the following roles: Company HR, Company Sysadmin, Team Lead, Team Manager, Job Portal User, Job Portal Admin, College Student, College HR, Trainee, Trainer
+    const companyHR = await addRole({ name: "COMPANY_HR" })
+    const companySysadmin = await addRole({ name: "COMPANY_SYSADMIN" })
+    const teamLead = await addRole({ name: "TEAM_LEAD" })
+    const teamManager = await addRole({ name: "TEAM_MANAGER" })
+    const jobPortalUser = await addRole({ name: "JOB_PORTAL_USER" })
+    const jobPortalAdmin = await addRole({ name: "JOB_PORTAL_ADMIN" })
+    const collegeStudent = await addRole({ name: "COLLEGE_STUDENT" })
+    const collegeHR = await addRole({ name: "COLLEGE_HR" })
+    const trainee = await addRole({ name: "TRAINEE" })
+
     const sharun = await addUser({
         firstName: 'Sharun',
         lastName: 'Kumar',
