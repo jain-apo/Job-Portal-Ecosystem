@@ -1,6 +1,6 @@
 package domain;
 
-import entities.Person;
+import models.Person;
 
 import java.io.File;
 import java.sql.Connection;

@@ -1,37 +1,19 @@
-package entities;
+package models;
 
-import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 
-@Entity
 public class Person {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id")
     private int id;
-    @Basic
-    @Column(name = "firstName")
     private String firstName;
-    @Basic
-    @Column(name = "lastName")
     private String lastName;
-    @Basic
-    @Column(name = "dateOfBirth")
-    private Object dateOfBirth;
-    @Basic
-    @Column(name = "username")
+    private Date dateOfBirth;
     private String username;
-    @Basic
-    @Column(name = "password")
     private String password;
-    @Basic
-    @Column(name = "email")
     private String email;
-    @Basic
-    @Column(name = "phone")
     private String phone;
 
-    public Person(int id, String firstName, String lastName, Object dateOfBirth, String username, String password, String email, String phone) {
+    public Person(int id, String firstName, String lastName, Date dateOfBirth, String username, String password, String email, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -70,7 +52,7 @@ public class Person {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Object dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
