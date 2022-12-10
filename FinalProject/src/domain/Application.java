@@ -1,6 +1,7 @@
 package domain;
 
 import directories.PersonsDirectory;
+import domain.database.DatabaseLayer;
 import models.Person;
 
 public class Application {

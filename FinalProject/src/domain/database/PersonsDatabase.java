@@ -1,26 +1,36 @@
-package domain;
+package domain.database;
 
 import models.Person;
 
-import java.io.File;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class DatabaseLayer {
-    private static String connectionString;
-
-    DatabaseLayer() {
-        connectionString = "jdbc:sqlite:/" + new File(".").getAbsolutePath() + "/db/prisma/database.db";
+public class PersonsDatabase extends BaseDatabase<Person> {
+    @Override
+    public void add(Person item) {
+        // TODO: Implement this
     }
 
-    public Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(connectionString);
+    @Override
+    public void update(Person item) {
+        // TODO: Implement this
     }
 
-    public ArrayList<Person> getPersons() throws SQLException {
+    @Override
+    public void delete(Person item) {
+        // TODO: Implement this
+    }
+
+    @Override
+    public Person getById(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Person> getAll() throws SQLException {
         Connection connection = getConnection();
 
         ResultSet resultSet = connection.createStatement().executeQuery("Select * from Person");

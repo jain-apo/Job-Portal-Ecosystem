@@ -36,7 +36,7 @@ public class LoginPage extends BaseFrame {
         System.out.println("password is " + password.getText());
 
         try {
-            var dbperson = Application.Database.getPersons().stream().filter(person -> person.getUsername().equals(username.getText()))
+            var dbperson = Application.Database.Persons.getAll().stream().filter(person -> person.getUsername().equals(username.getText()))
                     .findFirst().orElse(null);
 
             if (dbperson == null) {
