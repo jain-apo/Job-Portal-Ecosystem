@@ -55,5 +55,9 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
 
         return jobCandidates;
     }
+
+    public JobCandidate getCandidateById(int candidateId) throws SQLException {
+        return getAll().stream().filter(candidate -> candidate.getId() == candidateId).findFirst().orElse(null);
+    }
 }
 
