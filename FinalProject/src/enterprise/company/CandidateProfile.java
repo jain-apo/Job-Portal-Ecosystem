@@ -8,13 +8,14 @@ import javax.swing.*;
 import java.sql.SQLException;
 
 public class CandidateProfile extends BaseFrame {
+    private final int candidateId;
     private JPanel p;
     private JLabel candidateName;
     private JLabel dateOfBirth;
     private JLabel email;
     private JLabel phoneNo;
     private JPanel mainPane;
-    private int candidateId;
+    private JButton viewResumeButton;
 
     public CandidateProfile(int candidateId) {
         super();
@@ -27,6 +28,13 @@ public class CandidateProfile extends BaseFrame {
         }
 
         setContentPane(p);
+        setupActions();
+    }
+
+    private void setupActions() {
+        viewResumeButton.addActionListener(e -> {
+            // TODO: implement view resume
+        });
     }
 
     public void getProfile() throws SQLException {
