@@ -12,6 +12,14 @@ public class JobPosting {
     private Collection<JobApplication> jobApplicationsById;
     private Company companyByCompanyId;
 
+    public JobPosting(int id, String title, String jobDescription, String category, int companyId) {
+        this.id = id;
+        this.title = title;
+        this.jobDescription = jobDescription;
+        this.category = category;
+        this.companyId = companyId;
+    }
+
     public int getId() {
         return id;
     }

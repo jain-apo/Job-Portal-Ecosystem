@@ -290,4 +290,38 @@
             </basic>
         </attributes>
     </entity>
+    <entity class="models.ModuleData">
+        <table name="ModuleData" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="title">
+                <column name="title"/>
+            </basic>
+            <basic name="description">
+                <column name="description"/>
+            </basic>
+            <basic name="trainingModuleId">
+                <column name="trainingModuleId"/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="models.ModuleData">
+        <table name="ModuleData" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="title">
+                <column name="title"/>
+            </basic>
+            <basic name="description">
+                <column name="description"/>
+            </basic>
+            <basic name="trainingModuleId">
+                <column name="trainingModuleId"/>
+            </basic>
+        </attributes>
+    </entity>
 </entity-mappings>
