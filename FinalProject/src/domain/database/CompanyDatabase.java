@@ -3,6 +3,7 @@ package domain.database;
 import models.Company;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,8 +12,18 @@ import java.util.List;
 public class CompanyDatabase extends BaseDatabase<Company> {
 
     @Override
-    public void add(Company item) throws SQLException {
+    public void add(Company person) throws SQLException {
 
+        String sql = "insert into Company (id, name) values (?,?)";
+
+
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, person.getId());
+        statement.setString(2, person.getName()
+        );
+
+        statement.executeUpdate();
     }
 
     @Override
