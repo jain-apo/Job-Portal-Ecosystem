@@ -34,6 +34,7 @@ public class JobPostingsPage extends BaseFrame {
 
     private JTable people;
     private JTextArea validationText;
+    private JPanel jobPosterPanel;
     private JScrollPane jobPostings;
     private JTextField email;
     private JTextField phone;
@@ -62,8 +63,12 @@ public class JobPostingsPage extends BaseFrame {
         isStudent = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_STUDENT"));
         isHr = person.getRoles().stream().anyMatch(role -> role.getName().equals("COMPANY_HR"));
 
-        if (isStudent) {
+        if (!isHr) {
+            jobPosterPanel.setVisible(false);
             addPersonButton.setVisible(false);
+        } else {
+            jobPosterPanel.setVisible(true);
+            addPersonButton.setVisible(true);
         }
     }
 
