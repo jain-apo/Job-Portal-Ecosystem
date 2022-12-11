@@ -3,6 +3,7 @@ package domain.database;
 import models.Role;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +13,11 @@ public class RoleDatabase extends BaseDatabase<Role> {
 
     @Override
     public void add(Role item) throws SQLException {
+        String sql = "insert into Role (id, name)values (?, ?)";
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+        statement.setInt(1, item.getId());
+        statement.setString(2, item.getName());
+        statement.executeUpdate();
 
     }
 
