@@ -54,4 +54,4 @@ public class TrainingModuleDatabase extends BaseDatabase<models.TrainingModule> 
         return trainingModules;
     }
 }
-}
+
