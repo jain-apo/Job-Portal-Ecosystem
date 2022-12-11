@@ -8,6 +8,12 @@ public class PersonRole {
     private int roleId;
     private Person personByPersonId;
 
+    public PersonRole(int id, int personId, int roleId) {
+        this.id = id;
+        this.personId = personId;
+        this.roleId = roleId;
+    }
+
     public int getId() {
         return id;
     }
