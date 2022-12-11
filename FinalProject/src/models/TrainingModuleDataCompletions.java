@@ -2,12 +2,12 @@ package models;
 
 import java.util.Objects;
 
-public class ModuleDataComplettions {
+public class TrainingModuleDataCompletions {
     private int id;
     private int moduleDataId;
     private int personId;
 
-    public ModuleDataComplettions(int id, int moduleDataId, int personId) {
+    public TrainingModuleDataCompletions(int id, int moduleDataId, int personId) {
         this.id = id;
         this.moduleDataId = moduleDataId;
         this.personId = personId;
@@ -41,7 +41,7 @@ public class ModuleDataComplettions {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ModuleDataComplettions that = (ModuleDataComplettions) o;
+        TrainingModuleDataCompletions that = (TrainingModuleDataCompletions) o;
         return id == that.id && moduleDataId == that.moduleDataId && personId == that.personId;
     }
 

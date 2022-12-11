@@ -290,7 +290,7 @@
             </basic>
         </attributes>
     </entity>
-    <entity class="models.ModuleData">
+    <entity class="models.TrainingModuleData">
         <table name="ModuleData" schema="main" catalog=""/>
         <attributes>
             <id name="id">
@@ -307,7 +307,7 @@
             </basic>
         </attributes>
     </entity>
-    <entity class="models.ModuleData">
+    <entity class="models.TrainingModuleData">
         <table name="ModuleData" schema="main" catalog=""/>
         <attributes>
             <id name="id">
@@ -324,7 +324,7 @@
             </basic>
         </attributes>
     </entity>
-    <entity class="models.ModuleDataComplettions">
+    <entity class="models.TrainingModuleDataCompletions">
         <table name="ModuleDataComplettions" schema="main" catalog=""/>
         <attributes>
             <id name="id">
