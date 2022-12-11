@@ -70,6 +70,36 @@ async function main() {
     const jobCandidate = await addJobCandidate(sharun, jobApplication)
 
     await addCourses(["Software Developent", "Data Science", "Finance"])
+
+
+    const trainingModules = ["JavaScript", "C++", "C#"]
+
+    const modules = []
+
+    for (let index = 0; index < trainingModules.length; index++) {
+        const module = trainingModules[index];
+        modules.push(await addTrainingModule(module))
+    }
+
+    // console.log({ modules })
+
+    for (let index = 0; index < modules.length; index++) {
+        const module = modules[index];
+
+        const chapters = ["Basics", "Advanced", "Expert"]
+
+        for (let ch = 0; ch < chapters.length; ch++) {
+            const chapter = chapters[ch];
+            await prisma.moduleData.create({
+                data: {
+                    title: module.name + ` ${chapter}`,
+                    description: module.name + ` ${chapter} Content`,
+                    trainingModuleId: module.id
+                }
+            })
+        }
+    }
+
 }
 main()
     .then(async () => {
@@ -80,6 +110,15 @@ main()
         await prisma.$disconnect()
         process.exit(1)
     })
+
+async function addTrainingModule(name: string) {
+    return await prisma.trainingModule.create({
+        data: {
+            name: name,
+            description: name + " is a programming language"
+        }
+    })
+}
 
 async function addJobCandidate(sharun: Person, jobApplication: { id: any; personId?: number; jobPostingId?: number; yearsOfExperience?: number }) {
     return await prisma.jobCandidate.upsert({

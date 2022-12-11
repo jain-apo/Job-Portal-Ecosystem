@@ -13,14 +13,11 @@ public class TrainingQuestionDatabase extends BaseDatabase<models.TrainingQuesti
 
     @Override
     public void add(models.TrainingQuestion item) throws SQLException {
-        String sql = "insert into TrainingQuestion (question, answer, option1, option2, option3, trainingModuleId) values ( ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into TrainingQuestion (question, answer, trainingModuleId) values (?,?,?)";
         PreparedStatement statement = getConnection().prepareStatement(sql);
         statement.setString(1, item.getQuestion());
-        statement.setString(2, item.getAnswer());
-        statement.setString(3, item.getOption1());
-        statement.setString(4, item.getOption2());
-        statement.setString(5, item.getOption3());
-        statement.setInt(6, item.getTrainingModuleId());
+        statement.setBoolean(2, item.getAnswer());
+        statement.setInt(3, item.getTrainingModuleId());
 
         statement.executeUpdate();
 
@@ -28,17 +25,14 @@ public class TrainingQuestionDatabase extends BaseDatabase<models.TrainingQuesti
 
     @Override
     public void update(models.TrainingQuestion item) throws SQLException {
-        String sql = "update TrainingQuestion set  question= ?, answer= ?, option1= ?, option2= ?, option3= ?, trainingModuleId= ? where id = ?";
+        String sql = "update TrainingQuestion set  question= ?, answer= ?, trainingModuleId= ? where id = ?";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
         statement.setString(1, item.getQuestion());
-        statement.setString(2, item.getAnswer());
-        statement.setString(3, item.getOption1());
-        statement.setString(4, item.getOption2());
-        statement.setString(5, item.getOption3());
-        statement.setInt(6, item.getTrainingModuleId());
-        statement.setInt(7, item.getId());
+        statement.setBoolean(2, item.getAnswer());
+        statement.setInt(3, item.getTrainingModuleId());
+        statement.setInt(4, item.getId());
 
         statement.executeUpdate();
     }
@@ -72,12 +66,8 @@ public class TrainingQuestionDatabase extends BaseDatabase<models.TrainingQuesti
             models.TrainingQuestion trainingQuestion = new models.TrainingQuestion(
                     resultSet.getInt("Id"),
                     resultSet.getString("question"),
-                    resultSet.getString("answer"),
-                    resultSet.getString("option1"),
-                    resultSet.getString("option2"),
-                    resultSet.getString("option3"),
+                    resultSet.getBoolean("answer"),
                     resultSet.getInt("trainingModuleId")
-
             );
 
             trainingQuestions.add(trainingQuestion);

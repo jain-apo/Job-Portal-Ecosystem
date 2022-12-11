@@ -122,10 +122,7 @@ model CompanyTeam {
 model TrainingQuestion {
   id               Int             @id @unique @default(autoincrement())
   question         String          @unique
-  answer           String
-  option1          String
-  option2          String
-  option3          String
+  answer           Boolean
   TrainingModule   TrainingModule? @relation(fields: [trainingModuleId], references: [id])
   trainingModuleId Int?
 }
@@ -154,6 +151,8 @@ model ModuleDataComplettions {
   person       Person     @relation(fields: [personId], references: [id])
   moduleDataId Int
   personId     Int
+
+  @@unique([moduleDataId, personId])
 }
 
 model TrainingCertificate {
