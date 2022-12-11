@@ -13,8 +13,12 @@ public class PersonRoleDatabase extends BaseDatabase<PersonRole> {
 
     @Override
     public void add(PersonRole item) throws SQLException {
-        String sql = "insert into PersonRole ( personId, roleId) values (?,?);";
-        PreparedStatement statement = getConnection().prepareStatement(sql);
+        Connection connection = getConnection();
+
+        String sql = "insert into PersonRole (personId, roleId) values (?,?)";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+
         statement.setInt(1, item.getPersonId());
         statement.setInt(2, item.getRoleId());
 

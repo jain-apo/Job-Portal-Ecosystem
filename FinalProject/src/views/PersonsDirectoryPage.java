@@ -193,7 +193,7 @@ public class PersonsDirectoryPage extends BaseFrame {
                         setEditMode(true);
                         currentlyEditingEmployee = personId;
                         try {
-                            Person person = Application.Database.Persons.getPersonById(personId);
+                            Person person = Application.Database.Persons.getById(personId);
                             firstName.setText(person.getFirstName());
                             lastName.setText(person.getLastName());
                             dateOfBirth.setText(DateHelper.formatDate(person.getDateOfBirth(), "yyyy-MM-dd"));
