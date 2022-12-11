@@ -80,7 +80,7 @@ public class StudentRegistrationPage extends BaseFrame {
 
             Dialog.info("Registration successful");
 
-            switchToWindow(new CollegeHomePage());
+            setVisible(false);
 
         } catch (Exception e) {
             Dialog.error("Failed to register");

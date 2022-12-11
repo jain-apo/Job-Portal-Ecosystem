@@ -41,7 +41,7 @@ public class CourseDatabase extends BaseDatabase<Course> {
 
     @Override
     public Course getById(int id) throws SQLException {
-        return null;
+        return getAll().stream().filter(course -> course.getId() == id).findFirst().orElse(null);
     }
 
     @Override
