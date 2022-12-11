@@ -45,6 +45,19 @@ async function main() {
     })
 
     console.log({ sharun })
+
+    // insert a company to the database
+    const company = await addCompany("Google")
+
+    // insert a JobPosting
+    const jobPosting = await addJobPosting(company)
+
+    // insert a JobApplication
+    const jobApplication = await addJobApplication(sharun, jobPosting)
+
+    // insert a JobCandidate
+    const jobCandidate = await addJobCandidate(sharun, jobApplication)
+
 }
 main()
     .then(async () => {
@@ -55,6 +68,81 @@ main()
         await prisma.$disconnect()
         process.exit(1)
     })
+
+async function addJobCandidate(sharun: Person, jobApplication: { id: any; personId?: number; jobPostingId?: number; yearsOfExperience?: number }) {
+    return await prisma.jobCandidate.upsert({
+        where: {
+            personId_jobApplicationId: {
+                personId: sharun.id,
+                jobApplicationId: jobApplication.id
+            }
+        },
+        create: {
+            personId: sharun.id,
+            jobApplicationId: jobApplication.id,
+            interviewRound: 1
+        },
+        update: {
+            personId: sharun.id,
+            jobApplicationId: jobApplication.id
+        }
+    })
+}
+
+async function addJobApplication(sharun: Person, jobPosting: { id: any; title?: string; jobDescription?: string; category?: string; companyId?: number }) {
+    return await prisma.jobApplication.upsert({
+        where: {
+            personId_jobPostingId: {
+                personId: sharun.id,
+                jobPostingId: jobPosting.id
+            }
+        },
+        create: {
+            personId: sharun.id,
+            jobPostingId: jobPosting.id,
+            yearsOfExperience: 5
+        },
+        update: {
+            personId: sharun.id,
+            jobPostingId: jobPosting.id,
+            yearsOfExperience: 5
+        }
+    })
+}
+
+async function addJobPosting(company: { id: any; name?: string }) {
+    const jobPostingData = {
+        title: "Software Engineer",
+        jobDescription: "Software Engineer",
+        category: "SDE",
+        companyId: company.id
+    }
+
+    return await prisma.jobPosting.upsert({
+        where: {
+            title_companyId: {
+                title: jobPostingData.title,
+                companyId: company.id
+            }
+        },
+        update: jobPostingData,
+        create: jobPostingData
+    })
+}
+
+async function addCompany(name: string) {
+    return await prisma.company.upsert({
+        where: {
+            name: name
+        },
+        create: {
+            name: name
+        },
+        update: {
+            name: name
+        }
+    })
+}
 
 async function addRole(role: Prisma.RoleCreateInput) {
     return await prisma.role.upsert({
