@@ -12,6 +12,16 @@ public class TrainingQuestion {
     private Integer trainingModuleId;
     private TrainingModule trainingModuleByTrainingModuleId;
 
+    public TrainingQuestion(int id, String question, String answer, String option1, String option2, String option3, Integer trainingModuleId) {
+        this.id = id;
+        this.question = question;
+        this.answer = answer;
+        this.option1 = option1;
+        this.option2 = option2;
+        this.option3 = option3;
+        this.trainingModuleId = trainingModuleId;
+    }
+
     public int getId() {
         return id;
     }

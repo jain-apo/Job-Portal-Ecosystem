@@ -12,4 +12,9 @@ public class DatabaseLayer {
     public JobCandidateDatabase JobCandidates = new JobCandidateDatabase();
     public PersonNotificationDatabase PersonNotifications = new PersonNotificationDatabase();
     public TrainingCertificateDatabase TrainingCertificates = new TrainingCertificateDatabase();
+    public TrainingModuleDatabase TrainingModules = new TrainingModuleDatabase();
+    public TrainingQuestionDatabase TrainingQuestions = new TrainingQuestionDatabase();
+    public ModuleDataDatabase ModuleDatas = new ModuleDataDatabase();
+    public JobPostingDatabase JobPostings = new JobPostingDatabase();
+    public PersonRoleDatabase PersonRoles = new PersonRoleDatabase();
 }
