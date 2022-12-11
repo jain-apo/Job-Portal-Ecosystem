@@ -32,21 +32,22 @@ model JobPosting {
 }
 
 model Person {
-  id                  Int                   @id @unique @default(autoincrement())
-  firstName           String
-  lastName            String
-  dateOfBirth         DateTime
-  username            String
-  password            String
-  email               String                @unique
-  phone               String
-  jobApplications     JobApplication[]
-  PersonRole          PersonRole[]
-  CollegeStudent      CollegeStudent[]
-  JobCandidate        JobCandidate[]
-  CompanyEmployee     CompanyEmployee[]
-  TrainingCertificate TrainingCertificate[]
-  PersonNotification  PersonNotification[]
+  id                     Int                      @id @unique @default(autoincrement())
+  firstName              String
+  lastName               String
+  dateOfBirth            DateTime
+  username               String
+  password               String
+  email                  String                   @unique
+  phone                  String
+  jobApplications        JobApplication[]
+  PersonRole             PersonRole[]
+  CollegeStudent         CollegeStudent[]
+  JobCandidate           JobCandidate[]
+  CompanyEmployee        CompanyEmployee[]
+  TrainingCertificate    TrainingCertificate[]
+  PersonNotification     PersonNotification[]
+  ModuleDataComplettions ModuleDataComplettions[]
 }
 
 model Role {
@@ -121,10 +122,7 @@ model CompanyTeam {
 model TrainingQuestion {
   id               Int             @id @unique @default(autoincrement())
   question         String          @unique
-  answer           String
-  option1          String
-  option2          String
-  option3          String
+  answer           Boolean
   TrainingModule   TrainingModule? @relation(fields: [trainingModuleId], references: [id])
   trainingModuleId Int?
 }
@@ -139,11 +137,22 @@ model TrainingModule {
 }
 
 model ModuleData {
-  id               Int            @id @unique @default(autoincrement())
-  module           TrainingModule @relation(fields: [trainingModuleId], references: [id])
-  title            String
-  description      String
-  trainingModuleId Int
+  id                     Int                      @id @unique @default(autoincrement())
+  module                 TrainingModule           @relation(fields: [trainingModuleId], references: [id])
+  title                  String
+  description            String
+  trainingModuleId       Int
+  ModuleDataComplettions ModuleDataComplettions[]
+}
+
+model ModuleDataComplettions {
+  id           Int        @id @unique @default(autoincrement())
+  moduleData   ModuleData @relation(fields: [moduleDataId], references: [id])
+  person       Person     @relation(fields: [personId], references: [id])
+  moduleDataId Int
+  personId     Int
+
+  @@unique([moduleDataId, personId])
 }
 
 model TrainingCertificate {
