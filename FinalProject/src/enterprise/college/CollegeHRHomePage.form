@@ -44,7 +44,7 @@
             </constraints>
             <properties>
               <font size="20"/>
-              <text value="Students List"/>
+              <text value="Company List"/>
             </properties>
           </component>
         </children>
