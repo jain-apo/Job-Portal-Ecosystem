@@ -16,6 +16,7 @@ public class DatabaseLayer {
     public TrainingQuestionDatabase TrainingQuestions = new TrainingQuestionDatabase();
     public ModuleDataDatabase ModuleDatas = new ModuleDataDatabase();
     public JobPostingDatabase JobPostings = new JobPostingDatabase();
+    public JobApplicationDatabase JobApplications = new JobApplicationDatabase();
     public PersonRoleDatabase PersonRoles = new PersonRoleDatabase();
     public ModuleDataComplettionsDatabase ModuleDataComplettions = new ModuleDataComplettionsDatabase();
 }
