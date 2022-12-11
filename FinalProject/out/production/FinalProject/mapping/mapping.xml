@@ -338,4 +338,38 @@
             </basic>
         </attributes>
     </entity>
+    <entity class="models.TrainingQuestion">
+        <table name="TrainingQuestion" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="question">
+                <column name="question"/>
+            </basic>
+            <basic name="answer">
+                <column name="answer"/>
+            </basic>
+            <basic name="trainingModuleId">
+                <column name="trainingModuleId"/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="models.TrainingQuestion">
+        <table name="TrainingQuestion" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="question">
+                <column name="question"/>
+            </basic>
+            <basic name="answer">
+                <column name="answer"/>
+            </basic>
+            <basic name="trainingModuleId">
+                <column name="trainingModuleId"/>
+            </basic>
+        </attributes>
+    </entity>
 </entity-mappings>
