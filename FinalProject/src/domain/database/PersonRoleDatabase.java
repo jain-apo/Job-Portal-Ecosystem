@@ -41,7 +41,13 @@ public class PersonRoleDatabase extends BaseDatabase<PersonRole> {
 
     @Override
     public void delete(int id) throws SQLException {
+        String sql = "DELETE from PersonRole where id = ?;";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
     }
 
     @Override

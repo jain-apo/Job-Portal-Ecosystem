@@ -38,7 +38,13 @@ public class CompanyTeamDatabase extends BaseDatabase<models.CompanyTeam> {
 
     @Override
     public void delete(int id) throws SQLException {
+        String sql = "DELETE from CompanyTeam where id = ?;";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
     }
 
     @Override

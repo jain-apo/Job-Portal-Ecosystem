@@ -30,12 +30,28 @@ public class CollegeStudentDatabase extends BaseDatabase<CollegeStudent> {
 
     @Override
     public void update(CollegeStudent item) throws SQLException {
+        String sql = "update CollegeStudent set gpa= ?, passYear= ?, personId= ?, courseId = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setDouble(1, item.getGpa());
+        statement.setInt(2, item.getPassYear());
+        statement.setInt(3, item.getPersonId());
+        statement.setInt(4, item.getCourseId());
+        statement.setInt(5, item.getId());
+
+        statement.executeUpdate();
     }
 
     @Override
     public void delete(int id) throws SQLException {
+        String sql = "DELETE from CollegeStudent where id = ?;";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
     }
 
     @Override
