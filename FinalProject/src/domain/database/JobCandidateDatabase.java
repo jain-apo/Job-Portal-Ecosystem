@@ -13,7 +13,7 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
 
     @Override
     public void add(models.JobCandidate item) throws SQLException {
-        String sql = "insert into JobCandidate (id, personId, jobApplicationId, interviewRound, result) values (?,?,?,?,?)";
+        String sql = "insert into JobCandidate ( personId, jobApplicationId, interviewRound, result) values (?,?,?,?)";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
@@ -28,15 +28,16 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
 
     @Override
     public void update(models.JobCandidate item) throws SQLException {
-        String sql = "update JobCandidate set id = ?,  personId= ?, jobApplicationId = ?, interviewRound = ?, result = ? where id = ?";
+        String sql = "update JobCandidate set personId= ?, jobApplicationId = ?, interviewRound = ?, result = ? where id = ?";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
-        statement.setInt(1, item.getId());
-        statement.setInt(2, item.getPersonId());
-        statement.setInt(3, item.getJobApplicationId());
-        statement.setInt(4, item.getInterviewRound());
-        statement.setString(5, item.getResult());
+
+        statement.setInt(1, item.getPersonId());
+        statement.setInt(2, item.getJobApplicationId());
+        statement.setInt(3, item.getInterviewRound());
+        statement.setString(4, item.getResult());
+        statement.setInt(5, item.getId());
 
 
         statement.executeUpdate();

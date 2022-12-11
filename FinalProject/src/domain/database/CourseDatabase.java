@@ -13,11 +13,10 @@ public class CourseDatabase extends BaseDatabase<Course> {
 
     @Override
     public void add(Course item) throws SQLException {
-        String sql = "insert into Course (id, name) values (?,?)";
+        String sql = "insert into Course (name) values (?)";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
         statement.setString(1, item.getName());
-        statement.setInt(2, item.getId());
         statement.executeUpdate();
     }
 
