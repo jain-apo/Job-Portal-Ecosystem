@@ -5,11 +5,13 @@ import domain.Validator;
 import helpers.TableHelpers;
 import models.JobPosting;
 import models.tablemodels.CompanyPostingsTableModel;
-import models.tablemodels.MyApplicationModel;
+import models.tablemodels.JobPostingsTableModel;
 import utils.Dialog;
 import views.BaseFrame;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -56,6 +58,12 @@ public class JobPostingsPage extends BaseFrame {
         setupActions();
 
 
+        myApplicationsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MyApplicationPage().setVisible(true);
+            }
+        });
     }
 
     private void setupRoles() {
@@ -139,7 +147,7 @@ public class JobPostingsPage extends BaseFrame {
                 people.setModel(new CompanyPostingsTableModel().loadData(Application.Database.JobPostings.getAll()));
 
             } else {
-                people.setModel(new MyApplicationModel().loadData(Application.Database.JobPostings.getAll()));
+                people.setModel(new JobPostingsTableModel().loadData(Application.Database.JobPostings.getAll()));
             }
         } catch (SQLException e) {
             Dialog.error("Error getting people");
