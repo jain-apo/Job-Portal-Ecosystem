@@ -74,7 +74,7 @@ model Company {
 
 model Course {
   id             Int              @id @unique @default(autoincrement())
-  name           String
+  name           String           @unique
   CollegeStudent CollegeStudent[]
 }
 

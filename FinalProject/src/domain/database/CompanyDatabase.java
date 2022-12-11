@@ -14,13 +14,12 @@ public class CompanyDatabase extends BaseDatabase<Company> {
     @Override
     public void add(Company person) throws SQLException {
 
-        String sql = "insert into Company (id, name) values (?,?)";
+        String sql = "insert into Company ( name) values (?)";
 
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
-        statement.setInt(1, person.getId());
-        statement.setString(2, person.getName()
+        statement.setString(1, person.getName()
         );
 
         statement.executeUpdate();

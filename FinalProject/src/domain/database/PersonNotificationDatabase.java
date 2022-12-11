@@ -3,6 +3,7 @@ package domain.database;
 import models.PersonNotification;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,12 +12,27 @@ import java.util.List;
 public class PersonNotificationDatabase extends BaseDatabase<models.PersonNotification> {
     @Override
     public void add(models.PersonNotification item) throws SQLException {
+        String sql = "insert into PersonNotification (personId, title, message) values (?,?,?);";
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+        statement.setInt(1, item.getPersonId());
+        statement.setString(2, item.getTitle());
+        statement.setString(3, item.getMessage());
 
+        statement.executeUpdate();
     }
 
     @Override
     public void update(models.PersonNotification item) throws SQLException {
+        String sql = "update PersonNotification set personId= ?, title = ?, message = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+        statement.setInt(1, item.getPersonId());
+        statement.setString(2, item.getTitle());
+        statement.setString(3, item.getMessage());
+        statement.setInt(4, item.getId());
+
+
+        statement.executeUpdate();
     }
 
     @Override

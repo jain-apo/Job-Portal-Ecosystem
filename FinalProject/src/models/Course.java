@@ -49,4 +49,9 @@ public class Course {
     public void setCollegeStudentsById(Collection<CollegeStudent> collegeStudentsById) {
         this.collegeStudentsById = collegeStudentsById;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

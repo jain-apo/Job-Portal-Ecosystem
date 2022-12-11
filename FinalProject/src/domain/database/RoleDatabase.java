@@ -13,17 +13,23 @@ public class RoleDatabase extends BaseDatabase<Role> {
 
     @Override
     public void add(Role item) throws SQLException {
-        String sql = "insert into Role (id, name)values (?, ?)";
+        String sql = "insert into Role ( name)values (?)";
         PreparedStatement statement = getConnection().prepareStatement(sql);
-        statement.setInt(1, item.getId());
-        statement.setString(2, item.getName());
+        statement.setString(1, item.getName());
         statement.executeUpdate();
 
     }
 
     @Override
     public void update(Role item) throws SQLException {
+        String sql = "update Role set name = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setString(1, item.getName());
+        statement.setInt(2, item.getId());
+
+        statement.executeUpdate();
     }
 
     @Override

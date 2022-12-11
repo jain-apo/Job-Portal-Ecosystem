@@ -19,4 +19,12 @@ public class Application {
     public static void setCurrentlyLoggedInPerson(Person currentlyLoggedInPerson) {
         Application.currentlyLoggedInPerson = currentlyLoggedInPerson;
     }
+
+    public static void refreshLoggedInPerson() {
+        try {
+            currentlyLoggedInPerson = Database.Persons.getById(currentlyLoggedInPerson.getId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

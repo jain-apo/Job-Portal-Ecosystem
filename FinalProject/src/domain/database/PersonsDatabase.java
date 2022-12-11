@@ -55,8 +55,8 @@ public class PersonsDatabase extends BaseDatabase<Person> {
     }
 
     @Override
-    public Person getById(int id) {
-        return null;
+    public Person getById(int id) throws SQLException {
+        return getAll().stream().filter(person -> person.getId() == id).findFirst().orElse(null);
     }
 
     @Override
@@ -90,9 +90,5 @@ public class PersonsDatabase extends BaseDatabase<Person> {
         }
 
         return persons;
-    }
-
-    public Person getPersonById(int personId) throws SQLException {
-        return getAll().stream().filter(person -> person.getId() == personId).findFirst().orElse(null);
     }
 }
