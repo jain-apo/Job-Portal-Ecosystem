@@ -34,6 +34,7 @@ public class JobPostingsPage extends BaseFrame {
 
     private JTable people;
     private JTextArea validationText;
+    private JPanel jobPosterPanel;
     private JScrollPane jobPostings;
     private JTextField email;
     private JTextField phone;
@@ -62,8 +63,12 @@ public class JobPostingsPage extends BaseFrame {
         isStudent = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_STUDENT"));
         isHr = person.getRoles().stream().anyMatch(role -> role.getName().equals("COMPANY_HR"));
 
-        if (isStudent) {
+        if (!isHr) {
+            jobPosterPanel.setVisible(false);
             addPersonButton.setVisible(false);
+        } else {
+            jobPosterPanel.setVisible(true);
+            addPersonButton.setVisible(true);
         }
     }
 
@@ -124,18 +129,23 @@ public class JobPostingsPage extends BaseFrame {
 
     private void displayJobPostings() {
         try {
-            if (isStudent) {
-                people.setModel(new MyApplicationModel().loadData(Application.Database.JobPostings.getAll()));
-            } else if (isHr) {
+            if (isHr) {
                 people.setModel(new CompanyPostingsTableModel().loadData(Application.Database.JobPostings.getAll()));
+
+            } else {
+                people.setModel(new MyApplicationModel().loadData(Application.Database.JobPostings.getAll()));
             }
         } catch (SQLException e) {
             Dialog.error("Error getting people");
             return;
         }
 
-        TableHelpers.centerColumn(people, 0);
-        TableHelpers.centerColumn(people, 3);
-//        TableHelpers.centerColumn(people, 4);
+        try {
+            TableHelpers.centerColumn(people, 0);
+            TableHelpers.centerColumn(people, 3);
+            TableHelpers.centerColumn(people, 4);
+        } catch (Exception e) {
+            // ignore
+        }
     }
 }

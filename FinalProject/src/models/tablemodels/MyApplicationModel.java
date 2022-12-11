@@ -1,4 +1,5 @@
 package models.tablemodels;
+
 import models.JobPosting;
 
 public class MyApplicationModel extends BaseTableModel<JobPosting> {
@@ -17,4 +18,4 @@ public class MyApplicationModel extends BaseTableModel<JobPosting> {
                 "✖"};
     }
 }
-}
+

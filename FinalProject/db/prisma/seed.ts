@@ -58,10 +58,16 @@ async function main() {
     console.log({ sharun })
 
     // insert a company to the database
-    const company = await addCompany("Google")
+    const google = await addCompany("Google")
+
+    const microsoft = await addCompany("Microsoft")
+    const amazon = await addCompany("Amazon")
+    const facebook = await addCompany("Facebook")
+    const apple = await addCompany("Apple")
+    const netflix = await addCompany("Netflix")
 
     // insert a JobPosting
-    const jobPosting = await addJobPosting(company)
+    const jobPosting = await addJobPosting(google)
 
     // insert a JobApplication
     const jobApplication = await addJobApplication(sharun, jobPosting)
