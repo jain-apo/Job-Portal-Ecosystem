@@ -27,7 +27,16 @@ public class PersonRoleDatabase extends BaseDatabase<PersonRole> {
 
     @Override
     public void update(PersonRole item) throws SQLException {
+        String sql = "update PersonRole set personId= ?, roleId = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, item.getPersonId());
+        statement.setInt(2, item.getRoleId());
+        statement.setInt(3, item.getId());
+
+
+        statement.executeUpdate();
     }
 
     @Override

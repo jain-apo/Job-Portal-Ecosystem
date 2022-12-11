@@ -50,7 +50,7 @@ public class PersonNotification {
         this.message = message;
     }
 
-    public Object getDate() {
+    public Date getDate() {
         return date;
     }
 

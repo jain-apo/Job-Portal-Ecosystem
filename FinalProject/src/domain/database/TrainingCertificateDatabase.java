@@ -16,12 +16,11 @@ public class TrainingCertificateDatabase extends BaseDatabase<models.TrainingCer
 
     @Override
     public void add(models.TrainingCertificate person) throws SQLException {
-        String sql = "insert into TrainingCertificate (id, name, trainingModuleId, personId) values (?,?,?,?)";
+        String sql = "insert into TrainingCertificate (name, trainingModuleId, personId) values (?,?,?)";
         PreparedStatement statement = getConnection().prepareStatement(sql);
-        statement.setInt(1, person.getId());
-        statement.setString(2, person.getName());
-        statement.setInt(3, person.getTrainingModuleId());
-        statement.setInt(4, person.getPersonId());
+        statement.setString(1, person.getName());
+        statement.setInt(2, person.getTrainingModuleId());
+        statement.setInt(3, person.getPersonId());
 
         statement.executeUpdate();
 
@@ -29,8 +28,17 @@ public class TrainingCertificateDatabase extends BaseDatabase<models.TrainingCer
     }
 
     @Override
-    public void update(models.TrainingCertificate item) throws SQLException {
+    public void update(models.TrainingCertificate person) throws SQLException {
+        String sql = "update TrainingCertificate set name = ?, trainingModuleId = ?, personId = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setString(1, person.getName());
+        statement.setInt(2, person.getTrainingModuleId());
+        statement.setInt(3, person.getPersonId());
+        statement.setInt(4, person.getId());
+
+        statement.executeUpdate();
     }
 
     @Override
