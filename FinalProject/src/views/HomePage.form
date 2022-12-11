@@ -34,18 +34,10 @@
           </component>
           <component id="6ede" class="javax.swing.JButton" binding="collegePortalButton" default-binding="true">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="College Portal"/>
-            </properties>
-          </component>
-          <component id="392cc" class="javax.swing.JButton" binding="trainingPortalButton" default-binding="true">
-            <constraints>
               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Training Portal"/>
+              <text value="College Portal"/>
             </properties>
           </component>
           <component id="51d2a" class="javax.swing.JButton" binding="adminPersonsDirectoryButton" default-binding="true">
@@ -54,6 +46,14 @@
             </constraints>
             <properties>
               <text value="Admin: Persons Directory"/>
+            </properties>
+          </component>
+          <component id="392cc" class="javax.swing.JButton" binding="trainingPortalButton" default-binding="true">
+            <constraints>
+              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value="Training Portal"/>
             </properties>
           </component>
         </children>

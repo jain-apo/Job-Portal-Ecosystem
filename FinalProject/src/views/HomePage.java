@@ -4,7 +4,7 @@ import domain.Application;
 import enterprise.college.CollegeHomePage;
 import enterprise.company.CompanyHomePage;
 import enterprise.job.JobHomePage;
-import enterprise.training.TrainingHomePage;
+import enterprise.training.TrainingListPage;
 import models.tablemodels.NotificationsTableModel;
 import utils.Dialog;
 
@@ -57,6 +57,7 @@ public class HomePage extends BaseFrame {
         notificationsPane.setBorder(BorderFactory.createTitledBorder("Notifications"));
 
         try {
+            // TODO filter for currently logged in user
             notifications.setModel(new NotificationsTableModel().loadData(Application.Database.PersonNotifications.getAll()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -74,7 +75,7 @@ public class HomePage extends BaseFrame {
         companyPortalButton.addActionListener(e -> new CompanyHomePage().setVisible(true));
         jobPortalButton.addActionListener(e -> new JobHomePage().setVisible(true));
         adminPersonsDirectoryButton.addActionListener(e -> new PersonsDirectoryPage().setVisible(true));
-        trainingPortalButton.addActionListener(e -> new TrainingHomePage().setVisible(true));
+        trainingPortalButton.addActionListener(e -> new TrainingListPage().setVisible(true));
         collegePortalButton.addActionListener(e -> navigateToCollege());
     }
 

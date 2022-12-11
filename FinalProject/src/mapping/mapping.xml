@@ -324,4 +324,18 @@
             </basic>
         </attributes>
     </entity>
+    <entity class="models.ModuleDataComplettions">
+        <table name="ModuleDataComplettions" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="moduleDataId">
+                <column name="moduleDataId"/>
+            </basic>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+        </attributes>
+    </entity>
 </entity-mappings>
