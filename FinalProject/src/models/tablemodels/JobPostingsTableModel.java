@@ -2,8 +2,8 @@ package models.tablemodels;
 
 import models.JobPosting;
 
-public class MyApplicationModel extends BaseTableModel<JobPosting> {
-    public MyApplicationModel() {
+public class JobPostingsTableModel extends BaseTableModel<JobPosting> {
+    public JobPostingsTableModel() {
         super(new String[]{"Id", "Title", "Description", "Category", "[Apply]"});
     }
 
