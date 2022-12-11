@@ -28,7 +28,15 @@ public class CompanyDatabase extends BaseDatabase<Company> {
 
     @Override
     public void update(Company item) throws SQLException {
+        String sql = "update Company set name = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setString(1, item.getName());
+
+        statement.setInt(2, item.getId());
+
+        statement.executeUpdate();
     }
 
     @Override
