@@ -10,13 +10,12 @@ import java.util.List;
 public class CompanyEmployeeDatabase extends BaseDatabase<models.CompanyEmployee> {
     @Override
     public void add(models.CompanyEmployee person) throws SQLException {
-        String sql = "insert into CompanyEmployee (id, personId, companyId, companyTeamId) values (?, ?, ?, ?)";
+        String sql = "insert into CompanyEmployee ( personId, companyId, companyTeamId) values ( ?, ?, ?)";
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
-        statement.setInt(1, person.getId());
-        statement.setInt(2, person.getPersonId());
-        statement.setInt(3, person.getCompanyId());
-        statement.setInt(4, person.getCompanyTeamId()
+        statement.setInt(1, person.getPersonId());
+        statement.setInt(2, person.getCompanyId());
+        statement.setInt(3, person.getCompanyTeamId()
         );
 
         statement.executeUpdate();
@@ -25,14 +24,15 @@ public class CompanyEmployeeDatabase extends BaseDatabase<models.CompanyEmployee
 
     @Override
     public void update(models.CompanyEmployee item) throws SQLException {
-        String sql = "update CompanyEmployee set id = ?, personId = ?, companyId = ?, companyTeamId = ? where id = ?";
+        String sql = "update CompanyEmployee set personId = ?, companyId = ?, companyTeamId = ? where id = ?";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
-        statement.setInt(1, item.getId());
-        statement.setInt(2, item.getPersonId());
-        statement.setInt(3, item.getCompanyId());
-        statement.setInt(4, item.getCompanyTeamId());
+
+        statement.setInt(1, item.getPersonId());
+        statement.setInt(2, item.getCompanyId());
+        statement.setInt(3, item.getCompanyTeamId());
+        statement.setInt(4, item.getId());
 
         statement.executeUpdate();
     }
