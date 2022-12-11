@@ -42,9 +42,9 @@ model Person {
   phone                  String
   jobApplications        JobApplication[]
   PersonRole             PersonRole[]
-  CollegeStudent         CollegeStudent[]
-  JobCandidate           JobCandidate[]
-  CompanyEmployee        CompanyEmployee[]
+  CollegeStudent         CollegeStudent?
+  JobCandidate           JobCandidate?
+  CompanyEmployee        CompanyEmployee?
   TrainingCertificate    TrainingCertificate[]
   PersonNotification     PersonNotification[]
   ModuleDataComplettions ModuleDataComplettions[]
@@ -95,7 +95,7 @@ model JobCandidate {
   id               Int            @id @unique @default(autoincrement())
   person           Person         @relation(fields: [personId], references: [id])
   jobApplication   JobApplication @relation(fields: [jobApplicationId], references: [id])
-  personId         Int
+  personId         Int            @unique
   jobApplicationId Int
   interviewRound   Int
   result           String         @default("")
@@ -108,7 +108,7 @@ model CompanyEmployee {
   person        Person      @relation(fields: [personId], references: [id])
   company       Company     @relation(fields: [companyId], references: [id])
   team          CompanyTeam @relation(fields: [companyTeamId], references: [id])
-  personId      Int
+  personId      Int         @unique
   companyId     Int
   companyTeamId Int
 }
