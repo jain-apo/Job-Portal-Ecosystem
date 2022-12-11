@@ -40,7 +40,13 @@ public class CompanyDatabase extends BaseDatabase<Company> {
 
     @Override
     public void delete(int id) throws SQLException {
+        String sql = "DELETE from Company where id = ?;";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
     }
 
     @Override
