@@ -51,7 +51,6 @@ public class PersonsDatabase extends BaseDatabase<Person> {
 
     @Override
     public void delete(int id) throws SQLException {
-        // TODO: Implement this
         String sql = "DELETE from Person where id = ?;";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);

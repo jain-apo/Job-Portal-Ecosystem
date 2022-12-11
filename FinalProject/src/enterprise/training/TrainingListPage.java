@@ -11,12 +11,16 @@ public class TrainingListPage extends BaseFrame {
     private JPanel mainPanel;
     private JLabel heading;
     private JButton addModuleButton;
-    private JTable people;
+    private JTable modules;
     private JTextArea validationText;
     private JButton startTrainingButton;
 
     public TrainingListPage() {
+        setupActionListeners();
         setContentPane(p);
+    }
+
+    private void setupActionListeners() {
         startTrainingButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

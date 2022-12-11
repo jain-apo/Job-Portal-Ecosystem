@@ -109,7 +109,6 @@ public class PersonsDirectoryPage extends BaseFrame {
                 text.setText("");
                 text.setBorder(BorderFactory.createLineBorder(Color.black));
             }
-//            role.setSelectedIndex(0);
         }
     }
 
@@ -189,8 +188,6 @@ public class PersonsDirectoryPage extends BaseFrame {
                             Dialog.error("Can't edit the admin user");
                             return;
                         }
-
-                        // TODO implement edit operation
 
                         setEditMode(true);
                         currentlyEditingEmployee = personId;
