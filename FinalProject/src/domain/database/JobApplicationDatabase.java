@@ -3,6 +3,7 @@ package domain.database;
 import models.JobApplication;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,12 +13,30 @@ public class JobApplicationDatabase extends BaseDatabase<models.JobApplication> 
 
     @Override
     public void add(models.JobApplication item) throws SQLException {
+        String sql = "insert into JobApplication (id, personId, jobPostingId, yearsOfExperience) values (?,?,?,?)";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, item.getId());
+        statement.setInt(2, item.getPersonId());
+        statement.setInt(2, item.getJobPostingId());
+        statement.setInt(2, item.getYearsOfExperience());
+
+        statement.executeUpdate();
     }
 
     @Override
     public void update(models.JobApplication item) throws SQLException {
+        String sql = "update JobApplication set id = ?, personId = ?, jobPostingId = ?, yearsOfExperience = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, item.getId());
+        statement.setInt(2, item.getPersonId());
+        statement.setInt(3, item.getJobPostingId());
+        statement.setInt(4, item.getYearsOfExperience());
+
+        statement.executeUpdate();
     }
 
     @Override
