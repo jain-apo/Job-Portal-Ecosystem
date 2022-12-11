@@ -71,19 +71,16 @@ public class JobPostingsPage extends BaseFrame {
 
         isStudent = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_STUDENT"));
         isHr = person.getRoles().stream().anyMatch(role -> role.getName().equals("COMPANY_HR"));
-        System.out.println("isStudent" + isStudent);
-        System.out.println("isHr" + isHr);
 
-//        if (!isHr) {
-        addPersonPane.setVisible(false);
-        addPersonButton.setVisible(false);
-        myApplicationsButton.setVisible(true);
-//
-//        } else {
-//            jobPosterPanel.setVisible(true);
-//            addPersonButton.setVisible(true);
-        //    myApplicationsButton.setVisible(false);
-//        }
+        if (!isHr) {
+            addPersonPane.setVisible(false);
+            addPersonButton.setVisible(false);
+            myApplicationsButton.setVisible(true);
+        } else {
+            jobPosterPanel.setVisible(true);
+            addPersonButton.setVisible(true);
+            myApplicationsButton.setVisible(false);
+        }
     }
 
 
