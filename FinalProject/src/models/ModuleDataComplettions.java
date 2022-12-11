@@ -7,6 +7,12 @@ public class ModuleDataComplettions {
     private int moduleDataId;
     private int personId;
 
+    public ModuleDataComplettions(int id, int moduleDataId, int personId) {
+        this.id = id;
+        this.moduleDataId = moduleDataId;
+        this.personId = personId;
+    }
+
     public int getId() {
         return id;
     }
