@@ -13,12 +13,12 @@ public class Person {
     private String password;
     private String email;
     private String phone;
+    private boolean isAdministrator;
     private Collection<CollegeStudent> collegeStudentsById;
     private Collection<CompanyEmployee> companyEmployeesById;
     private Collection<JobApplication> jobApplicationsById;
     private Collection<JobCandidate> jobCandidatesById;
     private Collection<Role> roles;
-
     public Person(int id, String firstName, String lastName, Date dateOfBirth, String username, String password, String email, String phone) {
         this.id = id;
         this.firstName = firstName;
@@ -28,6 +28,14 @@ public class Person {
         this.password = password;
         this.email = email;
         this.phone = phone;
+    }
+
+    public boolean isAdministrator() {
+        return isAdministrator;
+    }
+
+    public void setAdministrator(boolean administrator) {
+        isAdministrator = administrator;
     }
 
     public Collection<Role> getRoles() {
