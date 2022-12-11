@@ -1,10 +1,7 @@
 package views;
 
 import domain.Application;
-import enterprise.college.CollegeAdminHomePage;
-import enterprise.college.CollegeHRHomePage;
-import enterprise.college.CollegeStudentHomePage;
-import enterprise.college.StudentRegistrationPage;
+import enterprise.college.CollegeHomePage;
 import enterprise.company.CompanyHomePage;
 import enterprise.job.JobHomePage;
 import enterprise.training.TrainingHomePage;
@@ -83,22 +80,7 @@ public class HomePage extends BaseFrame {
 
     private void navigateToCollege() {
 
-        var person = Application.getCurrentlyLoggedInPerson();
+        new CollegeHomePage().setVisible(true);
 
-        // roles are COLLEGE_STUDENT COLLEGE_HR COLLEGE_ADMIN
-
-        boolean isAdmin = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_ADMIN"));
-        boolean isHr = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_HR"));
-        boolean isStudent = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_STUDENT"));
-
-        if (isAdmin) {
-            new CollegeAdminHomePage().setVisible(true);
-        } else if (isHr) {
-            new CollegeHRHomePage().setVisible(true);
-        } else if (isStudent) {
-            new CollegeStudentHomePage().setVisible(true);
-        } else {
-            new StudentRegistrationPage().setVisible(true);
-        }
     }
 }
