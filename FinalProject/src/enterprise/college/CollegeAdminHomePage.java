@@ -4,16 +4,17 @@ import views.BaseFrame;
 
 import javax.swing.*;
 
-public class StudentRegistrationPage extends BaseFrame {
-    private JLabel heading;
+public class CollegeAdminHomePage extends BaseFrame {
+    private JPanel p;
     private JPanel mainPane;
-    private JButton registerButton;
+    private JLabel heading;
     private JPanel registrationPane;
     private JTextField dateOfBirth;
     private JComboBox role;
+    private JButton registerButton;
 
-    public StudentRegistrationPage() {
+    public CollegeAdminHomePage() {
         super();
-        setContentPane(mainPane);
+        setContentPane(p);
     }
 }

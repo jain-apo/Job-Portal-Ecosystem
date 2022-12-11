@@ -3,6 +3,7 @@ package domain.database;
 import models.TrainingModule;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +13,12 @@ public class TrainingModuleDatabase extends BaseDatabase<models.TrainingModule> 
 
     @Override
     public void add(models.TrainingModule item) throws SQLException {
+        String sql = "insert into TrainingModule (id, name, description) values (?, ?, ?)";
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+        statement.setInt(1, item.getId());
+        statement.setString(2, item.getName());
+        statement.setString(3, item.getDescription());
+        statement.executeUpdate();
 
     }
 

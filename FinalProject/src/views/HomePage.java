@@ -75,6 +75,12 @@ public class HomePage extends BaseFrame {
         jobPortalButton.addActionListener(e -> new JobHomePage().setVisible(true));
         adminPersonsDirectoryButton.addActionListener(e -> new PersonsDirectoryPage().setVisible(true));
         trainingPortalButton.addActionListener(e -> new TrainingHomePage().setVisible(true));
-        collegePortalButton.addActionListener(e -> new CollegeHomePage().setVisible(true));
+        collegePortalButton.addActionListener(e -> navigateToCollege());
+    }
+
+    private void navigateToCollege() {
+
+        new CollegeHomePage().setVisible(true);
+
     }
 }

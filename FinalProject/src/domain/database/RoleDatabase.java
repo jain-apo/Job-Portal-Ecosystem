@@ -3,6 +3,7 @@ package domain.database;
 import models.Role;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +13,11 @@ public class RoleDatabase extends BaseDatabase<Role> {
 
     @Override
     public void add(Role item) throws SQLException {
+        String sql = "insert into Role (id, name)values (?, ?)";
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+        statement.setInt(1, item.getId());
+        statement.setString(2, item.getName());
+        statement.executeUpdate();
 
     }
 
@@ -35,6 +41,27 @@ public class RoleDatabase extends BaseDatabase<Role> {
         Connection connection = getConnection();
 
         ResultSet resultSet = connection.createStatement().executeQuery("Select * from Role");
+
+        ArrayList<Role> roles = new ArrayList<>();
+
+        while (resultSet.next()) {
+
+            Role role = new Role(
+                    resultSet.getInt("id"),
+                    resultSet.getString("Name")
+
+            );
+
+            roles.add(role);
+        }
+
+        return roles;
+    }
+
+    public List<Role> getRolesOfPerson(int personId) throws SQLException {
+        Connection connection = getConnection();
+
+        ResultSet resultSet = connection.createStatement().executeQuery("Select Role.id, Role.name from PersonRole inner join Person on PersonRole.PersonId = Person.id inner join Role on PersonRole.RoleId = Role.Id where PersonId = " + personId);
 
         ArrayList<Role> roles = new ArrayList<>();
 

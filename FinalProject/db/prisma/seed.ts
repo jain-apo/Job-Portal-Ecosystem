@@ -7,15 +7,24 @@ async function main() {
     const admin = await addRole({ name: "ADMIN" })
 
     // add the following roles: Company HR, Company Sysadmin, Team Lead, Team Manager, Job Portal User, Job Portal Admin, College Student, College HR, Trainee, Trainer
+    // Company Roles
     const companyHR = await addRole({ name: "COMPANY_HR" })
     const companySysadmin = await addRole({ name: "COMPANY_SYSADMIN" })
     const teamLead = await addRole({ name: "TEAM_LEAD" })
     const teamManager = await addRole({ name: "TEAM_MANAGER" })
+
+    // Job Portal Roles
     const jobPortalUser = await addRole({ name: "JOB_PORTAL_USER" })
     const jobPortalAdmin = await addRole({ name: "JOB_PORTAL_ADMIN" })
+
+    // College Roles
     const collegeStudent = await addRole({ name: "COLLEGE_STUDENT" })
     const collegeHR = await addRole({ name: "COLLEGE_HR" })
+    const collegeAdmin = await addRole({ name: "COLLEGE_ADMIN" })
+
+    // Training Site Roles
     const trainee = await addRole({ name: "TRAINEE" })
+    const trainingSiteAdmin = await addRole({ name: "TRAINING_SITE_ADMIN" })
 
     const sharun = await addUser({
         firstName: 'Sharun',
@@ -28,6 +37,7 @@ async function main() {
     })
 
     addPersonRole(sharun, admin)
+    addPersonRole(sharun, collegeAdmin)
 
     await prisma.personNotification.upsert({
         where: {
