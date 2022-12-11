@@ -124,18 +124,23 @@ public class JobPostingsPage extends BaseFrame {
 
     private void displayJobPostings() {
         try {
-            if (isStudent) {
-                people.setModel(new MyApplicationModel().loadData(Application.Database.JobPostings.getAll()));
-            } else if (isHr) {
+            if (isHr) {
                 people.setModel(new CompanyPostingsTableModel().loadData(Application.Database.JobPostings.getAll()));
+
+            } else {
+                people.setModel(new MyApplicationModel().loadData(Application.Database.JobPostings.getAll()));
             }
         } catch (SQLException e) {
             Dialog.error("Error getting people");
             return;
         }
 
-        TableHelpers.centerColumn(people, 0);
-        TableHelpers.centerColumn(people, 3);
-//        TableHelpers.centerColumn(people, 4);
+        try {
+            TableHelpers.centerColumn(people, 0);
+            TableHelpers.centerColumn(people, 3);
+            TableHelpers.centerColumn(people, 4);
+        } catch (Exception e) {
+            // ignore
+        }
     }
 }
