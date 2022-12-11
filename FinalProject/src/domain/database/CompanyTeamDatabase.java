@@ -13,10 +13,9 @@ public class CompanyTeamDatabase extends BaseDatabase<models.CompanyTeam> {
 
     @Override
     public void add(models.CompanyTeam person) throws SQLException {
-        String sql = "insert into CompanyTeam (id, name) values (?, ?)";
+        String sql = "insert into CompanyTeam (name) values (?)";
         PreparedStatement statement = getConnection().prepareStatement(sql);
-        statement.setInt(1, person.getId());
-        statement.setString(2, person.getName());
+        statement.setString(1, person.getName());
 
 
         statement.executeUpdate();
@@ -26,12 +25,13 @@ public class CompanyTeamDatabase extends BaseDatabase<models.CompanyTeam> {
 
     @Override
     public void update(models.CompanyTeam item) throws SQLException {
-        String sql = "update CompanyTeam set id = ?, name = ? where id = ?";
+        String sql = "update CompanyTeam set  name = ? where id = ?";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
-        statement.setInt(1, item.getId());
-        statement.setString(2, item.getName());
+
+        statement.setString(1, item.getName());
+        statement.setInt(2, item.getId());
 
         statement.executeUpdate();
     }

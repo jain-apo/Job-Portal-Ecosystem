@@ -16,30 +16,30 @@ public class JobPostingDatabase extends BaseDatabase<JobPosting> {
 
     @Override
     public void add(JobPosting item) throws SQLException {
-        String sql = "insert into JobPosting (id, title, jobDescription, category, companyId) values (?,?,?,?,?)";
+        String sql = "insert into JobPosting (title, jobDescription, category, companyId) values (?,?,?,?)";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
-        statement.setInt(1, item.getId());
-        statement.setString(2, item.getTitle());
-        statement.setString(3, item.getJobDescription());
-        statement.setString(4, item.getCategory());
-        statement.setInt(5, item.getCompanyId());
+        statement.setString(1, item.getTitle());
+        statement.setString(2, item.getJobDescription());
+        statement.setString(3, item.getCategory());
+        statement.setInt(4, item.getCompanyId());
 
         statement.executeUpdate();
     }
 
     @Override
     public void update(JobPosting item) throws SQLException {
-        String sql = "update JobPosting set id = ?,  title= ?, jobDescription = ?, category = ?, companyId = ? where id = ?";
+        String sql = "update JobPosting set title= ?, jobDescription = ?, category = ?, companyId = ? where id = ?";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
-        statement.setInt(1, item.getId());
-        statement.setString(2, item.getTitle());
-        statement.setString(3, item.getJobDescription());
-        statement.setString(4, item.getCategory());
-        statement.setInt(5, item.getCompanyId());
+
+        statement.setString(1, item.getTitle());
+        statement.setString(2, item.getJobDescription());
+        statement.setString(3, item.getCategory());
+        statement.setInt(4, item.getCompanyId());
+        statement.setInt(5, item.getId());
 
 
         statement.executeUpdate();
