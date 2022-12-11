@@ -3,6 +3,7 @@ package domain.database;
 import models.Course;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,12 +13,25 @@ public class CourseDatabase extends BaseDatabase<Course> {
 
     @Override
     public void add(Course item) throws SQLException {
+        String sql = "insert into Course (id, name) values (?,?)";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+        statement.setString(1, item.getName());
+        statement.setInt(2, item.getId());
+        statement.executeUpdate();
     }
 
     @Override
     public void update(Course item) throws SQLException {
+        String sql = "update Course set name = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setString(1, item.getName());
+
+        statement.setInt(2, item.getId());
+
+        statement.executeUpdate();
     }
 
     @Override
