@@ -5,6 +5,7 @@ import domain.Validator;
 import helpers.TableHelpers;
 import models.JobPosting;
 import models.tablemodels.CompanyPostingsTableModel;
+import models.tablemodels.MyApplicationModel;
 import utils.Dialog;
 import views.BaseFrame;
 
@@ -40,15 +41,30 @@ public class JobPostingsPage extends BaseFrame {
     private boolean editMode;
     private int currentlyEditingEmployee;
     private String existingPassword;
+    private boolean isStudent;
+    private boolean isHr;
 
     public JobPostingsPage() {
         super();
         setContentPane(p);
+        setupRoles();
 
         displayJobPostings();
 
         setupActions();
 
+
+    }
+
+    private void setupRoles() {
+        var person = Application.getCurrentlyLoggedInPerson();
+
+        isStudent = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_STUDENT"));
+        isHr = person.getRoles().stream().anyMatch(role -> role.getName().equals("COMPANY_HR"));
+
+        if (isStudent) {
+            addPersonButton.setVisible(false);
+        }
     }
 
 
@@ -108,7 +124,11 @@ public class JobPostingsPage extends BaseFrame {
 
     private void displayJobPostings() {
         try {
-            people.setModel(new CompanyPostingsTableModel().loadData(Application.Database.JobPostings.getAll()));
+            if (isStudent) {
+                people.setModel(new MyApplicationModel().loadData(Application.Database.JobPostings.getAll()));
+            } else if (isHr) {
+                people.setModel(new CompanyPostingsTableModel().loadData(Application.Database.JobPostings.getAll()));
+            }
         } catch (SQLException e) {
             Dialog.error("Error getting people");
             return;
