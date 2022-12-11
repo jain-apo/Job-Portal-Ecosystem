@@ -3,6 +3,7 @@ package domain.database;
 import models.CollegeStudent;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -13,6 +14,18 @@ public class CollegeStudentDatabase extends BaseDatabase<CollegeStudent> {
     @Override
     public void add(CollegeStudent item) throws SQLException {
 
+        Connection connection = getConnection();
+
+        String sql = "insert into CollegeStudent (gpa, passYear, personId, courseId) values (?,?,?,?)";
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setDouble(1, item.getGpa());
+        statement.setInt(2, item.getPassYear());
+        statement.setInt(3, item.getPersonId());
+        statement.setInt(4, item.getCourseId());
+
+        statement.executeUpdate();
     }
 
     @Override

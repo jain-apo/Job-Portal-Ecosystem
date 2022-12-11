@@ -37,7 +37,7 @@ async function main() {
     })
 
     addPersonRole(sharun, admin)
-    addPersonRole(sharun, collegeAdmin)
+    // addPersonRole(sharun, collegeAdmin)
 
     await prisma.personNotification.upsert({
         where: {
@@ -68,6 +68,7 @@ async function main() {
     // insert a JobCandidate
     const jobCandidate = await addJobCandidate(sharun, jobApplication)
 
+    await addCourses(["Software Developent", "Data Science", "Finance"])
 }
 main()
     .then(async () => {
@@ -197,4 +198,22 @@ async function addPersonRole(person: Person, role: Role) {
             roleId: role.id,
         },
     })
+}
+
+async function addCourses(names: string[]) {
+
+    for (let index = 0; index < names.length; index++) {
+        const name = names[index];
+        await prisma.course.upsert({
+            where: {
+                name: name
+            },
+            update: {
+                name: name
+            },
+            create: {
+                name: name
+            }
+        })
+    }
 }
