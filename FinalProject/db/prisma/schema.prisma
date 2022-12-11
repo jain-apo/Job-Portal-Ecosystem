@@ -146,11 +146,11 @@ model TrainingModuleData {
 }
 
 model TrainingModuleDataCompletions {
-  id           Int                @id @unique @default(autoincrement())
-  trainingModuleData   TrainingModuleData @relation(fields: [moduleDataId], references: [id])
-  person       Person             @relation(fields: [personId], references: [id])
-  moduleDataId Int
-  personId     Int
+  id                 Int                @id @unique @default(autoincrement())
+  trainingModuleData TrainingModuleData @relation(fields: [moduleDataId], references: [id])
+  person             Person             @relation(fields: [personId], references: [id])
+  moduleDataId       Int
+  personId           Int
 
   @@unique([moduleDataId, personId])
 }
