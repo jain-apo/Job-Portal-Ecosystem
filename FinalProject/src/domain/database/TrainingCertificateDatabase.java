@@ -23,6 +23,8 @@ public class TrainingCertificateDatabase extends BaseDatabase<models.TrainingCer
         statement.setInt(3, person.getTrainingModuleId());
         statement.setInt(4, person.getPersonId());
 
+        statement.executeUpdate();
+
 
     }
 
