@@ -19,6 +19,8 @@ public class Person {
     private Collection<JobApplication> jobApplicationsById;
     private Collection<JobCandidate> jobCandidatesById;
     private Collection<Role> roles;
+    private CollegeStudent collegeStudentData;
+
     public Person(int id, String firstName, String lastName, Date dateOfBirth, String username, String password, String email, String phone) {
         this.id = id;
         this.firstName = firstName;
@@ -28,6 +30,14 @@ public class Person {
         this.password = password;
         this.email = email;
         this.phone = phone;
+    }
+
+    public CollegeStudent getCollegeStudentData() {
+        return collegeStudentData;
+    }
+
+    public void setCollegeStudentData(CollegeStudent collegeStudentData) {
+        this.collegeStudentData = collegeStudentData;
     }
 
     public boolean isAdministrator() {

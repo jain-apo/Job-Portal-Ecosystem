@@ -94,6 +94,8 @@ public class PersonsDatabase extends BaseDatabase<Person> {
                 person.setAdministrator(true);
             }
 
+            person.setCollegeStudentData(Application.Database.CollegeStudents.getAll().stream().filter(collegeStudent -> collegeStudent.getPersonId() == person.getId()).findFirst().orElse(null));
+
             persons.add(person);
         }
 
