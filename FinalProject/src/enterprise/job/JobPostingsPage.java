@@ -45,7 +45,7 @@ public class JobPostingsPage extends BaseFrame {
         super();
         setContentPane(p);
 
-        displayPeople();
+        displayJobPostings();
 
         setupActions();
 
@@ -63,7 +63,7 @@ public class JobPostingsPage extends BaseFrame {
             try {
                 Application.Database.JobPostings.add(person);
                 Dialog.show(person.getTitle() + " added successfully.");
-                displayPeople();
+                displayJobPostings();
 
 
             } catch (SQLException ex) {
@@ -76,7 +76,7 @@ public class JobPostingsPage extends BaseFrame {
 
                 Application.Database.JobPostings.update(person);
                 Dialog.show(person.getTitle() + " updated successfully.");
-                displayPeople();
+                displayJobPostings();
 
             } catch (SQLException ex) {
                 ex.printStackTrace();
@@ -106,9 +106,7 @@ public class JobPostingsPage extends BaseFrame {
         addPersonButton.addActionListener(e -> addPerson());
     }
 
-    private void displayPeople() {
-        CompanyPostingsTableModel model = new CompanyPostingsTableModel();
-
+    private void displayJobPostings() {
         try {
             people.setModel(new CompanyPostingsTableModel().loadData(Application.Database.JobPostings.getAll()));
         } catch (SQLException e) {
