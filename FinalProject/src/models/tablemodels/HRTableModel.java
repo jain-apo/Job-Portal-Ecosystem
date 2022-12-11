@@ -5,7 +5,7 @@ import models.Person;
 
 public class HRTableModel extends BaseTableModel<Person> {
     public HRTableModel() {
-        super(new String[]{"Id", "Full Name", "Date of Birth", "Gpa", "Year of Passing", "Course Name"});
+        super(new String[]{"Id", "Full Name", "Date of Birth", "Gpa", "Year of Passing", "Course Name", "Company Applied To", "Application Status"});
     }
 
     @Override

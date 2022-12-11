@@ -23,7 +23,7 @@ public class JobHomePage extends BaseFrame {
         myApplicationsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new MyApplicationPage().setVisible(true);
+                new JobPostingsPage().setVisible(true);
             }
         });
     }
