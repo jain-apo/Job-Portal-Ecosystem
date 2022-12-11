@@ -1,23 +1,18 @@
 package models.tablemodels;
 
-import helpers.DateHelper;
-import models.Person;
+import models.Company;
 
-public class HRTableModel extends BaseTableModel<Person> {
+public class HRTableModel extends BaseTableModel<Company> {
     public HRTableModel() {
-        super(new String[]{"Id", "Full Name", "Date of Birth", "Gpa", "Year of Passing", "Course Name", "Company Applied To", "Application Status"});
+        super(new String[]{"Id", "Company Name", "Send Request"});
     }
 
     @Override
-    public Object[] rowMapping(Person item) {
+    public Object[] rowMapping(Company item) {
         return new Object[]{
                 item.getId(),
-                item.getFullName(),
-                DateHelper.formatDate(item.getDateOfBirth(), "MMM-dd yyyy"),
-                item.getCollegeStudentData().getGpa(),
-                item.getCollegeStudentData().getPassYear(),
-                item.getCollegeStudentData().getCourseId(),
+                item.getName(),
                 "✖",
-                "✖"};
+        };
     }
 }
