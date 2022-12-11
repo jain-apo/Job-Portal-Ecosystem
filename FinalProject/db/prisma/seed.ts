@@ -37,7 +37,8 @@ async function main() {
     })
 
     addPersonRole(sharun, admin)
-    // addPersonRole(sharun, collegeAdmin)
+    addPersonRole(sharun, collegeAdmin)
+    addPersonRole(sharun, collegeHR)
 
     await prisma.personNotification.upsert({
         where: {
