@@ -1,5 +1,6 @@
 package domain.database;
 
+import domain.Application;
 import models.Person;
 
 import java.sql.Connection;
@@ -78,6 +79,8 @@ public class PersonsDatabase extends BaseDatabase<Person> {
                     resultSet.getString("email"),
                     resultSet.getString("phone")
             );
+
+            person.setRoles(Application.Database.Roles.getRolesOfPerson(person.getId()));
 
             persons.add(person);
         }

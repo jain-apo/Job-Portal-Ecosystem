@@ -17,6 +17,7 @@ public class Person {
     private Collection<CompanyEmployee> companyEmployeesById;
     private Collection<JobApplication> jobApplicationsById;
     private Collection<JobCandidate> jobCandidatesById;
+    private Collection<Role> roles;
 
     public Person(int id, String firstName, String lastName, Date dateOfBirth, String username, String password, String email, String phone) {
         this.id = id;
@@ -27,6 +28,14 @@ public class Person {
         this.password = password;
         this.email = email;
         this.phone = phone;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     public int getId() {
