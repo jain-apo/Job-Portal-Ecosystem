@@ -53,6 +53,6 @@ public class CollegeHomePage extends BaseFrame {
         adminPortalButton.addActionListener(e -> new CollegeAdminHomePage().setVisible(true));
         HRPortalButton.addActionListener(e -> new CollegeHRHomePage().setVisible(true));
         studentPortalButton.addActionListener(e -> new CollegeStudentHomePage().setVisible(true));
-        studentRegistrationButton.addActionListener(e -> switchToWindow(new StudentRegistrationPage()));
+        studentRegistrationButton.addActionListener(e -> new StudentRegistrationPage().setVisible(true));
     }
 }

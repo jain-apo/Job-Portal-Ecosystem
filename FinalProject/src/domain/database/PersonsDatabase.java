@@ -52,6 +52,14 @@ public class PersonsDatabase extends BaseDatabase<Person> {
     @Override
     public void delete(int id) throws SQLException {
         // TODO: Implement this
+        String sql = "DELETE from Person where id = ?;";
+
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
+
     }
 
     @Override
@@ -85,6 +93,8 @@ public class PersonsDatabase extends BaseDatabase<Person> {
             if (person.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN"))) {
                 person.setAdministrator(true);
             }
+
+            person.setCollegeStudentData(Application.Database.CollegeStudents.getAll().stream().filter(collegeStudent -> collegeStudent.getPersonId() == person.getId()).findFirst().orElse(null));
 
             persons.add(person);
         }

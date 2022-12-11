@@ -36,7 +36,13 @@ public class TrainingModuleDatabase extends BaseDatabase<models.TrainingModule> 
 
     @Override
     public void delete(int id) throws SQLException {
+        String sql = "DELETE from TrainingModule where id = ?;";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, id);
+
+        statement.executeUpdate();
     }
 
     @Override

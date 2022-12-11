@@ -12,6 +12,7 @@ import java.sql.SQLException;
 public class CandidatePage extends BaseFrame {
     private JPanel mainPane;
     private JTable candidate;
+    private JLabel heading;
 
     public CandidatePage() {
         super();
