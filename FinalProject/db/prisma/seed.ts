@@ -40,10 +40,10 @@ async function main() {
         firstName: 'Apoorva',
         lastName: 'Jain',
         username: 'apoorva',
+        email: "jain.apo@gmail.com",
         phone: '9043133610',
         password: '$2a$12$NReSOnyEHTMjnmYwxLa7be49S4aIsSXi8ROHIeyg/3ZXFwEnmfEee',
         dateOfBirth: new Date('Sun Nov 05 1995 00:04:24 GMT-0500 (Eastern Standard Time)'),
-        email: "sharunksplus@gmail.com",
     })
 
     await addPersonRole(sharun, admin)
@@ -304,12 +304,10 @@ async function addRole(role: Prisma.RoleCreateInput) {
 }
 
 async function addUser(user: Prisma.PersonCreateInput) {
-    return await prisma.person.upsert({
-        where: {
-            email: user.email
-        },
-        update: user,
-        create: user,
+    return await prisma.person.create({
+        data: {
+            ...user,
+        }
     })
 }
 
