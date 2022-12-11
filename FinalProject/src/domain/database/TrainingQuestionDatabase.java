@@ -58,4 +58,4 @@ public class TrainingQuestionDatabase extends BaseDatabase<models.TrainingQuesti
         return trainingQuestions;
     }
 }
-}
+
