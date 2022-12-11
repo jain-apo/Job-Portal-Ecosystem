@@ -10,6 +10,7 @@ public class StudentRegistrationPage extends BaseFrame {
     private JTextField dateOfBirth;
     private JComboBox role;
     private JPanel mainPane;
+    private JButton registerButton;
 
     public StudentRegistrationPage() {
         super();

@@ -51,4 +51,25 @@ public class RoleDatabase extends BaseDatabase<Role> {
 
         return roles;
     }
+
+    public List<Role> getRolesOfPerson(int personId) throws SQLException {
+        Connection connection = getConnection();
+
+        ResultSet resultSet = connection.createStatement().executeQuery("Select Role.id, Role.name from PersonRole inner join Person on PersonRole.PersonId = Person.id inner join Role on PersonRole.RoleId = Role.Id where PersonId = " + personId);
+
+        ArrayList<Role> roles = new ArrayList<>();
+
+        while (resultSet.next()) {
+
+            Role role = new Role(
+                    resultSet.getInt("id"),
+                    resultSet.getString("Name")
+
+            );
+
+            roles.add(role);
+        }
+
+        return roles;
+    }
 }
