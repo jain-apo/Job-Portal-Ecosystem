@@ -79,6 +79,8 @@ public class JobPostingDatabase extends BaseDatabase<JobPosting> {
                     resultSet.getInt("companyId")
             );
 
+            jobPostings.add(jobPosting);
+
         }
 
         return jobPostings;
