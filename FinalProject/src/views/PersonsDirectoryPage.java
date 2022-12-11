@@ -51,6 +51,8 @@ public class PersonsDirectoryPage extends BaseFrame {
 
         setupActions();
 
+        setEditMode(false);
+
     }
 
 
