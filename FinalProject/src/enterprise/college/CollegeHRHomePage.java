@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
 public class CollegeHRHomePage extends BaseFrame {
-    private final int SEND_REQUEST = 1;
+    private final int SEND_REQUEST = 2;
     private JPanel p;
     private JPanel mainPane;
     private JTable candidate;
@@ -23,6 +23,7 @@ public class CollegeHRHomePage extends BaseFrame {
         super();
         setContentPane(p);
         displayPeople();
+        setupActions();
     }
 
     private void setupActions() {
@@ -45,6 +46,7 @@ public class CollegeHRHomePage extends BaseFrame {
 
                     if (column == SEND_REQUEST) {
                         //Dialog box to send request
+                        System.out.println("send request");
                     }
 
                 }
