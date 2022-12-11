@@ -1,6 +1,6 @@
 package domain.database;
 
-import models.ModuleData;
+import models.TrainingModuleData;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,14 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModuleDataDatabase extends BaseDatabase<ModuleData> {
+public class TrainingModuleDataDatabase extends BaseDatabase<TrainingModuleData> {
 
-    public ModuleDataDatabase() {
+    public TrainingModuleDataDatabase() {
     }
 
     @Override
-    public void add(ModuleData item) throws SQLException {
-        String sql = "insert into ModuleData ( title, description, trainingModuleId) values (?,?,?)";
+    public void add(TrainingModuleData item) throws SQLException {
+        String sql = "insert into TrainingModuleData ( title, description, trainingModuleId) values (?,?,?)";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
@@ -29,8 +29,8 @@ public class ModuleDataDatabase extends BaseDatabase<ModuleData> {
     }
 
     @Override
-    public void update(ModuleData item) throws SQLException {
-        String sql = "update ModuleData set title= ?, description = ?, trainingModuleId = ? where id = ?";
+    public void update(TrainingModuleData item) throws SQLException {
+        String sql = "update TrainingModuleData set title= ?, description = ?, trainingModuleId = ? where id = ?";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
@@ -45,7 +45,7 @@ public class ModuleDataDatabase extends BaseDatabase<ModuleData> {
 
     @Override
     public void delete(int id) throws SQLException {
-        String sql = "DELETE from ModuleData where id = ?;";
+        String sql = "DELETE from TrainingModuleData where id = ?;";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
@@ -55,31 +55,31 @@ public class ModuleDataDatabase extends BaseDatabase<ModuleData> {
     }
 
     @Override
-    public ModuleData getById(int id) throws SQLException {
+    public TrainingModuleData getById(int id) throws SQLException {
         return null;
     }
 
     @Override
-    public List<ModuleData> getAll() throws SQLException {
+    public List<TrainingModuleData> getAll() throws SQLException {
         Connection connection = getConnection();
 
-        ResultSet resultSet = connection.createStatement().executeQuery("Select * from ModuleData");
+        ResultSet resultSet = connection.createStatement().executeQuery("Select * from TrainingModuleData");
 
-        ArrayList<ModuleData> moduleDatas = new ArrayList<>();
+        ArrayList<TrainingModuleData> result = new ArrayList<>();
 
         while (resultSet.next()) {
 
-            ModuleData moduleData = new ModuleData(
+            TrainingModuleData trainingModuleData = new TrainingModuleData(
                     resultSet.getInt("id"),
                     resultSet.getString("title"),
                     resultSet.getString("description"),
                     resultSet.getInt("trainingModuleId")
             );
 
-            moduleDatas.add(moduleData);
+            result.add(trainingModuleData);
         }
 
-        return moduleDatas;
+        return result;
     }
 }
 

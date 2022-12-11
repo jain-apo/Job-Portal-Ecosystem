@@ -144,7 +144,7 @@ main()
 async function addTrainingData() {
     const javaScript = await addTrainingModule("JavaScript")
 
-    await prisma.moduleData.create({
+    await prisma.trainingModuleData.create({
         data: {
             title: "Basics",
             description: `
@@ -154,7 +154,7 @@ Java is used as a server side (backend) language whereas JavaScript is primarily
         }
     })
 
-    await prisma.moduleData.create({
+    await prisma.trainingModuleData.create({
         data: {
             title: "Intermediate",
             description: `
@@ -192,7 +192,7 @@ querySelector, like getElementById, returns only one element whereas querySelect
         }
     })
 
-    await prisma.moduleData.create({
+    await prisma.trainingModuleData.create({
         data: {
             title: "Advanced",
             description: `Closures to Extend Variable Scope

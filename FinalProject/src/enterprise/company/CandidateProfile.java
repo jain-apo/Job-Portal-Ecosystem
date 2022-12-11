@@ -8,23 +8,33 @@ import javax.swing.*;
 import java.sql.SQLException;
 
 public class CandidateProfile extends BaseFrame {
-    private JPanel mainPanel;
+    private final int candidateId;
+    private JPanel p;
     private JLabel candidateName;
     private JLabel dateOfBirth;
     private JLabel email;
     private JLabel phoneNo;
-    private int candidateId;
+    private JPanel mainPane;
+    private JButton viewResumeButton;
 
     public CandidateProfile(int candidateId) {
         super();
         this.candidateId = candidateId;
-        setContentPane(mainPanel);
 
         try {
             getProfile();
         } catch (SQLException e) {
             Dialog.error("Error loading candidate profile");
         }
+
+        setContentPane(p);
+        setupActions();
+    }
+
+    private void setupActions() {
+        viewResumeButton.addActionListener(e -> {
+            // TODO: implement view resume
+        });
     }
 
     public void getProfile() throws SQLException {
