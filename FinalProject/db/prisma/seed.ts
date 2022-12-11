@@ -36,9 +36,9 @@ async function main() {
         email: "sharunksplus@gmail.com",
     })
 
-    addPersonRole(sharun, admin)
-    addPersonRole(sharun, collegeAdmin)
-    addPersonRole(sharun, collegeHR)
+    await addPersonRole(sharun, admin)
+    await addPersonRole(sharun, collegeAdmin)
+    await addPersonRole(sharun, collegeHR)
 
     await prisma.personNotification.upsert({
         where: {
