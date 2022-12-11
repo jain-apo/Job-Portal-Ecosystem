@@ -13,18 +13,25 @@ public class TrainingModuleDatabase extends BaseDatabase<models.TrainingModule> 
 
     @Override
     public void add(models.TrainingModule item) throws SQLException {
-        String sql = "insert into TrainingModule (id, name, description) values (?, ?, ?)";
+        String sql = "insert into TrainingModule (name, description) values ( ?, ?)";
         PreparedStatement statement = getConnection().prepareStatement(sql);
-        statement.setInt(1, item.getId());
-        statement.setString(2, item.getName());
-        statement.setString(3, item.getDescription());
+        statement.setString(1, item.getName());
+        statement.setString(2, item.getDescription());
         statement.executeUpdate();
 
     }
 
     @Override
-    public void update(models.TrainingModule item) throws SQLException {
+    public void update(models.TrainingModule person) throws SQLException {
+        String sql = "update TrainingModule set name = ?, description = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setString(1, person.getName());
+        statement.setString(2, person.getDescription());
+        statement.setInt(3, person.getId());
+
+        statement.executeUpdate();
     }
 
     @Override

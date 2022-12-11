@@ -3,6 +3,7 @@ package domain.database;
 import models.PersonRole;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,12 +13,26 @@ public class PersonRoleDatabase extends BaseDatabase<PersonRole> {
 
     @Override
     public void add(PersonRole item) throws SQLException {
+        String sql = "insert into PersonRole ( personId, roleId) values (?,?);";
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+        statement.setInt(1, item.getPersonId());
+        statement.setInt(2, item.getRoleId());
 
+        statement.executeUpdate();
     }
 
     @Override
     public void update(PersonRole item) throws SQLException {
+        String sql = "update PersonRole set personId= ?, roleId = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, item.getPersonId());
+        statement.setInt(2, item.getRoleId());
+        statement.setInt(3, item.getId());
+
+
+        statement.executeUpdate();
     }
 
     @Override

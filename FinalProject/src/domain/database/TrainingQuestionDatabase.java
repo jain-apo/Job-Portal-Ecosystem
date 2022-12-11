@@ -13,15 +13,14 @@ public class TrainingQuestionDatabase extends BaseDatabase<models.TrainingQuesti
 
     @Override
     public void add(models.TrainingQuestion item) throws SQLException {
-        String sql = "insert into(id, question, answer, option1, option2, option3, trainingModuleId) values (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "insert into TrainingQuestion (question, answer, option1, option2, option3, trainingModuleId) values ( ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = getConnection().prepareStatement(sql);
-        statement.setInt(1, item.getId());
-        statement.setString(2, item.getQuestion());
-        statement.setString(3, item.getAnswer());
-        statement.setString(4, item.getOption1());
-        statement.setString(5, item.getOption2());
-        statement.setString(6, item.getOption3());
-        statement.setInt(7, item.getTrainingModuleId());
+        statement.setString(1, item.getQuestion());
+        statement.setString(2, item.getAnswer());
+        statement.setString(3, item.getOption1());
+        statement.setString(4, item.getOption2());
+        statement.setString(5, item.getOption3());
+        statement.setInt(6, item.getTrainingModuleId());
 
         statement.executeUpdate();
 
@@ -29,7 +28,19 @@ public class TrainingQuestionDatabase extends BaseDatabase<models.TrainingQuesti
 
     @Override
     public void update(models.TrainingQuestion item) throws SQLException {
+        String sql = "update TrainingQuestion set  question= ?, answer= ?, option1= ?, option2= ?, option3= ?, trainingModuleId= ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setString(1, item.getQuestion());
+        statement.setString(2, item.getAnswer());
+        statement.setString(3, item.getOption1());
+        statement.setString(4, item.getOption2());
+        statement.setString(5, item.getOption3());
+        statement.setInt(6, item.getTrainingModuleId());
+        statement.setInt(7, item.getId());
+
+        statement.executeUpdate();
     }
 
     @Override

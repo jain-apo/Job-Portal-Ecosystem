@@ -3,6 +3,7 @@ package domain.database;
 import models.ModuleData;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,12 +16,31 @@ public class ModuleDataDatabase extends BaseDatabase<ModuleData> {
 
     @Override
     public void add(ModuleData item) throws SQLException {
+        String sql = "insert into ModuleData ( title, description, trainingModuleId) values (?,?,?)";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+
+        statement.setString(1, item.getTitle());
+        statement.setString(2, item.getDescription());
+        statement.setInt(3, item.getTrainingModuleId());
+
+        statement.executeUpdate();
     }
 
     @Override
     public void update(ModuleData item) throws SQLException {
+        String sql = "update ModuleData set title= ?, description = ?, trainingModuleId = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setString(1, item.getTitle());
+        statement.setString(2, item.getDescription());
+        statement.setInt(3, item.getTrainingModuleId());
+        statement.setInt(4, item.getId());
+
+
+        statement.executeUpdate();
     }
 
     @Override
