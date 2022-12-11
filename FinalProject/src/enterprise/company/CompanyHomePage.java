@@ -7,16 +7,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CompanyHomePage extends BaseFrame {
-    private JPanel mainPane;
+    private JPanel p;
     private JButton candidatePageButton;
     private JButton interviewPageButton;
+    private JPanel mainPane;
+    private JLabel heading;
 
 
     public CompanyHomePage() {
         super();
-        setContentPane(mainPane);
+        setupActions();
+        setContentPane(p);
+    }
 
-
+    private void setupActions() {
         candidatePageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
