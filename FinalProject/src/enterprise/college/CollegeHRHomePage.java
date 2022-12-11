@@ -45,7 +45,7 @@ public class CollegeHRHomePage extends BaseFrame {
                     String personName = target.getModel().getValueAt(row, 1) + "";
 
                     if (column == SEND_REQUEST) {
-                        //Dialog box to send request
+                        new SendRequestPage().setVisible(true);
                         System.out.println("send request");
                     }
 
@@ -64,7 +64,9 @@ public class CollegeHRHomePage extends BaseFrame {
             Dialog.error("Error getting people");
             return;
         }
+        TableHelpers.centerColumn(candidate, 0);
         TableHelpers.centerColumn(candidate, 1);
+        TableHelpers.centerColumn(candidate, 2);
     }
 }
 
