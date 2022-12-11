@@ -26,7 +26,14 @@ public class CompanyTeamDatabase extends BaseDatabase<models.CompanyTeam> {
 
     @Override
     public void update(models.CompanyTeam item) throws SQLException {
+        String sql = "update CompanyTeam set id = ?, name = ? where id = ?";
 
+        PreparedStatement statement = getConnection().prepareStatement(sql);
+
+        statement.setInt(1, item.getId());
+        statement.setString(2, item.getName());
+
+        statement.executeUpdate();
     }
 
     @Override
