@@ -24,7 +24,7 @@ async function main() {
 
     // Training Site Roles
     const trainee = await addRole({ name: "TRAINEE" })
-    const trainingSiteAdmin = await addRole({ name: "TRAINING_SITE_ADMIN" })
+    const trainer = await addRole({ name: "TRAINING_SITE_ADMIN" })
 
     const sharun = await addUser({
         firstName: 'Sharun',
@@ -50,6 +50,7 @@ async function main() {
     await addPersonRole(sharun, collegeAdmin)
     await addPersonRole(sharun, collegeHR)
     await addPersonRole(sharun, companyHR)
+    await addPersonRole(sharun, trainer)
 
     const courses = await addCourses(["Software Developent", "Data Science", "Finance"])
 
@@ -63,6 +64,7 @@ async function main() {
     })
 
     await addPersonRole(apoorva, collegeStudent)
+    await addPersonRole(apoorva, trainee)
 
 
     await prisma.personNotification.upsert({
@@ -144,7 +146,7 @@ main()
 async function addTrainingData() {
     const javaScript = await addTrainingModule("JavaScript")
 
-    await prisma.moduleData.create({
+    await prisma.trainingModuleData.create({
         data: {
             title: "Basics",
             description: `
@@ -154,7 +156,7 @@ Java is used as a server side (backend) language whereas JavaScript is primarily
         }
     })
 
-    await prisma.moduleData.create({
+    await prisma.trainingModuleData.create({
         data: {
             title: "Intermediate",
             description: `
@@ -192,7 +194,7 @@ querySelector, like getElementById, returns only one element whereas querySelect
         }
     })
 
-    await prisma.moduleData.create({
+    await prisma.trainingModuleData.create({
         data: {
             title: "Advanced",
             description: `Closures to Extend Variable Scope

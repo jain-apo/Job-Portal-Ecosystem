@@ -13,6 +13,7 @@ import java.sql.SQLException;
 
 public class InterviewPage extends BaseFrame {
     private final int PROFILE_PAGE = 3;
+    private final int INTERVIEW_PAGE = 4;
     private JPanel mainPane;
     private JTable candidate;
 
@@ -54,6 +55,10 @@ public class InterviewPage extends BaseFrame {
                     if (column == PROFILE_PAGE) {
                         System.out.println("Profile button Clicked");
                         new CandidateProfile(personId).setVisible(true);
+                    }
+                    if (column == INTERVIEW_PAGE) {
+                        System.out.println("Profile button Clicked");
+                        new TakeInterviewPage(personId).setVisible(true);
                     }
 
                 }
