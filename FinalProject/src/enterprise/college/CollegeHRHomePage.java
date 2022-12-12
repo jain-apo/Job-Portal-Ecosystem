@@ -7,8 +7,8 @@ import utils.Dialog;
 import views.BaseFrame;
 
 import javax.swing.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class CollegeHRHomePage extends BaseFrame {
@@ -18,41 +18,22 @@ public class CollegeHRHomePage extends BaseFrame {
     private JTable candidate;
     private JLabel heading;
     private JScrollPane students;
+    private JButton placementRequestButton;
 
     public CollegeHRHomePage() {
         super();
-        setContentPane(p);
         displayPeople();
         setupActions();
+        setContentPane(p);
     }
 
     private void setupActions() {
-
-
-        candidate.addMouseListener(new MouseAdapter() {
+        placementRequestButton.addActionListener(new ActionListener() {
             @Override
-            public void mouseClicked(MouseEvent me) {
-                super.mouseClicked(me);
-
-                JTable target = (JTable) me.getSource();
-                int row = target.getSelectedRow(); // selected row
-                int column = target.getSelectedColumn(); // selected column
-
-                if (me.getClickCount() == 2) {
-                    System.out.println("double click");
-                    int personId = Integer.parseInt(target.getModel().getValueAt(row, 0) + "");
-
-                    String personName = target.getModel().getValueAt(row, 1) + "";
-
-                    if (column == SEND_REQUEST) {
-                        new SendRequestPage().setVisible(true);
-                        System.out.println("send request");
-                    }
-
-                }
+            public void actionPerformed(ActionEvent e) {
+                new SendRequestPage().setVisible(true);
             }
         });
-
     }
 
     private void displayPeople() {
@@ -66,7 +47,6 @@ public class CollegeHRHomePage extends BaseFrame {
         }
         TableHelpers.centerColumn(candidate, 0);
         TableHelpers.centerColumn(candidate, 1);
-        TableHelpers.centerColumn(candidate, 2);
     }
 }
 

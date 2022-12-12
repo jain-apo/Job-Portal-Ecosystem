@@ -4,7 +4,7 @@ import models.Company;
 
 public class HRTableModel extends BaseTableModel<Company> {
     public HRTableModel() {
-        super(new String[]{"Id", "Company Name", "Send Request"});
+        super(new String[]{"Id", "Company Name"});
     }
 
     @Override
@@ -12,7 +12,6 @@ public class HRTableModel extends BaseTableModel<Company> {
         return new Object[]{
                 item.getId(),
                 item.getName(),
-                "✖",
         };
     }
 }
