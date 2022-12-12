@@ -1,0 +1,178 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model JobApplication {
+  id                Int            @id @unique @default(autoincrement())
+  personId          Int
+  jobPostingId      Int
+  yearsOfExperience Int
+  resumeFile        String
+  JobPosting        JobPosting     @relation(fields: [jobPostingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  Person            Person         @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  JobCandidate      JobCandidate[]
+
+  @@unique([personId, jobPostingId])
+}
+
+model JobPosting {
+  id             Int              @id @unique @default(autoincrement())
+  title          String
+  jobDescription String
+  category       String
+  JobApplication JobApplication[]
+  company        Company          @relation(fields: [companyId], references: [id])
+  companyId      Int
+
+  @@unique([title, companyId])
+}
+
+model Person {
+  id                     Int                             @id @unique @default(autoincrement())
+  firstName              String
+  lastName               String
+  dateOfBirth            DateTime
+  username               String
+  password               String
+  email                  String                          @unique
+  phone                  String
+  jobApplications        JobApplication[]
+  PersonRole             PersonRole[]
+  CollegeStudent         CollegeStudent?
+  JobCandidate           JobCandidate?
+  CompanyEmployee        CompanyEmployee?
+  TrainingCertificate    TrainingCertificate[]
+  PersonNotification     PersonNotification[]
+  ModuleDataComplettions TrainingModuleDataCompletions[]
+}
+
+model Role {
+  id         Int          @id @unique @default(autoincrement())
+  name       String       @unique
+  PersonRole PersonRole[]
+}
+
+model PersonRole {
+  id       Int    @id @unique @default(autoincrement())
+  person   Person @relation(fields: [personId], references: [id])
+  role     Role   @relation(fields: [roleId], references: [id])
+  personId Int
+  roleId   Int
+
+  @@unique([personId, roleId])
+}
+
+model Company {
+  id              Int               @id @unique @default(autoincrement())
+  name            String            @unique
+  JobPosting      JobPosting[]
+  CompanyEmployee CompanyEmployee[]
+}
+
+model Course {
+  id             Int              @id @unique @default(autoincrement())
+  name           String           @unique
+  CollegeStudent CollegeStudent[]
+}
+
+model CollegeStudent {
+  id       Int    @id @unique @default(autoincrement())
+  gpa      Float
+  passYear Int
+  person   Person @relation(fields: [personId], references: [id])
+  course   Course @relation(fields: [courseId], references: [id])
+  personId Int    @unique
+  courseId Int
+
+  @@unique([personId, courseId])
+}
+
+model JobCandidate {
+  id               Int            @id @unique @default(autoincrement())
+  person           Person         @relation(fields: [personId], references: [id])
+  jobApplication   JobApplication @relation(fields: [jobApplicationId], references: [id])
+  personId         Int            @unique
+  jobApplicationId Int
+  interviewRound   Int
+  result           String         @default("")
+
+  @@unique([personId, jobApplicationId])
+}
+
+model CompanyEmployee {
+  id            Int         @id @unique @default(autoincrement())
+  person        Person      @relation(fields: [personId], references: [id])
+  company       Company     @relation(fields: [companyId], references: [id])
+  team          CompanyTeam @relation(fields: [companyTeamId], references: [id])
+  personId      Int         @unique
+  companyId     Int
+  companyTeamId Int
+}
+
+model CompanyTeam {
+  id              Int               @id @unique @default(autoincrement())
+  name            String
+  CompanyEmployee CompanyEmployee[]
+}
+
+model TrainingQuestion {
+  id               Int             @id @unique @default(autoincrement())
+  question         String          @unique
+  answer           Boolean
+  TrainingModule   TrainingModule? @relation(fields: [trainingModuleId], references: [id])
+  trainingModuleId Int?
+}
+
+model TrainingModule {
+  id                  Int                   @id @unique @default(autoincrement())
+  name                String                @unique
+  description         String
+  questions           TrainingQuestion[]
+  data                TrainingModuleData[]
+  TrainingCertificate TrainingCertificate[]
+}
+
+model TrainingModuleData {
+  id                     Int                             @id @unique @default(autoincrement())
+  module                 TrainingModule                  @relation(fields: [trainingModuleId], references: [id])
+  title                  String
+  description            String
+  trainingModuleId       Int
+  ModuleDataComplettions TrainingModuleDataCompletions[]
+}
+
+model TrainingModuleDataCompletions {
+  id                 Int                @id @unique @default(autoincrement())
+  trainingModuleData TrainingModuleData @relation(fields: [moduleDataId], references: [id])
+  person             Person             @relation(fields: [personId], references: [id])
+  moduleDataId       Int
+  personId           Int
+
+  @@unique([moduleDataId, personId])
+}
+
+model TrainingCertificate {
+  id               Int            @id @unique @default(autoincrement())
+  name             String
+  trainingModuleId Int
+  personId         Int
+  trainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id])
+  person           Person         @relation(fields: [personId], references: [id])
+  certifiedDate    DateTime       @default(now())
+
+  @@unique([trainingModuleId, personId])
+}
+
+model PersonNotification {
+  id       Int      @id @unique @default(autoincrement())
+  person   Person   @relation(fields: [personId], references: [id])
+  personId Int
+  title    String
+  message  String
+  date     DateTime @default(now())
+}
