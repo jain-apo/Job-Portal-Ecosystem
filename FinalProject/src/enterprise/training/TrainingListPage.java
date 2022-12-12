@@ -50,8 +50,8 @@ public class TrainingListPage extends BaseFrame {
     private void setupRoles() {
         var person = Application.getCurrentlyLoggedInPerson();
 
-        isTrainer = person.matchRole(Roles.TRAINING_SITE_ADMIN);
-        isTrainee = person.matchRole(Roles.TRAINEE);
+        isTrainer = person.hasRole(Roles.TRAINING_SITE_ADMIN);
+        isTrainee = person.hasRole(Roles.TRAINEE);
 
         // TODO Roles Restriction
 
@@ -68,12 +68,10 @@ public class TrainingListPage extends BaseFrame {
     private void displayModules() {
         try {
 
-            if (isTrainee) {
-                modules.setModel(new TrainingModuleTableModel().loadData(Application.Database.TrainingModules.getAll()));
-            }
-
             if (isTrainer) {
                 modules.setModel(new TrainingModuleAdminTableModel().loadData(Application.Database.TrainingModules.getAll()));
+            } else {
+                modules.setModel(new TrainingModuleTableModel().loadData(Application.Database.TrainingModules.getAll()));
             }
 
             for (int i = 0; i < modules.getColumnCount(); i++) {

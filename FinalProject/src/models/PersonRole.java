@@ -1,17 +1,27 @@
 package models;
 
+import domain.Application;
+
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class PersonRole {
     private int id;
     private int personId;
     private int roleId;
-    private Person personByPersonId;
 
     public PersonRole(int id, int personId, int roleId) {
         this.id = id;
         this.personId = personId;
         this.roleId = roleId;
+    }
+
+    public Role getRole() throws SQLException {
+        return Application.Database.Roles.getById(roleId);
+    }
+
+    public Person getPerson() throws SQLException {
+        return Application.Database.Persons.getById(personId);
     }
 
     public int getId() {
@@ -49,13 +59,5 @@ public class PersonRole {
     @Override
     public int hashCode() {
         return Objects.hash(id, personId, roleId);
-    }
-
-    public Person getPersonByPersonId() {
-        return personByPersonId;
-    }
-
-    public void setPersonByPersonId(Person personByPersonId) {
-        this.personByPersonId = personByPersonId;
     }
 }

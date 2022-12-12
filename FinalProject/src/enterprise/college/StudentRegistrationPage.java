@@ -83,11 +83,11 @@ public class StudentRegistrationPage extends BaseFrame {
             Application.refreshLoggedInPerson();
 
             new PersonNotification(Application.getCurrentlyLoggedInPerson().getId(), "College Registration", "College Registration Successful").create();
-            new PersonNotification(Application.getCurrentlyLoggedInPerson().getId(), "GPA Update", "Your current GPA is " + gpa).create();
+            new PersonNotification(Application.getCurrentlyLoggedInPerson().getId(), "GPA Update", "Your current GPA is " + String.format("%.2f", gpa)).create();
 
             Dialog.info("Registration successful");
 
-            setVisible(false);
+            swapWindow(new CollegeHomePage());
 
         } catch (Exception e) {
             Dialog.error("Failed to register");

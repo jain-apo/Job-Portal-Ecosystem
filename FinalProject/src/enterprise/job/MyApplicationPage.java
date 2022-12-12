@@ -1,6 +1,7 @@
 package enterprise.job;
 
 import domain.Application;
+import domain.Roles;
 import helpers.TableHelpers;
 import models.tablemodels.MyApplicationsTableModel;
 import utils.Dialog;
@@ -31,10 +32,8 @@ public class MyApplicationPage extends BaseFrame {
     private void setupRoles() {
         var person = Application.getCurrentlyLoggedInPerson();
 
-        isStudent = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_STUDENT"));
-        isHr = person.getRoles().stream().anyMatch(role -> role.getName().equals("COMPANY_HR"));
-        System.out.println("isStudent" + isStudent);
-        System.out.println("isHr" + isHr);
+        isStudent = person.hasRole(Roles.COLLEGE_STUDENT);
+        isHr = person.hasRole(Roles.COMPANY_HR);
     }
 
 

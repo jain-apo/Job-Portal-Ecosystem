@@ -30,7 +30,6 @@ public class PersonsDirectoryPage extends BaseFrame {
     private JTextField firstName;
     private JTextField lastName;
     private JTextField dateOfBirth;
-    private JComboBox role;
     private JTextField username;
     private JPasswordField password;
 
@@ -38,6 +37,7 @@ public class PersonsDirectoryPage extends BaseFrame {
     private JTextArea validationText;
     private JTextField email;
     private JTextField phone;
+    private JButton updateRolesButton;
 
     private boolean editMode;
     private int currentlyEditingEmployee;
@@ -52,7 +52,6 @@ public class PersonsDirectoryPage extends BaseFrame {
         setupActions();
 
         setEditMode(false);
-
     }
 
 
@@ -144,6 +143,7 @@ public class PersonsDirectoryPage extends BaseFrame {
     private void setupActions() {
         addPersonButton.addActionListener(e -> addPerson());
         cancelEditButton.addActionListener(e -> setEditMode(false));
+        updateRolesButton.addActionListener(e -> updateRoles());
 
         people.addMouseListener(new MouseAdapter() {
             @Override
@@ -213,9 +213,11 @@ public class PersonsDirectoryPage extends BaseFrame {
 
     }
 
-    private void displayPeople() {
-        PersonsTableModel model = new PersonsTableModel();
+    private void updateRoles() {
 
+    }
+
+    private void displayPeople() {
         try {
             people.setModel(new PersonsTableModel().loadData(Application.Database.Persons.getAll()));
         } catch (SQLException e) {

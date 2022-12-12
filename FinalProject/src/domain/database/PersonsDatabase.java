@@ -87,8 +87,6 @@ public class PersonsDatabase extends BaseDatabase<Person> {
                     resultSet.getString("phone")
             );
 
-            person.setRoles(Application.Database.Roles.getRolesOfPerson(person.getId()));
-
             if (person.getRoles().stream().anyMatch(role -> role.getName().equals("ADMIN"))) {
                 person.setAdministrator(true);
             }

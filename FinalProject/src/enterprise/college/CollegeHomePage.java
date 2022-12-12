@@ -1,6 +1,7 @@
 package enterprise.college;
 
 import domain.Application;
+import domain.Roles;
 import views.BaseFrame;
 
 import javax.swing.*;
@@ -28,9 +29,9 @@ public class CollegeHomePage extends BaseFrame {
     private void setupRoles() {
         var person = Application.getCurrentlyLoggedInPerson();
 
-        boolean isAdmin = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_ADMIN"));
-        boolean isHr = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_HR"));
-        boolean isStudent = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_STUDENT"));
+        boolean isAdmin = person.hasRole(Roles.COLLEGE_ADMIN);
+        boolean isHr = person.hasRole(Roles.COLLEGE_HR);
+        boolean isStudent = person.hasRole(Roles.COLLEGE_STUDENT);
 
         if (!isAdmin) {
             adminPortalButton.setVisible(false);
@@ -50,9 +51,9 @@ public class CollegeHomePage extends BaseFrame {
     }
 
     private void setupActions() {
-        adminPortalButton.addActionListener(e -> new CollegeAdminHomePage().setVisible(true));
-        HRPortalButton.addActionListener(e -> new CollegeHRHomePage().setVisible(true));
-        studentPortalButton.addActionListener(e -> new CollegeStudentHomePage().setVisible(true));
-        studentRegistrationButton.addActionListener(e -> new StudentRegistrationPage().setVisible(true));
+        adminPortalButton.addActionListener(e -> swapWindow(new CollegeAdminHomePage()));
+        HRPortalButton.addActionListener(e -> swapWindow(new CollegeHRHomePage()));
+        studentPortalButton.addActionListener(e -> swapWindow(new CollegeStudentHomePage()));
+        studentRegistrationButton.addActionListener(e -> swapWindow(new StudentRegistrationPage()));
     }
 }

@@ -1,7 +1,11 @@
 package models;
 
+import domain.Application;
+
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Person {
@@ -18,7 +22,6 @@ public class Person {
     private Collection<CompanyEmployee> companyEmployeesById;
     private Collection<JobApplication> jobApplicationsById;
     private Collection<JobCandidate> jobCandidatesById;
-    private Collection<Role> roles;
     private CollegeStudent collegeStudentData;
 
     public Person(int id, String firstName, String lastName, Date dateOfBirth, String username, String password, String email, String phone) {
@@ -40,20 +43,31 @@ public class Person {
         this.collegeStudentData = collegeStudentData;
     }
 
+    public List<Role> getRoles() throws SQLException {
+        return Application.Database.PersonRoles.getAll().stream().filter(personRole -> personRole.getPersonId() == id).map(personRole -> {
+            try {
+                return personRole.getRole();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).toList();
+    }
+
+    public boolean hasRole(String role) {
+        try {
+            return getRoles().stream().anyMatch(role1 -> role1.getName().equals(role));
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
     public boolean isAdministrator() {
         return isAdministrator;
     }
 
     public void setAdministrator(boolean administrator) {
         isAdministrator = administrator;
-    }
-
-    public Collection<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Collection<Role> roles) {
-        this.roles = roles;
     }
 
     public int getId() {
@@ -131,10 +145,6 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, dateOfBirth, username, password, email, phone);
-    }
-
-    public boolean matchRole(String roleName) {
-        return getRoles().stream().anyMatch(role -> role.getName().equals(roleName));
     }
 
     public String getFullName() {

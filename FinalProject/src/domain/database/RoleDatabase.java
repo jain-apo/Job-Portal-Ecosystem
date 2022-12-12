@@ -45,7 +45,7 @@ public class RoleDatabase extends BaseDatabase<Role> {
 
     @Override
     public Role getById(int id) throws SQLException {
-        return null;
+        return getAll().stream().filter(role -> role.getId() == id).findFirst().orElse(null);
     }
 
     @Override

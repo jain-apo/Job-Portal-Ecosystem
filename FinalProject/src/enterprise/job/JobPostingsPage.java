@@ -1,6 +1,7 @@
 package enterprise.job;
 
 import domain.Application;
+import domain.Roles;
 import domain.Validator;
 import helpers.TableHelpers;
 import models.JobPosting;
@@ -90,8 +91,8 @@ public class JobPostingsPage extends BaseFrame {
     private void setupRoles() {
         var person = Application.getCurrentlyLoggedInPerson();
 
-        isStudent = person.getRoles().stream().anyMatch(role -> role.getName().equals("COLLEGE_STUDENT"));
-        isHr = person.getRoles().stream().anyMatch(role -> role.getName().equals("COMPANY_HR"));
+        isStudent = person.hasRole(Roles.COLLEGE_STUDENT);
+        isHr = person.hasRole(Roles.COMPANY_HR);
 
         if (!isHr) {
             addPersonPane.setVisible(false);

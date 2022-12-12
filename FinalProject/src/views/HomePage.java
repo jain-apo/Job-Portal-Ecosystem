@@ -1,6 +1,7 @@
 package views;
 
 import domain.Application;
+import domain.Roles;
 import enterprise.college.CollegeHomePage;
 import enterprise.company.CompanyHomePage;
 import enterprise.job.JobHomePage;
@@ -10,12 +11,16 @@ import utils.Dialog;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
-public class HomePage extends BaseFrame {
+import static helpers.UiHelpers.buttonRole;
+
+public class HomePage extends BaseFrame implements ActionListener {
     private JPanel mainPanel;
     private JButton companyPortalButton;
     private JButton jobPortalButton;
@@ -32,11 +37,63 @@ public class HomePage extends BaseFrame {
 
         heading.setText("Welcome, " + Application.getCurrentlyLoggedInPerson().getFirstName());
 
+        setupRoles();
+
         setupNotifications();
 
         setContentPane(mainPanel);
 
         setupActions();
+    }
+
+    private void setupRoles() {
+        try {
+            var roles = Application.getCurrentlyLoggedInPerson().getRoles().stream().map(role -> role.getName()).collect(Collectors.toList());
+
+            if (roles.contains(Roles.ADMIN)) {
+                return;
+            } else {
+                adminPersonsDirectoryButton.setVisible(false);
+            }
+
+            var companyAccess = new String[]{
+                    Roles.COMPANY_EMPLOYEE,
+                    Roles.COMPANY_HR,
+                    Roles.COMPANY_SYSADMIN,
+            };
+
+            var jobPortalAccess = new String[]{
+                    Roles.JOB_PORTAL_ADMIN,
+                    Roles.JOB_PORTAL_USER,
+                    Roles.COLLEGE_STUDENT,
+                    Roles.COMPANY_HR,
+            };
+
+            var trainingPortalAccess = new String[]{
+                    Roles.TRAINEE,
+                    Roles.TRAINING_SITE_ADMIN,
+                    Roles.COLLEGE_STUDENT,
+            };
+
+            buttonRole(companyPortalButton, companyAccess, Application.getCurrentlyLoggedInPerson());
+            buttonRole(jobPortalButton, jobPortalAccess, Application.getCurrentlyLoggedInPerson());
+            buttonRole(trainingPortalButton, trainingPortalAccess, Application.getCurrentlyLoggedInPerson());
+
+        } catch (SQLException e) {
+            Dialog.error("Error reading the roles for the user");
+        }
+    }
+
+
+    private void setupNotifications() {
+        notificationsPane.setBorder(BorderFactory.createTitledBorder("Notifications"));
+
+        var timer = new Timer(1000, this);
+        timer.setInitialDelay(0);
+        timer.start();
+
+        notifications.setMaximumSize(new Dimension(500, 200));
+
         notifications.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -54,23 +111,18 @@ public class HomePage extends BaseFrame {
         });
     }
 
-    private void setupNotifications() {
-        notificationsPane.setBorder(BorderFactory.createTitledBorder("Notifications"));
-
+    private void loadNotifications() {
         try {
-            // TODO filter for currently logged in user
+//            System.out.println("loading notifications...");
             notifications.setModel(new NotificationsTableModel()
                     .loadData(Application.Database.PersonNotifications.getAll()
                             .stream()
                             .filter(x -> x.getPersonId() == Application.getCurrentlyLoggedInPerson().getId())
                             .sorted((x, y) -> Long.compare(y.getId(), x.getId()))
                             .collect(Collectors.toList())));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            //
         }
-
-        notifications.setMaximumSize(new Dimension(500, 200));
-
     }
 
     private void setupActions() {
@@ -89,5 +141,10 @@ public class HomePage extends BaseFrame {
 
         new CollegeHomePage().setVisible(true);
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        loadNotifications();
     }
 }

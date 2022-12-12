@@ -1,4 +1,5 @@
 import { Course, Person, Prisma, PrismaClient, Role } from '@prisma/client'
+
 const prisma = new PrismaClient()
 
 async function main() {
@@ -10,8 +11,7 @@ async function main() {
     // Company Roles
     const companyHR = await addRole({ name: "COMPANY_HR" })
     const companySysadmin = await addRole({ name: "COMPANY_SYSADMIN" })
-    const teamLead = await addRole({ name: "TEAM_LEAD" })
-    const teamManager = await addRole({ name: "TEAM_MANAGER" })
+    const companyEmployee = await addRole({ name: "COMPANY_EMPLOYEE" })
 
     // Job Portal Roles
     const jobPortalUser = await addRole({ name: "JOB_PORTAL_USER" })
@@ -41,6 +41,16 @@ async function main() {
         lastName: 'Jain',
         username: 'apoorva',
         email: "jain.apo@gmail.com",
+        phone: '9043133610',
+        password: '$2a$12$NReSOnyEHTMjnmYwxLa7be49S4aIsSXi8ROHIeyg/3ZXFwEnmfEee',
+        dateOfBirth: new Date('Sun Nov 05 1995 00:04:24 GMT-0500 (Eastern Standard Time)'),
+    })
+
+    const mihir = await addUser({
+        firstName: 'Mihir',
+        lastName: 'Sheth',
+        username: 'mihir',
+        email: "mihir@gmail.com",
         phone: '9043133610',
         password: '$2a$12$NReSOnyEHTMjnmYwxLa7be49S4aIsSXi8ROHIeyg/3ZXFwEnmfEee',
         dateOfBirth: new Date('Sun Nov 05 1995 00:04:24 GMT-0500 (Eastern Standard Time)'),
@@ -133,6 +143,7 @@ async function main() {
 
 
 }
+
 main()
     .then(async () => {
         await prisma.$disconnect()
@@ -440,7 +451,6 @@ Right now the inheritance concept is already a little bit useful, but it is not 
             trainingModuleId: csharp.id
         }
     })
-
 
 
 }

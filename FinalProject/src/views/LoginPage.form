@@ -66,7 +66,7 @@
         </constraints>
         <properties>
           <font size="20"/>
-          <text value="AED Final Project"/>
+          <text value="Login"/>
         </properties>
       </component>
       <grid id="1040e" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

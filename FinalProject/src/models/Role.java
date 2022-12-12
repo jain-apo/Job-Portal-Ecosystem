@@ -49,4 +49,9 @@ public class Role {
     public void setPersonRolesById(Collection<PersonRole> personRolesById) {
         this.personRolesById = personRolesById;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

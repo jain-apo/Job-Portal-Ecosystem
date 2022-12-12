@@ -29,4 +29,9 @@ public class BaseFrame extends JFrame {
         nextWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         nextWindow.setVisible(true);
     }
+
+    protected void swapWindow(JFrame nextWindow) {
+        nextWindow.setVisible(true);
+        dispose();
+    }
 }
