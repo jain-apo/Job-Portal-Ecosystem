@@ -25,14 +25,20 @@ public abstract class BaseTableModel<T> extends DefaultTableModel {
 
     public BaseTableModel loadData(List<T> items) {
         for (T item : items) {
-            addRow(rowMapping(item));
-            data.add(item);
+            if (canShowObject(item)) {
+                data.add(item);
+                addRow(rowMapping(item));
+            }
         }
         return this;
     }
 
     public T getDataAt(int row) {
         return data.get(row);
+    }
+
+    protected boolean canShowObject(T item) {
+        return true;
     }
 }
 

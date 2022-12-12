@@ -1,6 +1,6 @@
 package enterprise.company;
 
-import domain.Application;
+import models.JobCandidate;
 import utils.Dialog;
 import views.BaseFrame;
 
@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import static utils.FileUtil.openFileInExplorer;
 
 public class CandidateProfile extends BaseFrame {
-    private final int candidateId;
     private JPanel p;
     private JLabel candidateName;
     private JLabel dateOfBirth;
@@ -21,10 +20,11 @@ public class CandidateProfile extends BaseFrame {
     private JPanel mainPane;
     private JButton viewResumeButton;
     private JButton viewCertificateButton;
+    private JobCandidate candidate;
 
-    public CandidateProfile(int candidateId) {
+    public CandidateProfile(JobCandidate candidate) {
         super();
-        this.candidateId = candidateId;
+        this.candidate = candidate;
 
         try {
             getProfile();
@@ -37,15 +37,18 @@ public class CandidateProfile extends BaseFrame {
         viewCertificateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ViewCertificate().setVisible(true);
+                try {
+                    new ViewCertificate(candidate.getPerson()).setVisible(true);
+                } catch (SQLException ex) {
+                    //
+                }
             }
         });
         viewResumeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    var file =
-                            Application.Database.JobCandidates.getCandidateById(candidateId).getJobApplication().getResumeFile();
+                    var file = candidate.getJobApplication().getResumeFile();
 
                     System.out.println(file);
 
@@ -64,9 +67,7 @@ public class CandidateProfile extends BaseFrame {
     }
 
     public void getProfile() throws SQLException {
-        var details = Application.Database.JobCandidates.getCandidateById(candidateId);
-
-        var person = Application.Database.Persons.getById(details.getPersonId());
+        var person = candidate.getPerson();
 
         candidateName.setText(person.getFullName());
         dateOfBirth.setText(person.getDateOfBirth().toString());

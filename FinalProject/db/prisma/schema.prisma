@@ -99,6 +99,8 @@ model JobCandidate {
   personId         Int            @unique
   jobApplicationId Int
   interviewRound   Int
+  isRejected       Boolean        @default(false)
+  isAccepted       Boolean        @default(false)
   result           String         @default("")
 
   @@unique([personId, jobApplicationId])

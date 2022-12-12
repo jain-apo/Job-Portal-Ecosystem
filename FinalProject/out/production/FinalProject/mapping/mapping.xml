@@ -392,4 +392,73 @@
             </basic>
         </attributes>
     </entity>
+    <entity class="models.JobCandidate">
+        <table name="JobCandidate" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="jobApplicationId">
+                <column name="jobApplicationId"/>
+            </basic>
+            <basic name="interviewRound">
+                <column name="interviewRound"/>
+            </basic>
+            <basic name="result">
+                <column name="result"/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="models.JobCandidate">
+        <table name="JobCandidate" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="jobApplicationId">
+                <column name="jobApplicationId"/>
+            </basic>
+            <basic name="interviewRound">
+                <column name="interviewRound"/>
+            </basic>
+            <basic name="isRejected">
+                <column name="isRejected"/>
+            </basic>
+            <basic name="result">
+                <column name="result"/>
+            </basic>
+        </attributes>
+    </entity>
+    <entity class="models.JobCandidate">
+        <table name="JobCandidate" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="jobApplicationId">
+                <column name="jobApplicationId"/>
+            </basic>
+            <basic name="interviewRound">
+                <column name="interviewRound"/>
+            </basic>
+            <basic name="isRejected">
+                <column name="isRejected"/>
+            </basic>
+            <basic name="isAccepted">
+                <column name="isAccepted"/>
+            </basic>
+            <basic name="result">
+                <column name="result"/>
+            </basic>
+        </attributes>
+    </entity>
 </entity-mappings>

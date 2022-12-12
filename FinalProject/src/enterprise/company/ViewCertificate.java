@@ -2,6 +2,7 @@ package enterprise.company;
 
 import domain.Application;
 import helpers.TableHelpers;
+import models.Person;
 import models.tablemodels.CertificateTableModel;
 import utils.Dialog;
 import views.BaseFrame;
@@ -15,11 +16,18 @@ public class ViewCertificate extends BaseFrame {
     private JTable certificate;
     private JPanel mainPane;
     private JLabel heading;
+    private Person person;
 
-    public ViewCertificate() {
+    public ViewCertificate(Person person) {
         super();
+        this.person = person;
+        setupPageStuff();
         setContentPane(p);
         displayPeople();
+    }
+
+    private void setupPageStuff() {
+        heading.setText("Certificates for " + person.getFullName());
     }
 
     private void displayPeople() {

@@ -63,7 +63,7 @@ public class ApplicantsPage extends BaseFrame {
 
                             if (result == JOptionPane.YES_OPTION) {
                                 var newJobCandidate = new JobCandidate(0, application.getPersonId(),
-                                        application.getId(), 0, "Application Accepted");
+                                        application.getId(), 0, "Application Accepted", false, false);
                                 Application.Database.JobCandidates.add(newJobCandidate);
 
                                 new PersonNotification(application.getPersonId(), "Application Accepted", "Your " +

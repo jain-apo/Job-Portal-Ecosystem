@@ -2,6 +2,8 @@ package enterprise.company;
 
 import domain.Application;
 import helpers.TableHelpers;
+import models.JobCandidate;
+import models.tablemodels.BaseTableModel;
 import models.tablemodels.CandidateTableModel;
 import utils.Dialog;
 import views.BaseFrame;
@@ -10,6 +12,7 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 public class CandidatesPage extends BaseFrame {
 
@@ -37,13 +40,14 @@ public class CandidatesPage extends BaseFrame {
 
                 if (me.getClickCount() == 2) {
                     System.out.println("double click");
-                    int personId = Integer.parseInt(target.getModel().getValueAt(row, 0) + "");
+
+                    var c = ((BaseTableModel<JobCandidate>) candidate.getModel()).getDataAt(row);
 
                     String personName = target.getModel().getValueAt(row, 1) + "";
 
                     if (column == PROFILE_PAGE) {
                         System.out.println("Profile button Clicked");
-                        new CandidateProfile(personId).setVisible(true);
+                        new CandidateProfile(c).setVisible(true);
                     }
 
                 }
@@ -55,7 +59,8 @@ public class CandidatesPage extends BaseFrame {
         CandidateTableModel model = new CandidateTableModel();
 
         try {
-            candidate.setModel(new CandidateTableModel().loadData(Application.Database.JobCandidates.getAll()));
+            candidate.setModel(new CandidateTableModel().loadData(Application.Database.JobCandidates.getAll()
+                    .stream().filter(jobCandidate -> !jobCandidate.getIsRejected()).collect(Collectors.toList())));
         } catch (SQLException e) {
             Dialog.error("Error loading candidates");
         }

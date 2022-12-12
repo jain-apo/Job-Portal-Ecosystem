@@ -28,6 +28,11 @@ public class CandidateInterviewTableModel extends BaseTableModel<JobCandidate> {
     }
 
     @Override
+    protected boolean canShowObject(JobCandidate item) {
+        return !(item.getIsRejected() || item.getIsAccepted());
+    }
+
+    @Override
     public Object[] rowMapping(JobCandidate item) {
 
         var person = personsCache.get(item.getPersonId());

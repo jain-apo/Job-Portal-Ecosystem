@@ -16,6 +16,15 @@ public class PersonRole {
         this.roleId = roleId;
     }
 
+    public PersonRole(int personId, int roleId) {
+        this.personId = personId;
+        this.roleId = roleId;
+    }
+
+    public void create() throws SQLException {
+        Application.Database.PersonRoles.add(this);
+    }
+
     public Role getRole() throws SQLException {
         return Application.Database.Roles.getById(roleId);
     }

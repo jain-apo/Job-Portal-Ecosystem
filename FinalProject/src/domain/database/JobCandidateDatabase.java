@@ -13,7 +13,8 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
 
     @Override
     public void add(models.JobCandidate item) throws SQLException {
-        String sql = "insert into JobCandidate ( personId, jobApplicationId, interviewRound, result) values (?,?,?,?)";
+        String sql = "insert into JobCandidate ( personId, jobApplicationId, interviewRound, result, isRejected) " +
+                "values (?,?,?,?,?)";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
@@ -21,13 +22,16 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
         statement.setInt(2, item.getJobApplicationId());
         statement.setInt(3, item.getInterviewRound());
         statement.setString(4, item.getResult());
+        statement.setBoolean(5, item.getIsRejected());
 
         statement.executeUpdate();
     }
 
     @Override
     public void update(models.JobCandidate item) throws SQLException {
-        String sql = "update JobCandidate set personId= ?, jobApplicationId = ?, interviewRound = ?, result = ? where id = ?";
+        String sql = "update JobCandidate set personId= ?, jobApplicationId = ?, interviewRound = ?, result = ?, " +
+                "isRejected = ?, isAccepted = ? where" +
+                " id = ?";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
@@ -36,7 +40,9 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
         statement.setInt(2, item.getJobApplicationId());
         statement.setInt(3, item.getInterviewRound());
         statement.setString(4, item.getResult());
-        statement.setInt(5, item.getId());
+        statement.setBoolean(5, item.getIsRejected());
+        statement.setBoolean(6, item.getIsAccepted());
+        statement.setInt(7, item.getId());
 
 
         statement.executeUpdate();
@@ -55,7 +61,7 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
 
     @Override
     public models.JobCandidate getById(int id) throws SQLException {
-        return null;
+        return getAll().stream().filter(item -> item.getId() == id).findFirst().orElse(null);
     }
 
     @Override
@@ -73,8 +79,9 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
                     resultSet.getInt("personId"),
                     resultSet.getInt("jobApplicationId"),
                     resultSet.getInt("interviewRound"),
-                    resultSet.getString("result")
-
+                    resultSet.getString("result"),
+                    resultSet.getBoolean("isRejected"),
+                    resultSet.getBoolean("isAccepted")
             );
 
             jobCandidates.add(jobCandidate);

@@ -11,13 +11,18 @@ public class JobCandidate {
     private int jobApplicationId;
     private int interviewRound;
     private String result;
+    private boolean isRejected;
+    private boolean isAccepted;
 
-    public JobCandidate(int id, int personId, int jobApplicationId, int interviewRound, String result) {
+    public JobCandidate(int id, int personId, int jobApplicationId, int interviewRound, String result,
+                        boolean isRejected, boolean isAccepted) {
         this.id = id;
         this.personId = personId;
         this.jobApplicationId = jobApplicationId;
         this.interviewRound = interviewRound;
         this.result = result;
+        this.isRejected = isRejected;
+        this.isAccepted = isAccepted;
     }
 
     public JobApplication getJobApplication() throws SQLException {
@@ -79,5 +84,21 @@ public class JobCandidate {
     @Override
     public int hashCode() {
         return Objects.hash(id, personId, jobApplicationId, interviewRound, result);
+    }
+
+    public boolean getIsRejected() {
+        return isRejected;
+    }
+
+    public void setIsRejected(boolean isRejected) {
+        this.isRejected = isRejected;
+    }
+
+    public boolean getIsAccepted() {
+        return isAccepted;
+    }
+
+    public void setIsAccepted(boolean isAccepted) {
+        this.isAccepted = isAccepted;
     }
 }
