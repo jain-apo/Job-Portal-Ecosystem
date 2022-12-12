@@ -4,7 +4,9 @@ import domain.Application;
 import domain.Roles;
 import domain.Validator;
 import helpers.TableHelpers;
+import models.TrainingModule;
 import models.TrainingModuleData;
+import models.tablemodels.BaseTableModel;
 import models.tablemodels.TrainingModuleDataAdminTableModel;
 import models.tablemodels.TrainingModuleDataTableModel;
 import utils.Dialog;
@@ -21,7 +23,7 @@ public class TrainingModulePage extends BaseFrame {
     private final int VIEW_COLUMN_NUMBER = 2;
     private final int EDIT_COLUMN_NUMBER = 3;
     private final int DELETE_COLUMN_NUMBER = 4;
-    private final int moduleId;
+    private final TrainingModule module;
     private boolean editMode;
     private int currentlyEditingEmployee;
     private JPanel p;
@@ -38,19 +40,15 @@ public class TrainingModulePage extends BaseFrame {
     private boolean isTrainer;
     private boolean isTrainee;
 
-    public TrainingModulePage(int moduleId) {
-        this.moduleId = moduleId;
+    public TrainingModulePage(TrainingModule module) {
+        this.module = module;
+        heading.setText(module.getName());
 
-        setupPageStuff();
         setupActions();
         setupRoles();
         displayModules();
         setContentPane(p);
         setEditMode(false);
-    }
-
-    private void setupPageStuff() {
-
     }
 
     private void setupRoles() {
@@ -93,13 +91,13 @@ public class TrainingModulePage extends BaseFrame {
         if (!validateFields()) return;
 
 
-        var person = new TrainingModuleData(currentlyEditingEmployee, name.getText(), description.getText(), moduleId);
+        var moduleData = new TrainingModuleData(currentlyEditingEmployee, name.getText(), description.getText(), module.getId());
 
         if (!editMode) {
 
             try {
-                Application.Database.TrainingModuleDataDatabase.add(person);
-                Dialog.show(person.getTitle() + " added successfully.");
+                Application.Database.TrainingModuleDataDatabase.add(moduleData);
+                Dialog.show(moduleData.getTitle() + " added successfully.");
                 displayModules();
 
 
@@ -111,8 +109,8 @@ public class TrainingModulePage extends BaseFrame {
             try {
 
 
-                Application.Database.TrainingModuleDataDatabase.update(person);
-                Dialog.show(person.getTitle() + " updated successfully.");
+                Application.Database.TrainingModuleDataDatabase.update(moduleData);
+                Dialog.show(moduleData.getTitle() + " updated successfully.");
                 displayModules();
 
             } catch (SQLException ex) {
@@ -176,7 +174,13 @@ public class TrainingModulePage extends BaseFrame {
 
                     String personName = target.getModel().getValueAt(row, 1) + "";
 
-                    if (column == DELETE_COLUMN_NUMBER) {
+                    if (column == VIEW_COLUMN_NUMBER) {
+
+                        TrainingModuleData trainingModuleData = ((BaseTableModel<TrainingModuleData>) target.getModel()).getDataAt(row);
+
+                        new TrainingModuleDataPage(trainingModuleData).setVisible(true);
+
+                    } else if (column == DELETE_COLUMN_NUMBER) {
                         System.out.println("Delete Clicked");
 
 
