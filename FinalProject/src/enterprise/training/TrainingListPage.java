@@ -58,6 +58,7 @@ public class TrainingListPage extends BaseFrame {
         if (!isTrainer) {
             addPersonPane.setVisible(false);
             addModuleButton.setVisible(false);
+            validationText.setVisible(false);
         } else {
             addPersonPane.setVisible(true);
             addModuleButton.setVisible(true);
