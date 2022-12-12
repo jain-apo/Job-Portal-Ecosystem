@@ -4,6 +4,7 @@ import domain.Application;
 import domain.Validator;
 import helpers.TableHelpers;
 import models.JobPosting;
+import models.tablemodels.BaseTableModel;
 import models.tablemodels.CompanyPostingsTableModel;
 import models.tablemodels.JobPostingsTableModel;
 import utils.Dialog;
@@ -12,12 +13,13 @@ import views.BaseFrame;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class JobPostingsPage extends BaseFrame {
-    private final int EDIT_COLUMN_NUMBER = 3;
-    private final int DELETE_COLUMN_NUMBER = 4;
+    private final int APPLY_COLUMN_NUMBER = 4;
     private JPanel p;
     private JPanel mainPanel;
     private JLabel heading;
@@ -62,6 +64,25 @@ public class JobPostingsPage extends BaseFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new MyApplicationPage().setVisible(true);
+            }
+        });
+        people.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                // handle mouse double click
+                if (e.getClickCount() == 2) {
+                    var row = people.getSelectedRow();
+                    int column = people.getSelectedColumn(); // selected column
+
+                    if (column == APPLY_COLUMN_NUMBER) {
+                        JobPosting jobPosting = ((BaseTableModel<JobPosting>) people.getModel()).getDataAt(row);
+
+                        new JobApplicationPage(jobPosting).setVisible(true);
+                    }
+
+                }
             }
         });
     }
