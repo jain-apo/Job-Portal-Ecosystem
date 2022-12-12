@@ -192,9 +192,9 @@ public class TrainingListPage extends BaseFrame {
                         setEditMode(true);
                         currentlyEditingEmployee = personId;
                         try {
-                            TrainingModule person = Application.Database.TrainingModules.getById(personId);
-                            name.setText(person.getName());
-                            description.setText(person.getDescription());
+                            TrainingModule trainingModule = Application.Database.TrainingModules.getById(personId);
+                            name.setText(trainingModule.getName());
+                            description.setText(trainingModule.getDescription());
 
                         } catch (SQLException e) {
                             Dialog.error("Error getting person");
@@ -202,7 +202,11 @@ public class TrainingListPage extends BaseFrame {
 
                     } else if (column == VIEW_COLUMN_NUMBER) {
                         System.out.println("View Clicked");
-                        new TrainingModulePage(personId).setVisible(true);
+                        try {
+                            new TrainingModulePage(Application.Database.TrainingModules.getById(personId)).setVisible(true);
+                        } catch (SQLException e) {
+                            Dialog.error("Error getting person");
+                        }
                     }
 
                 }
