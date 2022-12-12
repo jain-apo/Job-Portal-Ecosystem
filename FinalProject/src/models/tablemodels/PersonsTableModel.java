@@ -5,7 +5,7 @@ import models.Person;
 
 public class PersonsTableModel extends BaseTableModel<Person> {
     public PersonsTableModel() {
-        super(new String[]{"Id", "Full Name", "Date of Birth", "[edit]", "[delete]"});
+        super(new String[]{"Id", "Full Name", "Date of Birth", "[edit]", "[delete]", "Username", "e-mail"});
     }
 
     @Override
@@ -15,6 +15,9 @@ public class PersonsTableModel extends BaseTableModel<Person> {
                 item.getFullName(),
                 DateHelper.formatDate(item.getDateOfBirth(), "MMM-dd yyyy"),
                 "✖",
-                "✖"};
+                "✖",
+                item.getUsername(),
+                item.getEmail(),
+        };
     }
 }

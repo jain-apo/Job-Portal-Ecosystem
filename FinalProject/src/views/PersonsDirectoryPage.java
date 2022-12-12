@@ -41,6 +41,7 @@ public class PersonsDirectoryPage extends BaseFrame {
     private JTextField email;
     private JTextField phone;
     private JComboBox<Role> roles;
+    private JScrollPane sp;
 
     private boolean editMode;
     private int currentlyEditingEmployee;
@@ -48,15 +49,16 @@ public class PersonsDirectoryPage extends BaseFrame {
 
     public PersonsDirectoryPage() {
         super();
-        setContentPane(p);
-
+        pageDimensions();
         loadRoles();
-
         displayPeople();
-
         setupActions();
-
         setEditMode(false);
+        setContentPane(p);
+    }
+
+    private void pageDimensions() {
+        sp.setMinimumSize(new Dimension(800, 100));
     }
 
     private void loadRoles() {
