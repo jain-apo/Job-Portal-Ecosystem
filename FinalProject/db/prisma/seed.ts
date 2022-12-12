@@ -172,10 +172,11 @@ function getBirthday(): string | Date {
 }
 
 async function createRandomUser() {
+    const firstName = faker.name.firstName()
     await addUser({
-        firstName: faker.name.firstName(),
+        firstName: firstName,
         lastName: faker.name.lastName(),
-        username: faker.internet.userName().toLowerCase(),
+        username: firstName.toLowerCase(),
         email: faker.internet.email().toLowerCase(),
         phone: faker.datatype.number(9999999999).toString(),
         password: defaultPassword,

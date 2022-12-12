@@ -78,11 +78,14 @@ public class PersonsDirectoryPage extends BaseFrame {
 
         var person = new Person(currentlyEditingEmployee, firstName.getText(), lastName.getText(),
                 DateHelper.tryGetDate(dateOfBirth.getText(), "yyyy-MM-dd"), username.getText(),
-                Encryption.hash(password.getText()), email.getText(), phone.getText());
+                password.getText(), email.getText(), phone.getText());
 
         if (!editMode) {
 
             try {
+
+                person.setPassword(Encryption.hash(person.getPassword()));
+
                 Application.Database.Persons.add(person);
                 Dialog.show(person.getFullName() + " added successfully.");
 

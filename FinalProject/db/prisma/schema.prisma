@@ -37,7 +37,7 @@ model Person {
   firstName              String
   lastName               String
   dateOfBirth            DateTime
-  username               String
+  username               String                          @unique
   password               String
   email                  String                          @unique
   phone                  String

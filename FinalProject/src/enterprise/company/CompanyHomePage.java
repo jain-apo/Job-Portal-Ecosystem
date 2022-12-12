@@ -1,10 +1,15 @@
 package enterprise.company;
 
+import domain.Application;
+import domain.Roles;
 import views.BaseFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import static helpers.UiHelpers.buttonRole;
 
 public class CompanyHomePage extends BaseFrame {
     private JPanel p;
@@ -17,8 +22,35 @@ public class CompanyHomePage extends BaseFrame {
 
     public CompanyHomePage() {
         super();
+        setupRoles();
         setupActions();
         setContentPane(p);
+    }
+
+    private void setupRoles() {
+        try {
+            buttonRole(candidatePageButton, new String[]{
+                    Roles.ADMIN,
+                    Roles.COMPANY_HR,
+                    Roles.COMPANY_SYSADMIN,
+            }, Application.getCurrentlyLoggedInPerson());
+
+            buttonRole(interviewPageButton, new String[]{
+                    Roles.ADMIN,
+                    Roles.COMPANY_HR,
+                    Roles.COMPANY_SYSADMIN,
+                    Roles.COMPANY_EMPLOYEE,
+            }, Application.getCurrentlyLoggedInPerson());
+
+            buttonRole(jobApplicationsButton, new String[]{
+                    Roles.ADMIN,
+                    Roles.COMPANY_HR,
+                    Roles.COMPANY_SYSADMIN,
+            }, Application.getCurrentlyLoggedInPerson());
+
+        } catch (SQLException e) {
+            //
+        }
     }
 
     private void setupActions() {
