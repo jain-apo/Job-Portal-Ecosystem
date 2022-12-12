@@ -5,6 +5,8 @@ import utils.Dialog;
 import views.BaseFrame;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class CandidateProfile extends BaseFrame {
@@ -16,6 +18,7 @@ public class CandidateProfile extends BaseFrame {
     private JLabel phoneNo;
     private JPanel mainPane;
     private JButton viewResumeButton;
+    private JButton viewCertificateButton;
 
     public CandidateProfile(int candidateId) {
         super();
@@ -29,6 +32,12 @@ public class CandidateProfile extends BaseFrame {
 
         setContentPane(p);
         setupActions();
+        viewCertificateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ViewCertificate().setVisible(true);
+            }
+        });
     }
 
     private void setupActions() {

@@ -15,6 +15,8 @@ import views.BaseFrame;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -40,6 +42,7 @@ public class TrainingModulePage extends BaseFrame {
     private JTextArea description;
     private JTextField name;
     private JButton cancelButton;
+    private JButton startModuleButton;
     private boolean isTrainer;
     private boolean isTrainee;
 
@@ -52,6 +55,12 @@ public class TrainingModulePage extends BaseFrame {
         displayModules();
         setContentPane(p);
         setEditMode(false);
+        startModuleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new StartModule(module).setVisible(true);
+            }
+        });
     }
 
     private void setupRoles() {

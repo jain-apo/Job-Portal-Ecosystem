@@ -1,0 +1,37 @@
+package enterprise.company;
+
+import domain.Application;
+import helpers.TableHelpers;
+import models.tablemodels.CertificateTable;
+import utils.Dialog;
+import views.BaseFrame;
+
+import javax.swing.*;
+import java.sql.SQLException;
+
+public class ViewCertificate extends BaseFrame {
+
+    private JPanel p;
+    private JTable certificate;
+
+    public ViewCertificate() {
+        super();
+        setContentPane(p);
+        displayPeople();
+    }
+
+    private void displayPeople() {
+        CertificateTable model = new CertificateTable();
+
+        try {
+            certificate.setModel(new CertificateTable().loadData(Application.Database.TrainingCertificates.getAll()));
+            //TODO filter by id
+        } catch (SQLException e) {
+            Dialog.error("Error getting people");
+            return;
+        }
+
+        TableHelpers.centerColumn(certificate, 0);
+
+    }
+}
