@@ -77,5 +77,21 @@ public class PersonRoleDatabase extends BaseDatabase<PersonRole> {
 
         return personRoles;
     }
+
+    public void tryAdd(PersonRole personRole) {
+        try {
+            add(personRole);
+        } catch (SQLException e) {
+            //
+        }
+    }
+
+    public void tryDelete(PersonRole personRole) {
+        try {
+            delete(personRole.getId());
+        } catch (SQLException e) {
+            //
+        }
+    }
 }
 

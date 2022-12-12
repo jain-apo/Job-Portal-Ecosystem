@@ -1,4 +1,9 @@
 import { Course, Person, Prisma, PrismaClient, Role } from '@prisma/client'
+import { faker } from '@faker-js/faker';
+
+faker.seed(69420)
+
+const defaultPassword = '$2a$12$NReSOnyEHTMjnmYwxLa7be49S4aIsSXi8ROHIeyg/3ZXFwEnmfEee'
 
 const prisma = new PrismaClient()
 
@@ -30,9 +35,9 @@ async function main() {
         firstName: 'Sharun',
         lastName: 'Kumar',
         username: 'sharun',
-        phone: '9043133610',
-        password: '$2a$12$NReSOnyEHTMjnmYwxLa7be49S4aIsSXi8ROHIeyg/3ZXFwEnmfEee',
-        dateOfBirth: new Date('Sun Nov 05 1995 00:04:24 GMT-0500 (Eastern Standard Time)'),
+        phone: faker.datatype.number(9999999999).toString(),
+        password: defaultPassword,
+        dateOfBirth: getBirthday(),
         email: "sharunksplus@gmail.com",
     })
 
@@ -41,9 +46,9 @@ async function main() {
         lastName: 'Jain',
         username: 'apoorva',
         email: "jain.apo@gmail.com",
-        phone: '9043133610',
-        password: '$2a$12$NReSOnyEHTMjnmYwxLa7be49S4aIsSXi8ROHIeyg/3ZXFwEnmfEee',
-        dateOfBirth: new Date('Sun Nov 05 1995 00:04:24 GMT-0500 (Eastern Standard Time)'),
+        phone: faker.datatype.number(9999999999).toString(),
+        password: defaultPassword,
+        dateOfBirth: getBirthday(),
     })
 
     const mihir = await addUser({
@@ -51,10 +56,14 @@ async function main() {
         lastName: 'Sheth',
         username: 'mihir',
         email: "mihir@gmail.com",
-        phone: '9043133610',
-        password: '$2a$12$NReSOnyEHTMjnmYwxLa7be49S4aIsSXi8ROHIeyg/3ZXFwEnmfEee',
-        dateOfBirth: new Date('Sun Nov 05 1995 00:04:24 GMT-0500 (Eastern Standard Time)'),
+        phone: faker.datatype.number(9999999999).toString(),
+        password: defaultPassword,
+        dateOfBirth: getBirthday(),
     })
+
+    for (let i = 0; i < 10; i++) {
+        await createRandomUser();
+    }
 
     await addPersonRole(sharun, admin)
     await addPersonRole(sharun, collegeAdmin)
@@ -153,6 +162,26 @@ main()
         await prisma.$disconnect()
         process.exit(1)
     })
+
+function getBirthday(): string | Date {
+    return faker.date.birthdate({
+        min: 1995,
+        max: 2000,
+        mode: 'year'
+    });
+}
+
+async function createRandomUser() {
+    await addUser({
+        firstName: faker.name.firstName(),
+        lastName: faker.name.lastName(),
+        username: faker.internet.userName().toLowerCase(),
+        email: faker.internet.email().toLowerCase(),
+        phone: faker.datatype.number(9999999999).toString(),
+        password: defaultPassword,
+        dateOfBirth: getBirthday()
+    });
+}
 
 async function addTrainingData() {
     const javaScript = await addTrainingModule("JavaScript")

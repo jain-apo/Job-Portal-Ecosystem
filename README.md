@@ -29,7 +29,7 @@ Job portal is an application which connects employer and job seekers where emplo
 
 - Sharun Kumar Kakkad Sasikumar	002774079
 - Apoorva Jain	            	002764526
-- Mihir Sheth		                002743969
+- Mihir Sheth		            002743969
 
 
 ## Diagrams

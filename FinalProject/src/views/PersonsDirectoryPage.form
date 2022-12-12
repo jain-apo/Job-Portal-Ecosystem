@@ -194,13 +194,11 @@
                       <text value="Roles"/>
                     </properties>
                   </component>
-                  <component id="3e341" class="javax.swing.JButton" binding="updateRolesButton" default-binding="true">
+                  <component id="3fe31" class="javax.swing.JComboBox" binding="roles">
                     <constraints>
-                      <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
-                    <properties>
-                      <text value="Update Roles ..."/>
-                    </properties>
+                    <properties/>
                   </component>
                 </children>
               </grid>

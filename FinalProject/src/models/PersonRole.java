@@ -25,6 +25,14 @@ public class PersonRole {
         Application.Database.PersonRoles.add(this);
     }
 
+    public void tryDelete() {
+        Application.Database.PersonRoles.tryDelete(this);
+    }
+
+    public void tryCreate() {
+        Application.Database.PersonRoles.tryAdd(this);
+    }
+
     public Role getRole() throws SQLException {
         return Application.Database.Roles.getById(roleId);
     }

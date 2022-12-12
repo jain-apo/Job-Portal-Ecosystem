@@ -1,10 +1,13 @@
 package views;
 
 import domain.Application;
+import domain.Roles;
 import domain.Validator;
 import helpers.DateHelper;
 import helpers.TableHelpers;
 import models.Person;
+import models.PersonRole;
+import models.Role;
 import models.tablemodels.PersonsTableModel;
 import utils.Dialog;
 import utils.Encryption;
@@ -37,7 +40,7 @@ public class PersonsDirectoryPage extends BaseFrame {
     private JTextArea validationText;
     private JTextField email;
     private JTextField phone;
-    private JButton updateRolesButton;
+    private JComboBox<Role> roles;
 
     private boolean editMode;
     private int currentlyEditingEmployee;
@@ -47,11 +50,23 @@ public class PersonsDirectoryPage extends BaseFrame {
         super();
         setContentPane(p);
 
+        loadRoles();
+
         displayPeople();
 
         setupActions();
 
         setEditMode(false);
+    }
+
+    private void loadRoles() {
+        try {
+            Application.Database.Roles.getAll().forEach(role -> {
+                roles.addItem(role);
+            });
+        } catch (SQLException e) {
+            Dialog.error("Error loading roles");
+        }
     }
 
 
@@ -68,6 +83,7 @@ public class PersonsDirectoryPage extends BaseFrame {
             try {
                 Application.Database.Persons.add(person);
                 Dialog.show(person.getFullName() + " added successfully.");
+
                 displayPeople();
 
 
@@ -90,6 +106,25 @@ public class PersonsDirectoryPage extends BaseFrame {
                 ex.printStackTrace();
             }
         }
+
+
+        try {
+            Person finalPerson = person;
+            person =
+                    Application.Database.Persons.getAll().stream()
+                            .filter(p -> p.getUsername().equals(finalPerson.getUsername())).findFirst().orElse(null);
+            var Role = (Role) roles.getSelectedItem();
+
+            var newPr = new PersonRole(person.getId(), Role.getId());
+
+            newPr.tryCreate();
+            newPr.tryDelete();
+            System.out.println("Role updated successfully");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
 
         setEditMode(false);
     }
@@ -132,6 +167,13 @@ public class PersonsDirectoryPage extends BaseFrame {
             validationMessages.add(passwordValidation);
         }
 
+        var selectedRole = (Role) roles.getSelectedItem();
+        if (selectedRole == null) {
+            validationMessages.add("Select a role");
+        } else if (selectedRole.getName().equals(Roles.COLLEGE_STUDENT)) {
+            validationMessages.add("Students role can only be set by registration in college portal");
+        }
+
 
         if (validationMessages.size() == 0) {
             validationText.setText("");
@@ -146,7 +188,6 @@ public class PersonsDirectoryPage extends BaseFrame {
     private void setupActions() {
         addPersonButton.addActionListener(e -> addPerson());
         cancelEditButton.addActionListener(e -> setEditMode(false));
-        updateRolesButton.addActionListener(e -> updateRoles());
 
         people.addMouseListener(new MouseAdapter() {
             @Override
@@ -205,6 +246,21 @@ public class PersonsDirectoryPage extends BaseFrame {
                             existingPassword = person.getPassword();
                             email.setText(person.getEmail());
                             phone.setText(person.getPhone());
+
+                            var personRole =
+                                    Application.Database.PersonRoles.getAll().stream().filter(pr -> pr.getPersonId() == personId).findFirst().orElse(null);
+
+                            if (personRole != null) {
+                                var role = personRole.getRole();
+
+                                for (int i = 0; i < roles.getItemCount(); i++) {
+                                    if (((Role) roles.getItemAt(i)).getId() == role.getId()) {
+                                        roles.setSelectedIndex(i);
+                                        break;
+                                    }
+                                }
+                            }
+
                         } catch (SQLException e) {
                             Dialog.error("Error getting person");
                         }
@@ -214,10 +270,6 @@ public class PersonsDirectoryPage extends BaseFrame {
                 }
             }
         });
-
-    }
-
-    private void updateRoles() {
 
     }
 
