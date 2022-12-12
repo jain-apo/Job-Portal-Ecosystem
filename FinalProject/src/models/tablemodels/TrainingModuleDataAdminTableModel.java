@@ -12,7 +12,6 @@ public class TrainingModuleDataAdminTableModel extends BaseTableModel<TrainingMo
         return new Object[]{
                 item.getId(),
                 item.getTitle(),
-                "✖",
-                "✖"};
+                "✖", "✖", "✖"};
     }
 }
