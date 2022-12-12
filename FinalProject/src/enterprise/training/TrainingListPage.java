@@ -34,8 +34,8 @@ public class TrainingListPage extends BaseFrame {
     private void setupRoles() {
         var person = Application.getCurrentlyLoggedInPerson();
 
-        isTrainer = person.getRoles().equals(Roles.TRAINING_SITE_ADMIN);
-        isTrainee = person.getRoles().equals(Roles.TRAINEE);
+        isTrainer = person.matchRole(Roles.TRAINING_SITE_ADMIN);
+        isTrainee = person.matchRole(Roles.TRAINEE);
 
         // TODO Roles Restriction
     }
