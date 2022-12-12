@@ -56,7 +56,7 @@ public class TrainingModuleDataDatabase extends BaseDatabase<TrainingModuleData>
 
     @Override
     public TrainingModuleData getById(int id) throws SQLException {
-        return null;
+        return getAll().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
     }
 
     @Override

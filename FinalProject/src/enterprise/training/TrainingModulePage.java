@@ -5,8 +5,10 @@ import domain.Roles;
 import domain.Validator;
 import helpers.TableHelpers;
 import models.TrainingModule;
-import models.tablemodels.TrainingModuleAdminTableModel;
-import models.tablemodels.TrainingModuleTableModel;
+import models.TrainingModuleData;
+import models.tablemodels.BaseTableModel;
+import models.tablemodels.TrainingModuleDataAdminTableModel;
+import models.tablemodels.TrainingModuleDataTableModel;
 import utils.Dialog;
 import views.BaseFrame;
 
@@ -17,14 +19,13 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class TrainingListPage extends BaseFrame {
-
-    private final int VIEW_COLUMN_NUMBER = 3;
-    private final int EDIT_COLUMN_NUMBER = 4;
-    private final int DELETE_COLUMN_NUMBER = 5;
+public class TrainingModulePage extends BaseFrame {
+    private final int VIEW_COLUMN_NUMBER = 2;
+    private final int EDIT_COLUMN_NUMBER = 3;
+    private final int DELETE_COLUMN_NUMBER = 4;
+    private final TrainingModule module;
     private boolean editMode;
     private int currentlyEditingEmployee;
-
     private JPanel p;
     private JPanel mainPanel;
     private JLabel heading;
@@ -39,7 +40,10 @@ public class TrainingListPage extends BaseFrame {
     private boolean isTrainer;
     private boolean isTrainee;
 
-    public TrainingListPage() {
+    public TrainingModulePage(TrainingModule module) {
+        this.module = module;
+        heading.setText(module.getName());
+
         setupActions();
         setupRoles();
         displayModules();
@@ -68,11 +72,11 @@ public class TrainingListPage extends BaseFrame {
         try {
 
             if (isTrainee) {
-                modules.setModel(new TrainingModuleTableModel().loadData(Application.Database.TrainingModules.getAll()));
+                modules.setModel(new TrainingModuleDataTableModel().loadData(Application.Database.TrainingModuleDataDatabase.getAll()));
             }
 
             if (isTrainer) {
-                modules.setModel(new TrainingModuleAdminTableModel().loadData(Application.Database.TrainingModules.getAll()));
+                modules.setModel(new TrainingModuleDataAdminTableModel().loadData(Application.Database.TrainingModuleDataDatabase.getAll()));
             }
 
             for (int i = 0; i < modules.getColumnCount(); i++) {
@@ -87,13 +91,13 @@ public class TrainingListPage extends BaseFrame {
         if (!validateFields()) return;
 
 
-        var person = new TrainingModule(currentlyEditingEmployee, name.getText(), description.getText());
+        var moduleData = new TrainingModuleData(currentlyEditingEmployee, name.getText(), description.getText(), module.getId());
 
         if (!editMode) {
 
             try {
-                Application.Database.TrainingModules.add(person);
-                Dialog.show(person.getName() + " added successfully.");
+                Application.Database.TrainingModuleDataDatabase.add(moduleData);
+                Dialog.show(moduleData.getTitle() + " added successfully.");
                 displayModules();
 
 
@@ -105,8 +109,8 @@ public class TrainingListPage extends BaseFrame {
             try {
 
 
-                Application.Database.TrainingModules.update(person);
-                Dialog.show(person.getName() + " updated successfully.");
+                Application.Database.TrainingModuleDataDatabase.update(moduleData);
+                Dialog.show(moduleData.getTitle() + " updated successfully.");
                 displayModules();
 
             } catch (SQLException ex) {
@@ -122,11 +126,11 @@ public class TrainingListPage extends BaseFrame {
         cancelButton.setVisible(mode);
 
         if (mode) {
-            addModuleButton.setText("Update Module");
-            addPersonPane.setBorder(BorderFactory.createTitledBorder("Edit Module"));
+            addModuleButton.setText("Update Section");
+            addPersonPane.setBorder(BorderFactory.createTitledBorder("Edit Section"));
         } else {
-            addModuleButton.setText("Add Module");
-            addPersonPane.setBorder(BorderFactory.createTitledBorder("Add Module"));
+            addModuleButton.setText("Add Section");
+            addPersonPane.setBorder(BorderFactory.createTitledBorder("Add Section"));
 
             for (var text : new JTextField[]{name, description}) {
                 text.setText("");
@@ -170,7 +174,13 @@ public class TrainingListPage extends BaseFrame {
 
                     String personName = target.getModel().getValueAt(row, 1) + "";
 
-                    if (column == DELETE_COLUMN_NUMBER) {
+                    if (column == VIEW_COLUMN_NUMBER) {
+
+                        TrainingModuleData trainingModuleData = ((BaseTableModel<TrainingModuleData>) target.getModel()).getDataAt(row);
+
+                        new TrainingModuleDataPage(trainingModuleData).setVisible(true);
+
+                    } else if (column == DELETE_COLUMN_NUMBER) {
                         System.out.println("Delete Clicked");
 
 
@@ -180,7 +190,7 @@ public class TrainingListPage extends BaseFrame {
 
                         if (result == JOptionPane.YES_OPTION) {
                             try {
-                                Application.Database.TrainingModules.delete(personId);
+                                Application.Database.TrainingModuleDataDatabase.delete(personId);
                                 displayModules();
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -192,21 +202,14 @@ public class TrainingListPage extends BaseFrame {
                         setEditMode(true);
                         currentlyEditingEmployee = personId;
                         try {
-                            TrainingModule trainingModule = Application.Database.TrainingModules.getById(personId);
-                            name.setText(trainingModule.getName());
-                            description.setText(trainingModule.getDescription());
+                            TrainingModuleData person = Application.Database.TrainingModuleDataDatabase.getById(personId);
+                            name.setText(person.getTitle());
+                            description.setText(person.getDescription());
 
                         } catch (SQLException e) {
                             Dialog.error("Error getting person");
                         }
 
-                    } else if (column == VIEW_COLUMN_NUMBER) {
-                        System.out.println("View Clicked");
-                        try {
-                            new TrainingModulePage(Application.Database.TrainingModules.getById(personId)).setVisible(true);
-                        } catch (SQLException e) {
-                            Dialog.error("Error getting person");
-                        }
                     }
 
                 }
