@@ -12,6 +12,7 @@ public class CompanyHomePage extends BaseFrame {
     private JButton interviewPageButton;
     private JPanel mainPane;
     private JLabel heading;
+    private JButton jobApplicationsButton;
 
 
     public CompanyHomePage() {
