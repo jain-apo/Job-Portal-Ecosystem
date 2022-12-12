@@ -209,6 +209,40 @@ The key portions of the script are the nested anonymous function are highlighted
             trainingModuleId: javaScript.id
         }
     })
+
+    await prisma.trainingQuestion.create({
+        data: {
+            question: `The statements inside an if statement are contained by the same curly braces used to contain the statements in a function.`,
+            answer: false,
+            trainingModuleId: javaScript.id
+        }
+    })
+
+    await prisma.trainingQuestion.create({
+        data: {
+            question: `In an infinite loop, a loop statement never ends because its conditional expression is never truthy.`,
+            answer: false,
+            trainingModuleId: javaScript.id
+        }
+    })
+
+    await prisma.trainingQuestion.create({
+        data: {
+            question: `The statement document.write("This is a text string."); prints "This is a text string"`,
+            answer: false,
+            trainingModuleId: javaScript.id
+        }
+    })
+
+    const cPlusPLus = await addTrainingModule("C++")
+
+    // c++ data here
+
+    const csharp = await addTrainingModule("C#")
+
+    // c# data here
+
+
 }
 
 async function addTrainingModule(name: string) {
