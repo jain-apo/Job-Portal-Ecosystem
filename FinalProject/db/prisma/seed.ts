@@ -485,7 +485,8 @@ async function addJobApplication(sharun: Person, jobPosting: { id: any; title?: 
         create: {
             personId: sharun.id,
             jobPostingId: jobPosting.id,
-            yearsOfExperience: 5
+            yearsOfExperience: 5,
+            resumeFile: ""
         },
         update: {
             personId: sharun.id,

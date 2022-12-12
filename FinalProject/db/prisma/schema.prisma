@@ -12,6 +12,7 @@ model JobApplication {
   personId          Int
   jobPostingId      Int
   yearsOfExperience Int
+  resumeFile        String
   JobPosting        JobPosting     @relation(fields: [jobPostingId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   Person            Person         @relation(fields: [personId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   JobCandidate      JobCandidate[]
@@ -162,6 +163,7 @@ model TrainingCertificate {
   personId         Int
   trainingModule   TrainingModule @relation(fields: [trainingModuleId], references: [id])
   person           Person         @relation(fields: [personId], references: [id])
+  certifiedDate    DateTime       @default(now())
 
   @@unique([trainingModuleId, personId])
 }
