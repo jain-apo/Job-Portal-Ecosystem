@@ -4,6 +4,7 @@ import domain.Application;
 import domain.Roles;
 import domain.Validator;
 import helpers.TableHelpers;
+import models.TrainingCertificate;
 import models.TrainingModule;
 import models.TrainingModuleData;
 import models.tablemodels.BaseTableModel;
@@ -75,7 +76,8 @@ public class TrainingModulePage extends BaseFrame {
     private void displayModules() {
         try {
 
-            List<TrainingModuleData> moduleData = Application.Database.TrainingModuleDataDatabase.getAll().stream().filter(x -> x.getTrainingModuleId() == module.getId()).collect(Collectors.toList());
+            List<TrainingModuleData> moduleData =
+                    Application.Database.TrainingModuleDataDatabase.getAll().stream().filter(x -> x.getTrainingModuleId() == module.getId()).collect(Collectors.toList());
 
             if (isTrainer) {
                 modules.setModel(new TrainingModuleDataAdminTableModel().loadData(moduleData));
@@ -95,7 +97,8 @@ public class TrainingModulePage extends BaseFrame {
         if (!validateFields()) return;
 
 
-        var moduleData = new TrainingModuleData(currentlyEditingEmployee, name.getText(), description.getText(), module.getId());
+        var moduleData = new TrainingModuleData(currentlyEditingEmployee, name.getText(), description.getText(),
+                module.getId());
 
         if (!editMode) {
 
@@ -182,7 +185,8 @@ public class TrainingModulePage extends BaseFrame {
 
                     if (column == VIEW_COLUMN_NUMBER) {
 
-                        TrainingModuleData trainingModuleData = ((BaseTableModel<TrainingModuleData>) target.getModel()).getDataAt(row);
+                        TrainingModuleData trainingModuleData =
+                                ((BaseTableModel<TrainingModuleData>) target.getModel()).getDataAt(row);
 
                         new TrainingModuleDataPage(trainingModuleData).setVisible(true);
 
@@ -190,7 +194,8 @@ public class TrainingModulePage extends BaseFrame {
                         System.out.println("Delete Clicked");
 
 
-                        int result = Dialog.confirm("Are you sure you want to delete " + personName + "?", "Delete Person", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        int result = Dialog.confirm("Are you sure you want to delete " + personName + "?",
+                                "Delete Person", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                         System.out.println(result);
 
@@ -208,7 +213,8 @@ public class TrainingModulePage extends BaseFrame {
                         setEditMode(true);
                         currentlyEditingEmployee = personId;
                         try {
-                            TrainingModuleData person = Application.Database.TrainingModuleDataDatabase.getById(personId);
+                            TrainingModuleData person =
+                                    Application.Database.TrainingModuleDataDatabase.getById(personId);
                             name.setText(person.getTitle());
                             description.setText(person.getDescription());
 
@@ -228,11 +234,18 @@ public class TrainingModulePage extends BaseFrame {
 
         // todo check if the user has completed the module
 
-        var result = Dialog.confirm("Are you sure you want to start the exercise?", "Start Exercise", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (currentUserHasCertificate()) {
+            Dialog.info("You already have the certificate for this module");
+            return;
+        }
+
+        var result = Dialog.confirm("Are you sure you want to start the exercise?", "Start Exercise",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (result == JOptionPane.YES_OPTION) {
             try {
-                var questions = Application.Database.TrainingQuestions.getAll().stream().filter(x -> x.getTrainingModuleId() == module.getId()).collect(Collectors.toList());
+                var questions =
+                        Application.Database.TrainingQuestions.getAll().stream().filter(x -> x.getTrainingModuleId() == module.getId()).collect(Collectors.toList());
 
                 if (questions.size() == 0) {
                     Dialog.error("No questions found for this module");
@@ -252,11 +265,22 @@ public class TrainingModulePage extends BaseFrame {
 
                 Dialog.info("Exercise completed successfully");
 
+                Application.Database.TrainingCertificates.add(new TrainingCertificate(0, module.getName() + " " +
+                        "Certificate.", module.getId(), Application.getCurrentlyLoggedInPerson().getId()));
+
             } catch (SQLException e) {
                 Dialog.error("Error loading questions");
             }
         }
 
 
+    }
+
+    private boolean currentUserHasCertificate() {
+        try {
+            return Application.Database.TrainingCertificates.getAll().stream().filter(x -> x.getTrainingModuleId() == module.getId() && x.getPersonId() == Application.getCurrentlyLoggedInPerson().getId()).count() > 0;
+        } catch (SQLException e) {
+            return false;
+        }
     }
 }

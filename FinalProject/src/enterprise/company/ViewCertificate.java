@@ -13,6 +13,8 @@ public class ViewCertificate extends BaseFrame {
 
     private JPanel p;
     private JTable certificate;
+    private JPanel mainPane;
+    private JLabel heading;
 
     public ViewCertificate() {
         super();

@@ -1,5 +1,8 @@
 package models;
 
+import domain.Application;
+
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class TrainingCertificate {
@@ -30,6 +33,10 @@ public class TrainingCertificate {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public TrainingModule getTrainingModule() throws SQLException {
+        return Application.Database.TrainingModules.getById(trainingModuleId);
     }
 
     public int getTrainingModuleId() {
