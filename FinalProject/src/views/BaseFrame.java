@@ -19,6 +19,8 @@ public class BaseFrame extends JFrame {
     protected void repack() {
         pack();
         setSize(getWidth() + 50, getHeight() + 50);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
     }
 
     protected void switchToWindow(JFrame nextWindow) {
