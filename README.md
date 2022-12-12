@@ -32,10 +32,7 @@ Job portal is an application which connects employer and job seekers where emplo
 - Mihir Sheth		                002743969
 
 
-## Class Diagram:
+## Diagrams
 
-![image](diagrams/class_diagram.png)
-
-## Sequence Diagrams:
-
-![image](diagrams/sequence.png)
+- [Class Diagram](./diagrams/class_diagram.png)
+- [Sequence Diagram](./diagrams/sequence.png)
