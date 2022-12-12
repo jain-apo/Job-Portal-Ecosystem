@@ -160,9 +160,10 @@ async function addTrainingData() {
     await prisma.trainingModuleData.create({
         data: {
             title: "Basics",
-            description: `
-            JavaScript is an interpreted language. In the browser, an interpreter will read the code and run it without needing to compile it first.
-Java is used as a server side (backend) language whereas JavaScript is primarily used as a client side (frontend) language. But JavaScript can also be used to create backend web applications with Node.js.`,
+            description: `JavaScript is an interpreted language. In the browser, an interpreter will read the code and run 
+            it without needing to compile it first. Java is used as a server side (backend) language whereas JavaScript is 
+            primarily used as a client side (frontend) language. But JavaScript can also be used to create backend web 
+            applications with Node.js.`,
             trainingModuleId: javaScript.id
         }
     })
@@ -171,35 +172,48 @@ Java is used as a server side (backend) language whereas JavaScript is primarily
         data: {
             title: "Intermediate",
             description: `
-            The Document Object Model is a way to manipulate the structure and style of an HTML page. It represents the internals of the page as the browser sees it, and allows the developer to alter it with JavaScript.
-Trees and Branches
-HTML is an XML-like structure in that the elements form a structure of parents’ nodes with children, like the branches of a tree. There is one root element (html) with branches like head and body, each with their own branches. For this reason, the DOM is also called the DOM tree.
+            The Document Object Model is a way to manipulate the structure and style of an HTML page.
+            It represents the internals of the page as the browser sees it, and allows the developer to alter it with JavaScript.
 
-Modifying the DOM, by picking an element and changing something about it, is something done often in JavaScript. To access the DOM from JavaScript, the document object is used. It’s provided by the browser and allows code on the page to interact with the content.
-Getting an Element
-The first thing to know is how to get an element. There are a number of ways of doing it, and browsers support different ones. Starting with the best supported we’ll move through to the latest, and most useful, versions.
-By ID
-document.getElementById is a method for getting hold of an element - unsurprisingly - by its ID.
+            Trees and Branches
+            HTML is an XML-like structure in that the elements form a structure of parents’ nodes with children, like the
+            branches of a tree. There is one root element (html) with branches like head and body, each with their own branches.
+            For this reason, the DOM is also called the DOM tree.
+            Modifying the DOM, by picking an element and changing something about it, is something done often in JavaScript. 
+            To access the DOM from JavaScript, the document object is used. It’s provided by the browser and allows 
+            code on the page to interact with the content.
+            
+            Getting an Element
+            The first thing to know is how to get an element. There are a number of ways of doing it, and browsers support 
+            different ones. Starting with the best supported we’ll move through to the latest, and most useful, versions.
 
+            By ID
+            document.getElementById is a method for getting hold of an element - unsurprisingly - by its ID.
 
-var pageHeader = document.getElementById('page-header');
-The pageHeader element can then be manipulated - its size and color can be changed, and other code can be declared to handle the element being clicked on or hovered over. It’s supported in pretty much all the browsers you need to worry about.
+            var pageHeader = document.getElementById('page-header');
+            The pageHeader element can then be manipulated - its size and color can be changed, and other code can 
+            be declared to handle the element being clicked on or hovered over. It’s supported in pretty much all the 
+            browsers you need to worry about.
+            
+            Notice that getElementById is a method of the document object. Many of the methods used to access the page
+            are found on the document object.
 
-Notice that getElementById is a method of the document object. Many of the methods used to access the page are found on the document object.
+            By Tag Name
+            document.getElementsByTagName works in much the same way as getElementById, except that it takes a tag name 
+            (a, ul, li, etc) instead of an ID and returns a NodeList, which is essentially an array of the DOM Elements.
 
-By Tag Name
-document.getElementsByTagName works in much the same way as getElementById, except that it takes a tag name (a, ul, li, etc) instead of an ID and returns a NodeList, which is essentially an array of the DOM Elements.
+            By Class Name
+            document.getElementsByClassName returns the same kind of NodeList as getElementsByTagName, except that you pass a 
+            class name to be matched, not a tag name.
 
-By Class Name
-document.getElementsByClassName returns the same kind of NodeList as getElementsByTagName, except that you pass a class name to be matched, not a tag name.
+            By CSS Selector
+            A couple of new methods are available in modern browsers that make selecting elements easier by allowing the use 
+            of CSS selectors. They are document.querySelector and document.querySelectorAll.
 
-By CSS Selector
-A couple of new methods are available in modern browsers that make selecting elements easier by allowing the use of CSS selectors. They are document.querySelector and document.querySelectorAll.
-
-
-var pageHeader = document.querySelector('#header');
-var buttons = document.querySelectorAll(.btn);
-querySelector, like getElementById, returns only one element whereas querySelectorAll returns a NodeList. If multiple elements match the selector you pass to querySelector, only the first will be returned.
+            var pageHeader = document.querySelector('#header');
+            var buttons = document.querySelectorAll(.btn);
+            querySelector, like getElementById, returns only one element whereas querySelectorAll returns a NodeList.
+            If multiple elements match the selector you pass to querySelector, only the first will be returned.
             `,
             trainingModuleId: javaScript.id
         }
@@ -208,14 +222,27 @@ querySelector, like getElementById, returns only one element whereas querySelect
     await prisma.trainingModuleData.create({
         data: {
             title: "Advanced",
-            description: `Closures to Extend Variable Scope
-Closures in JavaScript are a fairly straightforward concept, and have been discussed online in a number of in-depth articles. The fact that they are straightforward doesn’t necessarily mean they’re simple however, as seen by the extensive articles that cover the subject. Simply put, closures allow variable scope to be extended past the common scope restrictions of functions.
-To create a closure, you nest a function inside of a function. That inner function has access to all variables in its parent function’s scope. This comes in handy when creating methods and properties in object oriented scripts.
+            description: `
+            Closures to Extend Variable Scope
+            Closures in JavaScript are a fairly straightforward concept, and have been discussed online in a number of in-depth 
+            articles. The fact that they are straightforward doesn’t necessarily mean they’re simple however, as seen by the 
+            extensive articles that cover the subject. Simply put, closures allow variable scope to be extended past the common 
+            scope restrictions of functions.
 
-Here is a simple example that demonstrates the use of a closure:
+            To create a closure, you nest a function inside of a function. That inner function has access to all variables in 
+            its parent function’s scope. This comes in handy when creating methods and properties in object oriented scripts.
 
-function myObject() { this.property1 = "value1"; this.property2 = "value2"; var newValue = this.property1;  this.performMethod = function() { myMethodValue = newValue; return myMethodValue; }; } var myObjectInstance = new myObject(); alert(myObjectInstance.performMethod());
-The key portions of the script are the nested anonymous function are highlighted in green and the method call in the alert function (last line). Because the method in the alert is actually calling a nested function, that method is able to read the value of the variable called newValue, even thought that variable is not within the scope of the anonymous function, or method. Developers use closures all the time, probably unknowingly, since a closure is created any time an anonymous function is nested inside another function and utilizes variables from the parent function’s scope.
+            Here is a simple example that demonstrates the use of a closure:
+
+            function myObject() { this.property1 = "value1"; this.property2 = "value2"; var newValue = this.property1;  
+            this.performMethod = function() { myMethodValue = newValue; return myMethodValue; }; } 
+            var myObjectInstance = new myObject(); alert(myObjectInstance.performMethod());
+            The key portions of the script are the nested anonymous function are highlighted in green and the method 
+            call in the alert function (last line). Because the method in the alert is actually calling a nested function, 
+            that method is able to read the value of the variable called newValue, even thought that variable is not within 
+            the scope of the anonymous function, or method. Developers use closures all the time, probably unknowingly, 
+            since a closure is created any time an anonymous function is nested inside another function and utilizes variables 
+            from the parent function’s scope.
 `,
             trainingModuleId: javaScript.id
         }
@@ -224,7 +251,7 @@ The key portions of the script are the nested anonymous function are highlighted
     await prisma.trainingQuestion.create({
         data: {
             question: `The statements inside an if statement are contained by the same curly braces used to contain the statements in a function.`,
-            answer: false,
+            answer: true,
             trainingModuleId: javaScript.id
         }
     })

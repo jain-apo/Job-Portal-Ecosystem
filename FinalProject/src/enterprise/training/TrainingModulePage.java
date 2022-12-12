@@ -15,8 +15,6 @@ import views.BaseFrame;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -42,7 +40,7 @@ public class TrainingModulePage extends BaseFrame {
     private JTextArea description;
     private JTextField name;
     private JButton cancelButton;
-    private JButton startModuleButton;
+    private JButton startExerciseButton;
     private boolean isTrainer;
     private boolean isTrainee;
 
@@ -55,12 +53,6 @@ public class TrainingModulePage extends BaseFrame {
         displayModules();
         setContentPane(p);
         setEditMode(false);
-        startModuleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                new StartModule(module).setVisible(true);
-            }
-        });
     }
 
     private void setupRoles() {
@@ -171,6 +163,8 @@ public class TrainingModulePage extends BaseFrame {
         addModuleButton.addActionListener(e -> addPerson());
         cancelButton.addActionListener(e -> setEditMode(false));
 
+        startExerciseButton.addActionListener(e -> startExercise());
+
         modules.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -227,6 +221,45 @@ public class TrainingModulePage extends BaseFrame {
                 }
             }
         });
+
+    }
+
+    private void startExercise() {
+
+        // todo check if the user has completed the module
+
+        var result = Dialog.confirm("Are you sure you want to start the exercise?", "Start Exercise", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (result == JOptionPane.YES_OPTION) {
+            try {
+                var questions = Application.Database.TrainingQuestions.getAll().stream().filter(x -> x.getTrainingModuleId() == module.getId()).collect(Collectors.toList());
+
+                if (questions.size() == 0) {
+                    Dialog.error("No questions found for this module");
+                    return;
+                }
+
+                for (var question : questions) {
+                    var response = Dialog.confirm(question.getQuestion(), "Question");
+
+                    if ((response == JOptionPane.YES_OPTION && question.getAnswer()) || (response == JOptionPane.NO_OPTION && !question.getAnswer())) {
+                        continue;
+                    } else {
+                        Dialog.info("Incorrect answer, ending the exercise");
+                        return;
+                    }
+                }
+
+                Dialog.info("Exercise completed successfully");
+
+                Application.Database.
+
+
+            } catch (SQLException e) {
+                Dialog.error("Error loading questions");
+            }
+        }
+
 
     }
 }
