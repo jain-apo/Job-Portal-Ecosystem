@@ -1,6 +1,7 @@
 package enterprise.college;
 
 import domain.Application;
+import domain.Roles;
 import models.CollegeStudent;
 import models.Course;
 import models.PersonRole;
@@ -72,10 +73,12 @@ public class StudentRegistrationPage extends BaseFrame {
             );
 
 
-            var studentRole = Application.Database.Roles.getAll().stream().filter(role -> role.getName().equals("COLLEGE_STUDENT")).findFirst().orElse(null);
+            var studentRole = Application.Database.Roles.getAll().stream().filter(role -> role.getName().equals(Roles.COLLEGE_STUDENT)).findFirst().orElse(null);
+            var traineeRole = Application.Database.Roles.getAll().stream().filter(role -> role.getName().equals(Roles.TRAINEE)).findFirst().orElse(null);
 
             Application.Database.CollegeStudents.add(student);
             Application.Database.PersonRoles.add(new PersonRole(0, Application.getCurrentlyLoggedInPerson().getId(), studentRole.getId()));
+            Application.Database.PersonRoles.add(new PersonRole(0, Application.getCurrentlyLoggedInPerson().getId(), traineeRole.getId()));
             Application.refreshLoggedInPerson();
 
             Dialog.info("Registration successful");

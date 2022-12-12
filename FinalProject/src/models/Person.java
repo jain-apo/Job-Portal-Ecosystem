@@ -133,6 +133,10 @@ public class Person {
         return Objects.hash(id, firstName, lastName, dateOfBirth, username, password, email, phone);
     }
 
+    public boolean matchRole(String roleName) {
+        return getRoles().stream().anyMatch(role -> role.getName().equals(roleName));
+    }
+
     public String getFullName() {
         return firstName + " " + lastName;
     }
