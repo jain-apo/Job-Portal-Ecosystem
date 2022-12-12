@@ -20,8 +20,8 @@ public class LoginPage extends BaseFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // TODO: change these default values later
-        username.setText("sharun");
-        password.setText("sharun");
+//        username.setText("sharun");
+//        password.setText("sharun");
 
         loginButton.addActionListener(new ActionListener() {
             @Override
@@ -38,7 +38,7 @@ public class LoginPage extends BaseFrame {
         try {
             var dbperson =
                     Application.Database.Persons.getAll().stream().filter(person -> person.getUsername().equals(username.getText()))
-                    .findFirst().orElse(null);
+                            .findFirst().orElse(null);
 
             if (dbperson == null) {
                 System.out.println("No person exists with that username");
