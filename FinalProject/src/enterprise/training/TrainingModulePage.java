@@ -19,6 +19,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class TrainingModulePage extends BaseFrame {
     private final int VIEW_COLUMN_NUMBER = 2;
@@ -72,12 +74,14 @@ public class TrainingModulePage extends BaseFrame {
     private void displayModules() {
         try {
 
+            List<TrainingModuleData> moduleData = Application.Database.TrainingModuleDataDatabase.getAll().stream().filter(x -> x.getTrainingModuleId() == module.getId()).collect(Collectors.toList());
+
             if (isTrainee) {
-                modules.setModel(new TrainingModuleDataTableModel().loadData(Application.Database.TrainingModuleDataDatabase.getAll()));
+                modules.setModel(new TrainingModuleDataTableModel().loadData(moduleData));
             }
 
             if (isTrainer) {
-                modules.setModel(new TrainingModuleDataAdminTableModel().loadData(Application.Database.TrainingModuleDataDatabase.getAll()));
+                modules.setModel(new TrainingModuleDataAdminTableModel().loadData(moduleData));
             }
 
             for (int i = 0; i < modules.getColumnCount(); i++) {
