@@ -252,9 +252,6 @@ public class TrainingModulePage extends BaseFrame {
 
                 Dialog.info("Exercise completed successfully");
 
-                Application.Database.
-
-
             } catch (SQLException e) {
                 Dialog.error("Error loading questions");
             }
