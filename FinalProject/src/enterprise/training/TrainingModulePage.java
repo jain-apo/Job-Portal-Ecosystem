@@ -4,7 +4,7 @@ import domain.Application;
 import domain.Roles;
 import domain.Validator;
 import helpers.TableHelpers;
-import models.TrainingModule;
+import models.TrainingModuleData;
 import models.tablemodels.TrainingModuleDataAdminTableModel;
 import models.tablemodels.TrainingModuleDataTableModel;
 import utils.Dialog;
@@ -93,13 +93,13 @@ public class TrainingModulePage extends BaseFrame {
         if (!validateFields()) return;
 
 
-        var person = new TrainingModule(currentlyEditingEmployee, name.getText(), description.getText());
+        var person = new TrainingModuleData(currentlyEditingEmployee, name.getText(), description.getText(), moduleId);
 
         if (!editMode) {
 
             try {
-                Application.Database.TrainingModules.add(person);
-                Dialog.show(person.getName() + " added successfully.");
+                Application.Database.TrainingModuleDataDatabase.add(person);
+                Dialog.show(person.getTitle() + " added successfully.");
                 displayModules();
 
 
@@ -111,8 +111,8 @@ public class TrainingModulePage extends BaseFrame {
             try {
 
 
-                Application.Database.TrainingModules.update(person);
-                Dialog.show(person.getName() + " updated successfully.");
+                Application.Database.TrainingModuleDataDatabase.update(person);
+                Dialog.show(person.getTitle() + " updated successfully.");
                 displayModules();
 
             } catch (SQLException ex) {
@@ -186,7 +186,7 @@ public class TrainingModulePage extends BaseFrame {
 
                         if (result == JOptionPane.YES_OPTION) {
                             try {
-                                Application.Database.TrainingModules.delete(personId);
+                                Application.Database.TrainingModuleDataDatabase.delete(personId);
                                 displayModules();
                             } catch (SQLException e) {
                                 e.printStackTrace();
@@ -198,8 +198,8 @@ public class TrainingModulePage extends BaseFrame {
                         setEditMode(true);
                         currentlyEditingEmployee = personId;
                         try {
-                            TrainingModule person = Application.Database.TrainingModules.getById(personId);
-                            name.setText(person.getName());
+                            TrainingModuleData person = Application.Database.TrainingModuleDataDatabase.getById(personId);
+                            name.setText(person.getTitle());
                             description.setText(person.getDescription());
 
                         } catch (SQLException e) {
