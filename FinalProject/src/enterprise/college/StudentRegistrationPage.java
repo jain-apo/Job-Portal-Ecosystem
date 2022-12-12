@@ -4,6 +4,7 @@ import domain.Application;
 import domain.Roles;
 import models.CollegeStudent;
 import models.Course;
+import models.PersonNotification;
 import models.PersonRole;
 import utils.Dialog;
 import views.BaseFrame;
@@ -80,6 +81,9 @@ public class StudentRegistrationPage extends BaseFrame {
             Application.Database.PersonRoles.add(new PersonRole(0, Application.getCurrentlyLoggedInPerson().getId(), studentRole.getId()));
             Application.Database.PersonRoles.add(new PersonRole(0, Application.getCurrentlyLoggedInPerson().getId(), traineeRole.getId()));
             Application.refreshLoggedInPerson();
+
+            new PersonNotification(Application.getCurrentlyLoggedInPerson().getId(), "College Registration", "College Registration Successful").create();
+            new PersonNotification(Application.getCurrentlyLoggedInPerson().getId(), "GPA Update", "Your current GPA is " + gpa).create();
 
             Dialog.info("Registration successful");
 

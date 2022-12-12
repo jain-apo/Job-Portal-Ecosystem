@@ -2,7 +2,7 @@ package enterprise.company;
 
 import domain.Application;
 import helpers.TableHelpers;
-import models.tablemodels.CertificateTable;
+import models.tablemodels.CertificateTableModel;
 import utils.Dialog;
 import views.BaseFrame;
 
@@ -21,10 +21,10 @@ public class ViewCertificate extends BaseFrame {
     }
 
     private void displayPeople() {
-        CertificateTable model = new CertificateTable();
+        CertificateTableModel model = new CertificateTableModel();
 
         try {
-            certificate.setModel(new CertificateTable().loadData(Application.Database.TrainingCertificates.getAll()));
+            certificate.setModel(new CertificateTableModel().loadData(Application.Database.TrainingCertificates.getAll()));
             //TODO filter by id
         } catch (SQLException e) {
             Dialog.error("Error getting people");

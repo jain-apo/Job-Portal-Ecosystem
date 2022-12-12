@@ -34,5 +34,11 @@ public class CompanyHomePage extends BaseFrame {
                 new InterviewPage().setVisible(true);
             }
         });
+        jobApplicationsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ApplicantsPage().setVisible(true);
+            }
+        });
     }
 }

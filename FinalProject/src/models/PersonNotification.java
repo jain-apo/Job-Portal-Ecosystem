@@ -1,6 +1,9 @@
 package models;
 
+import domain.Application;
+
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class PersonNotification {
@@ -16,6 +19,12 @@ public class PersonNotification {
         this.title = title;
         this.message = message;
         this.date = date;
+    }
+
+    public PersonNotification(int personId, String title, String message) {
+        this.personId = personId;
+        this.title = title;
+        this.message = message;
     }
 
     public int getId() {
@@ -69,5 +78,9 @@ public class PersonNotification {
     @Override
     public int hashCode() {
         return Objects.hash(id, personId, title, message, date);
+    }
+
+    public void create() throws SQLException {
+        Application.Database.PersonNotifications.add(this);
     }
 }

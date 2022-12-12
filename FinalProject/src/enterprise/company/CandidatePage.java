@@ -2,7 +2,7 @@ package enterprise.company;
 
 import domain.Application;
 import helpers.TableHelpers;
-import models.tablemodels.CandidateTable;
+import models.tablemodels.CandidateTableModel;
 import utils.Dialog;
 import views.BaseFrame;
 
@@ -52,10 +52,10 @@ public class CandidatePage extends BaseFrame {
     }
 
     private void displayPeople() {
-        CandidateTable model = new CandidateTable();
+        CandidateTableModel model = new CandidateTableModel();
 
         try {
-            candidate.setModel(new CandidateTable().loadData(Application.Database.JobCandidates.getAll()));
+            candidate.setModel(new CandidateTableModel().loadData(Application.Database.JobCandidates.getAll()));
         } catch (SQLException e) {
             Dialog.error("Error loading candidates");
         }

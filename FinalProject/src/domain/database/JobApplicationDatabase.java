@@ -1,5 +1,6 @@
 package domain.database;
 
+import domain.Application;
 import models.JobApplication;
 
 import java.sql.Connection;
@@ -77,5 +78,10 @@ public class JobApplicationDatabase extends BaseDatabase<models.JobApplication> 
         }
 
         return jobApplications;
+    }
+
+    public List<JobApplication> getAllNonCandidates() throws SQLException {
+        var candidates = Application.Database.JobCandidates.getAll().stream().map(c -> c.getPersonId()).toList();
+        return getAll().stream().filter(jobApplication -> !candidates.contains(jobApplication.getPersonId())).toList();
     }
 }

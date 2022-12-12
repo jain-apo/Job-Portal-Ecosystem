@@ -2,8 +2,8 @@ package models.tablemodels;
 
 import models.TrainingCertificate;
 
-public class CertificateTable extends BaseTableModel<TrainingCertificate> {
-    public CertificateTable() {
+public class CertificateTableModel extends BaseTableModel<TrainingCertificate> {
+    public CertificateTableModel() {
         super(new String[]{"Name"});
     }
 

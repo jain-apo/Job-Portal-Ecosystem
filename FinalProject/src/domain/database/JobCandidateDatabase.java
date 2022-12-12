@@ -17,11 +17,10 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
 
-        statement.setInt(1, item.getId());
-        statement.setInt(2, item.getPersonId());
-        statement.setInt(3, item.getJobApplicationId());
-        statement.setInt(4, item.getInterviewRound());
-        statement.setString(5, item.getResult());
+        statement.setInt(1, item.getPersonId());
+        statement.setInt(2, item.getJobApplicationId());
+        statement.setInt(3, item.getInterviewRound());
+        statement.setString(4, item.getResult());
 
         statement.executeUpdate();
     }
@@ -72,7 +71,7 @@ public class JobCandidateDatabase extends BaseDatabase<models.JobCandidate> {
             models.JobCandidate jobCandidate = new models.JobCandidate(
                     resultSet.getInt("Id"),
                     resultSet.getInt("personId"),
-                    resultSet.getInt("jobApplicationid"),
+                    resultSet.getInt("jobApplicationId"),
                     resultSet.getInt("interviewRound"),
                     resultSet.getString("result")
 

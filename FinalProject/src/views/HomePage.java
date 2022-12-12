@@ -63,6 +63,7 @@ public class HomePage extends BaseFrame {
                     .loadData(Application.Database.PersonNotifications.getAll()
                             .stream()
                             .filter(x -> x.getPersonId() == Application.getCurrentlyLoggedInPerson().getId())
+                            .sorted((x, y) -> Long.compare(y.getId(), x.getId()))
                             .collect(Collectors.toList())));
         } catch (SQLException e) {
             throw new RuntimeException(e);

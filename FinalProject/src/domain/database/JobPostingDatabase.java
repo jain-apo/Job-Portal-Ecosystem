@@ -58,7 +58,7 @@ public class JobPostingDatabase extends BaseDatabase<JobPosting> {
 
     @Override
     public JobPosting getById(int id) throws SQLException {
-        return null;
+        return getAll().stream().filter(jobPosting -> jobPosting.getId() == id).findFirst().orElse(null);
     }
 
     @Override

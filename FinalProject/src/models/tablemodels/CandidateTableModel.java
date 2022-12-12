@@ -9,11 +9,11 @@ import utils.Dialog;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class CandidateTable extends BaseTableModel<JobCandidate> {
+public class CandidateTableModel extends BaseTableModel<JobCandidate> {
 
     private HashMap<Integer, Person> personsCache;
 
-    public CandidateTable() {
+    public CandidateTableModel() {
         super(new String[]{"Id", "Full Name", "Date of Birth", "[profile]"});
 
         personsCache = new HashMap<>();

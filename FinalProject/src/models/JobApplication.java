@@ -1,5 +1,8 @@
 package models;
 
+import domain.Application;
+
+import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Objects;
 
@@ -17,6 +20,14 @@ public class JobApplication {
         this.jobPostingId = jobPostingId;
         this.yearsOfExperience = yearsOfExperience;
         this.resumeFile = resumeFile;
+    }
+
+    public Person getPerson() throws SQLException {
+        return Application.Database.Persons.getById(personId);
+    }
+
+    public JobPosting getJobPosting() throws SQLException {
+        return Application.Database.JobPostings.getById(jobPostingId);
     }
 
     public String getResumeFile() {

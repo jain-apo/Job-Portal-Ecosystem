@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <scrollpane id="2d004">
+          <scrollpane id="2d004" binding="sp">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -44,7 +44,7 @@
             </constraints>
             <properties>
               <font size="20"/>
-              <text value="Candidates"/>
+              <text value="Job Applicants"/>
             </properties>
           </component>
         </children>
