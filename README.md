@@ -25,6 +25,14 @@ Job portal is an application which connects employer and job seekers where emplo
     - Organization 1: Training course Management
         - Roles: Trainee, Site Administrator
 
+## Setting up the project DB
+
+```cmd
+git clone https://github.com/sharunkumar-ks/AED_Final_Project.git
+cd .\AED_Final_Project\FinalProject\db\
+yarn
+```
+
 ## Group Members
 
 - Sharun Kumar Kakkad Sasikumar	002774079
