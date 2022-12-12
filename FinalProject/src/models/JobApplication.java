@@ -8,13 +8,23 @@ public class JobApplication {
     private int personId;
     private int jobPostingId;
     private int yearsOfExperience;
+    private String resumeFile;
     private Collection<JobCandidate> jobCandidatesById;
 
-    public JobApplication(int id, int personId, int jobPostingId, int yearsOfExperience) {
+    public JobApplication(int id, int personId, int jobPostingId, int yearsOfExperience, String resumeFile) {
         this.id = id;
         this.personId = personId;
         this.jobPostingId = jobPostingId;
         this.yearsOfExperience = yearsOfExperience;
+        this.resumeFile = resumeFile;
+    }
+
+    public String getResumeFile() {
+        return resumeFile;
+    }
+
+    public void setResumeFile(String resumeFile) {
+        this.resumeFile = resumeFile;
     }
 
     public int getId() {
