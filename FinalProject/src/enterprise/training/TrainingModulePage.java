@@ -13,6 +13,7 @@ import utils.Dialog;
 import views.BaseFrame;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -34,7 +35,7 @@ public class TrainingModulePage extends BaseFrame {
     private JTextArea validationText;
     private JButton startTrainingButton;
     private JPanel addPersonPane;
-    private JTextField description;
+    private JTextArea description;
     private JTextField name;
     private JButton cancelButton;
     private boolean isTrainer;
@@ -132,7 +133,7 @@ public class TrainingModulePage extends BaseFrame {
             addModuleButton.setText("Add Section");
             addPersonPane.setBorder(BorderFactory.createTitledBorder("Add Section"));
 
-            for (var text : new JTextField[]{name, description}) {
+            for (var text : new JTextComponent[]{name, description}) {
                 text.setText("");
                 text.setBorder(BorderFactory.createLineBorder(Color.black));
             }
@@ -141,7 +142,7 @@ public class TrainingModulePage extends BaseFrame {
 
     private boolean validateFields() {
         var validationMessages = new ArrayList<String>();
-        if (!Validator.checkTextsBlank(new JTextField[]{name, description}))
+        if (!Validator.checkTextsBlank(new JTextComponent[]{name, description}))
             validationMessages.add("Enter all the mandatory fields");
 
 

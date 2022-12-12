@@ -3,6 +3,7 @@ package domain;
 import helpers.DateHelper;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,7 +38,7 @@ public class Validator {
     }
 
 
-    public static boolean checkTextBlank(JTextField text) {
+    public static boolean checkTextBlank(JTextComponent text) {
         if (text.getText().trim().isBlank()) {
             text.setBorder(BorderFactory.createLineBorder(Color.RED));
             return false;
@@ -48,6 +49,16 @@ public class Validator {
     }
 
     public static boolean checkTextsBlank(JTextField[] texts) {
+        var result = true;
+
+        for (var text : texts) {
+            result = checkTextBlank(text) && result;
+        }
+
+        return result;
+    }
+
+    public static boolean checkTextsBlank(JTextComponent[] texts) {
         var result = true;
 
         for (var text : texts) {
