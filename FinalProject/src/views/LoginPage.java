@@ -1,6 +1,7 @@
 package views;
 
 import domain.Application;
+import utils.Dialog;
 import utils.Encryption;
 
 import javax.swing.*;
@@ -41,7 +42,7 @@ public class LoginPage extends BaseFrame {
                             .findFirst().orElse(null);
 
             if (dbperson == null) {
-                System.out.println("No person exists with that username");
+                Dialog.error("No person exists with that username");
             } else {
                 if (Encryption.verify(password.getText(), dbperson.getPassword())) {
                     System.out.println("Password is correct");
@@ -51,7 +52,7 @@ public class LoginPage extends BaseFrame {
                     switchToWindow(new HomePage());
 
                 } else {
-                    System.out.println("Password is incorrect");
+                    Dialog.error("Incorrect password");
                 }
             }
 
