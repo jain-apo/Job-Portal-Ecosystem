@@ -523,7 +523,7 @@ async function addJobApplication(sharun: Person, jobPosting: { id: any; title?: 
             personId: sharun.id,
             jobPostingId: jobPosting.id,
             yearsOfExperience: 5,
-            resumeFile: ""
+            resumeFile: 'D:\\OneDrive\\Documents\\Professional\\Resume\\Resume - Work.pdf`'
         },
         update: {
             personId: sharun.id,

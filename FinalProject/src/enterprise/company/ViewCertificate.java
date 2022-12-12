@@ -34,6 +34,8 @@ public class ViewCertificate extends BaseFrame {
         }
 
         TableHelpers.centerColumn(certificate, 0);
+        TableHelpers.centerColumn(certificate, 1);
+        TableHelpers.centerColumn(certificate, 2);
 
     }
 }

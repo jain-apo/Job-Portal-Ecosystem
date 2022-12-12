@@ -372,4 +372,24 @@
             </basic>
         </attributes>
     </entity>
+    <entity class="models.TrainingCertificate">
+        <table name="TrainingCertificate" schema="main" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id"/>
+            </id>
+            <basic name="name">
+                <column name="name"/>
+            </basic>
+            <basic name="trainingModuleId">
+                <column name="trainingModuleId"/>
+            </basic>
+            <basic name="personId">
+                <column name="personId"/>
+            </basic>
+            <basic name="certifiedDate">
+                <column name="certifiedDate"/>
+            </basic>
+        </attributes>
+    </entity>
 </entity-mappings>

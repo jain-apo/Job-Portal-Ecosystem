@@ -7,6 +7,7 @@ import models.JobCandidate;
 import models.PersonNotification;
 import models.tablemodels.ApplicantsTableModel;
 import utils.Dialog;
+import utils.FileUtil;
 import views.BaseFrame;
 
 import javax.swing.*;
@@ -52,18 +53,22 @@ public class ApplicantsPage extends BaseFrame {
                     System.out.println("double click");
 
                     if (column == RESUME_COLUMN) {
-                        // TODO show resume
+                        FileUtil.openFileInExplorer(application.getResumeFile());
+
                     } else if (column == MOVE_COLUMN) {
-                        // TODO move to next stage
 
                         try {
-                            var result = Dialog.confirm("Are you sure you want to move " + application.getPerson().getFullName() + " as a Job Candidate?", "Move to next stage?");
+                            var result =
+                                    Dialog.confirm("Are you sure you want to move " + application.getPerson().getFullName() + " as a Job Candidate?", "Move to next stage?");
 
                             if (result == JOptionPane.YES_OPTION) {
-                                var newJobCandidate = new JobCandidate(0, application.getPersonId(), application.getJobPostingId(), 0, "Application Accepted");
+                                var newJobCandidate = new JobCandidate(0, application.getPersonId(),
+                                        application.getId(), 0, "Application Accepted");
                                 Application.Database.JobCandidates.add(newJobCandidate);
 
-                                new PersonNotification(0, application.getPersonId(), "Application Accepted", "Your application for " + application.getJobPosting().getTitle() + " has been accepted.", null).create();
+                                new PersonNotification(application.getPersonId(), "Application Accepted", "Your " +
+                                        "application for " + application.getJobPosting().getTitle() + " has been " +
+                                        "accepted.").create();
 
                                 Dialog.info("Application moved to next stage");
                                 displayPeople();

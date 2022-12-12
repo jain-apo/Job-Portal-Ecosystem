@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import static utils.FileUtil.openFileInExplorer;
+
 public class CandidateProfile extends BaseFrame {
     private final int candidateId;
     private JPanel p;
@@ -36,6 +38,21 @@ public class CandidateProfile extends BaseFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new ViewCertificate().setVisible(true);
+            }
+        });
+        viewResumeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    var file =
+                            Application.Database.JobCandidates.getCandidateById(candidateId).getJobApplication().getResumeFile();
+
+                    System.out.println(file);
+
+                    openFileInExplorer(file);
+                } catch (SQLException ex) {
+                    //
+                }
             }
         });
     }

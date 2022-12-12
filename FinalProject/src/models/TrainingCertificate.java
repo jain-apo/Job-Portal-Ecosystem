@@ -3,6 +3,7 @@ package models;
 import domain.Application;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.Objects;
 
 public class TrainingCertificate {
@@ -10,13 +11,14 @@ public class TrainingCertificate {
     private String name;
     private int trainingModuleId;
     private int personId;
-    private Person personByPersonId;
+    private Date certifiedDate;
 
-    public TrainingCertificate(int id, String name, int trainingModuleId, int personId) {
+    public TrainingCertificate(int id, String name, int trainingModuleId, int personId, Date certifiedDate) {
         this.id = id;
         this.name = name;
         this.trainingModuleId = trainingModuleId;
         this.personId = personId;
+        this.certifiedDate = certifiedDate;
     }
 
     public int getId() {
@@ -68,11 +70,11 @@ public class TrainingCertificate {
         return Objects.hash(id, name, trainingModuleId, personId);
     }
 
-    public Person getPersonByPersonId() {
-        return personByPersonId;
+    public Date getCertifiedDate() {
+        return certifiedDate;
     }
 
-    public void setPersonByPersonId(Person personByPersonId) {
-        this.personByPersonId = personByPersonId;
+    public void setCertifiedDate(Date certifiedDate) {
+        this.certifiedDate = certifiedDate;
     }
 }

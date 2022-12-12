@@ -3,11 +3,11 @@ package views;
 import domain.Application;
 import domain.Validator;
 import helpers.DateHelper;
-import helpers.Encryption;
 import helpers.TableHelpers;
 import models.Person;
 import models.tablemodels.PersonsTableModel;
 import utils.Dialog;
+import utils.Encryption;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,7 +59,9 @@ public class PersonsDirectoryPage extends BaseFrame {
         if (!validateFields()) return;
 
 
-        var person = new Person(currentlyEditingEmployee, firstName.getText(), lastName.getText(), DateHelper.tryGetDate(dateOfBirth.getText(), "yyyy-MM-dd"), username.getText(), Encryption.hash(password.getText()), email.getText(), phone.getText());
+        var person = new Person(currentlyEditingEmployee, firstName.getText(), lastName.getText(),
+                DateHelper.tryGetDate(dateOfBirth.getText(), "yyyy-MM-dd"), username.getText(),
+                Encryption.hash(password.getText()), email.getText(), phone.getText());
 
         if (!editMode) {
 
@@ -113,7 +115,8 @@ public class PersonsDirectoryPage extends BaseFrame {
 
     private boolean validateFields() {
         var validationMessages = new ArrayList<String>();
-        if (!Validator.checkTextsBlank(new JTextField[]{firstName, lastName, dateOfBirth, username, password, email, phone}))
+        if (!Validator.checkTextsBlank(new JTextField[]{firstName, lastName, dateOfBirth, username, password, email,
+                phone}))
             validationMessages.add("Enter all the mandatory fields");
 
         if (DateHelper.tryGetDate(dateOfBirth.getText(), sqlDateFormat) == null) {
@@ -171,7 +174,8 @@ public class PersonsDirectoryPage extends BaseFrame {
                             return;
                         }
 
-                        int result = Dialog.confirm("Are you sure you want to delete " + personName + "?", "Delete Person", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                        int result = Dialog.confirm("Are you sure you want to delete " + personName + "?", "Delete " +
+                                "Person", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                         System.out.println(result);
 

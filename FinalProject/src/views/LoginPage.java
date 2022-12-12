@@ -1,7 +1,7 @@
 package views;
 
 import domain.Application;
-import helpers.Encryption;
+import utils.Encryption;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -36,7 +36,8 @@ public class LoginPage extends BaseFrame {
         System.out.println("password is " + password.getText());
 
         try {
-            var dbperson = Application.Database.Persons.getAll().stream().filter(person -> person.getUsername().equals(username.getText()))
+            var dbperson =
+                    Application.Database.Persons.getAll().stream().filter(person -> person.getUsername().equals(username.getText()))
                     .findFirst().orElse(null);
 
             if (dbperson == null) {

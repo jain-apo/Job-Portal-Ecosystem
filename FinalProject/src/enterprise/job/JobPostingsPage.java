@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class JobPostingsPage extends BaseFrame {
     private final int APPLY_COLUMN_NUMBER = 4;
@@ -80,7 +81,9 @@ public class JobPostingsPage extends BaseFrame {
                     if (column == APPLY_COLUMN_NUMBER) {
                         JobPosting jobPosting = ((BaseTableModel<JobPosting>) people.getModel()).getDataAt(row);
 
-                        new JobApplicationPage(jobPosting).setVisible(true);
+                        new JobApplicationPage(jobPosting, () -> {
+                            displayJobPostings();
+                        }).setVisible(true);
                     }
 
                 }
@@ -91,8 +94,16 @@ public class JobPostingsPage extends BaseFrame {
     private void setupRoles() {
         var person = Application.getCurrentlyLoggedInPerson();
 
-        isStudent = person.hasRole(Roles.COLLEGE_STUDENT);
-        isHr = person.hasRole(Roles.COMPANY_HR);
+        isStudent = person.hasAtLeastOneOfRole(new String[]{
+                Roles.COLLEGE_STUDENT,
+                Roles.JOB_PORTAL_USER,
+        });
+
+        isHr = person.hasAtLeastOneOfRole(new String[]{
+                Roles.COMPANY_HR,
+                Roles.JOB_PORTAL_ADMIN,
+                Roles.ADMIN,
+        });
 
         if (!isHr) {
             addPersonPane.setVisible(false);
@@ -166,7 +177,18 @@ public class JobPostingsPage extends BaseFrame {
                 people.setModel(new CompanyPostingsTableModel().loadData(Application.Database.JobPostings.getAll()));
 
             } else {
-                people.setModel(new JobPostingsTableModel().loadData(Application.Database.JobPostings.getAll()));
+
+                var myJobApplications =
+                        Application.Database.JobApplications.getAll().stream()
+                                .filter(jobApplication -> jobApplication.getPersonId() == Application.getCurrentlyLoggedInPerson().getId())
+                                .map(jobApplication -> jobApplication.getJobPostingId())
+                                .collect(Collectors.toList());
+
+                people.setModel(new JobPostingsTableModel().loadData(
+                        Application.Database.JobPostings.getAll()
+                                .stream().filter(jobPosting -> !myJobApplications.contains(jobPosting.getId()))
+                                .collect(Collectors.toList())
+                ));
             }
         } catch (SQLException e) {
             Dialog.error("Error getting people");

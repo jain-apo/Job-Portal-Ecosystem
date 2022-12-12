@@ -14,7 +14,8 @@ public class JobApplicationDatabase extends BaseDatabase<models.JobApplication> 
 
     @Override
     public void add(models.JobApplication item) throws SQLException {
-        String sql = "insert into JobApplication (personId, jobPostingId, yearsOfExperience, resumeFile) values (?,?,?,?)";
+        String sql = "insert into JobApplication (personId, jobPostingId, yearsOfExperience, resumeFile) values (?,?," +
+                "?,?)";
 
         PreparedStatement statement = getConnection().prepareStatement(sql);
         statement.setInt(1, item.getPersonId());
@@ -53,7 +54,7 @@ public class JobApplicationDatabase extends BaseDatabase<models.JobApplication> 
 
     @Override
     public models.JobApplication getById(int id) throws SQLException {
-        return null;
+        return getAll().stream().filter(jobApplication -> jobApplication.getId() == id).findFirst().orElse(null);
     }
 
     @Override

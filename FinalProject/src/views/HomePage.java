@@ -48,7 +48,8 @@ public class HomePage extends BaseFrame implements ActionListener {
 
     private void setupRoles() {
         try {
-            var roles = Application.getCurrentlyLoggedInPerson().getRoles().stream().map(role -> role.getName()).collect(Collectors.toList());
+            var roles =
+                    Application.getCurrentlyLoggedInPerson().getRoles().stream().map(role -> role.getName()).collect(Collectors.toList());
 
             if (roles.contains(Roles.ADMIN)) {
                 return;
@@ -145,6 +146,11 @@ public class HomePage extends BaseFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        loadNotifications();
+        try {
+            loadNotifications();
+            setupRoles();
+        } catch (Exception ex) {
+            //
+        }
     }
 }

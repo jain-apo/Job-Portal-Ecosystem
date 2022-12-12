@@ -1,5 +1,8 @@
 package models;
 
+import domain.Application;
+
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class JobCandidate {
@@ -15,6 +18,14 @@ public class JobCandidate {
         this.jobApplicationId = jobApplicationId;
         this.interviewRound = interviewRound;
         this.result = result;
+    }
+
+    public JobApplication getJobApplication() throws SQLException {
+        return Application.Database.JobApplications.getById(jobApplicationId);
+    }
+
+    public Person getPerson() throws SQLException {
+        return Application.Database.Persons.getById(personId);
     }
 
     public int getId() {

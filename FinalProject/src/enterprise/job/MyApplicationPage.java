@@ -9,6 +9,7 @@ import views.BaseFrame;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 public class MyApplicationPage extends BaseFrame {
     private JPanel p;
@@ -43,7 +44,11 @@ public class MyApplicationPage extends BaseFrame {
 
     private void displayJobPostings() {
         try {
-            people.setModel(new MyApplicationsTableModel().loadData(Application.Database.JobApplications.getAll()));
+            people.setModel(new MyApplicationsTableModel().loadData(
+                    Application.Database.JobApplications.getAll()
+                            .stream().filter(a -> a.getPersonId() == Application.getCurrentlyLoggedInPerson().getId())
+                            .collect(Collectors.toList())
+            ));
 
         } catch (SQLException e) {
             Dialog.error("Error getting people");

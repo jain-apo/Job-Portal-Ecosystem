@@ -11,14 +11,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
-public class CandidatePage extends BaseFrame {
+public class CandidatesPage extends BaseFrame {
 
     private final int PROFILE_PAGE = 3;
     private JPanel mainPane;
     private JTable candidate;
     private JLabel heading;
 
-    public CandidatePage() {
+    public CandidatesPage() {
         super();
         setContentPane(mainPane);
         displayPeople();

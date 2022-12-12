@@ -1,4 +1,4 @@
-package helpers;
+package utils;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 

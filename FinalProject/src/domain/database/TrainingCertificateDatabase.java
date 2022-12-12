@@ -71,7 +71,8 @@ public class TrainingCertificateDatabase extends BaseDatabase<models.TrainingCer
                     resultSet.getInt("Id"),
                     resultSet.getString("name"),
                     resultSet.getInt("trainingModuleId"),
-                    resultSet.getInt("personId")
+                    resultSet.getInt("personId"),
+                    resultSet.getDate("certifiedDate")
 
             );
 

@@ -37,7 +37,7 @@ public class CandidateInterviewTableModel extends BaseTableModel<JobCandidate> {
                 person.getFullName(),
                 DateHelper.formatDate(person.getDateOfBirth(), "MMM-dd yyyy"),
                 "✖",
-                "x"
+                "✖"
         };
     }
 }

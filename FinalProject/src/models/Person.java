@@ -3,10 +3,7 @@ package models;
 import domain.Application;
 
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Person {
     private int id;
@@ -24,7 +21,8 @@ public class Person {
     private Collection<JobCandidate> jobCandidatesById;
     private CollegeStudent collegeStudentData;
 
-    public Person(int id, String firstName, String lastName, Date dateOfBirth, String username, String password, String email, String phone) {
+    public Person(int id, String firstName, String lastName, Date dateOfBirth, String username, String password,
+                  String email, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -57,6 +55,14 @@ public class Person {
     public boolean hasRole(String role) {
         try {
             return getRoles().stream().anyMatch(role1 -> role1.getName().equals(role));
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public boolean hasAtLeastOneOfRole(String[] roles) {
+        try {
+            return getRoles().stream().anyMatch(role1 -> Arrays.stream(roles).anyMatch(role2 -> role1.getName().equals(role2)));
         } catch (SQLException e) {
             return false;
         }
@@ -139,7 +145,9 @@ public class Person {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Person person = (Person) o;
-        return id == person.id && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(dateOfBirth, person.dateOfBirth) && Objects.equals(username, person.username) && Objects.equals(password, person.password) && Objects.equals(email, person.email) && Objects.equals(phone, person.phone);
+        return id == person.id && Objects.equals(firstName, person.firstName) && Objects.equals(lastName,
+                person.lastName) && Objects.equals(dateOfBirth, person.dateOfBirth) && Objects.equals(username,
+                person.username) && Objects.equals(password, person.password) && Objects.equals(email, person.email) && Objects.equals(phone, person.phone);
     }
 
     @Override

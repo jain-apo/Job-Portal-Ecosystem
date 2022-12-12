@@ -1,10 +1,12 @@
 package enterprise.company;
 
+import domain.Application;
 import views.BaseFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class TakeInterviewPage extends BaseFrame {
 
@@ -13,10 +15,16 @@ public class TakeInterviewPage extends BaseFrame {
     private JButton rejectButton;
     private JButton profileButton;
     private JPanel p;
+    private JPanel mainPane;
+    private JButton viewResumeButton;
+    private JLabel heading;
 
     public TakeInterviewPage(int candidateId) {
         super();
         this.candidateId = candidateId;
+
+        setupPageStuff();
+
         setContentPane(p);
         profileButton.addActionListener(new ActionListener() {
             @Override
@@ -37,5 +45,13 @@ public class TakeInterviewPage extends BaseFrame {
                 // TODO
             }
         });
+    }
+
+    private void setupPageStuff() {
+        try {
+            heading.setText(Application.Database.JobCandidates.getCandidateById(candidateId).getPerson().getFullName());
+        } catch (SQLException e) {
+            //
+        }
     }
 }

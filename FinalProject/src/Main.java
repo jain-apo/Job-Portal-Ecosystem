@@ -1,5 +1,5 @@
 import domain.Application;
-import helpers.Encryption;
+import utils.Encryption;
 import views.LoginPage;
 
 public class Main {

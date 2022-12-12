@@ -25,7 +25,7 @@ public class CompanyHomePage extends BaseFrame {
         candidatePageButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new CandidatePage().setVisible(true);
+                new CandidatesPage().setVisible(true);
             }
         });
         interviewPageButton.addActionListener(new ActionListener() {

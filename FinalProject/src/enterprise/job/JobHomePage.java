@@ -7,6 +7,9 @@ import views.BaseFrame;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
+import static helpers.UiHelpers.buttonRole;
 
 public class JobHomePage extends BaseFrame {
     private JPanel p;
@@ -22,10 +25,20 @@ public class JobHomePage extends BaseFrame {
         super();
         setContentPane(p);
         setupRoles();
+        setupActions();
+    }
+
+    private void setupActions() {
         companyJobPostingsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new JobPostingsPage().setVisible(true);
+            }
+        });
+        myApplicationsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MyApplicationPage().setVisible(true);
             }
         });
     }
@@ -33,18 +46,16 @@ public class JobHomePage extends BaseFrame {
     private void setupRoles() {
         var person = Application.getCurrentlyLoggedInPerson();
 
-        isStudent = person.hasRole(Roles.COLLEGE_STUDENT);
-        isHr = person.hasRole(Roles.COMPANY_HR);
+        var myApplicationsAccess = new String[]{
+                Roles.ADMIN,
+                Roles.JOB_PORTAL_ADMIN,
+                Roles.COLLEGE_STUDENT,
+        };
 
-        if (!isHr) {
-//            addPersonPane.setVisible(false);
-//            addPersonButton.setVisible(false);
-//            myApplicationsButton.setVisible(true);
+        try {
+            buttonRole(myApplicationsButton, myApplicationsAccess, person);
+        } catch (SQLException e) {
 
-        } else {
-//            jobPosterPanel.setVisible(true);
-//            addPersonButton.setVisible(true);
-//            myApplicationsButton.setVisible(false);
         }
     }
 }

@@ -266,7 +266,7 @@ public class TrainingModulePage extends BaseFrame {
                 Dialog.info("Exercise completed successfully");
 
                 Application.Database.TrainingCertificates.add(new TrainingCertificate(0, module.getName() + " " +
-                        "Certificate.", module.getId(), Application.getCurrentlyLoggedInPerson().getId()));
+                        "Certificate.", module.getId(), Application.getCurrentlyLoggedInPerson().getId(), null));
 
             } catch (SQLException e) {
                 Dialog.error("Error loading questions");

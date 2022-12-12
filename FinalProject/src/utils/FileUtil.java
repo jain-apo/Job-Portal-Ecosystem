@@ -2,8 +2,10 @@ package utils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.io.IOException;
 
-public class FileChooser {
+public class FileUtil {
 
     public static String pickPdfFile() {
         JFileChooser fileChooser = new JFileChooser();
@@ -15,5 +17,13 @@ public class FileChooser {
             return fileChooser.getSelectedFile().getAbsolutePath();
         }
         return null;
+    }
+
+    public static void openFileInExplorer(String fileName) {
+        try {
+            Desktop.getDesktop().open(new java.io.File(fileName));
+        } catch (IOException e) {
+            Dialog.error("Error trying to open the file");
+        }
     }
 }
