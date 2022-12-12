@@ -13,6 +13,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 public class HomePage extends BaseFrame {
     private JPanel mainPanel;
@@ -58,7 +59,11 @@ public class HomePage extends BaseFrame {
 
         try {
             // TODO filter for currently logged in user
-            notifications.setModel(new NotificationsTableModel().loadData(Application.Database.PersonNotifications.getAll()));
+            notifications.setModel(new NotificationsTableModel()
+                    .loadData(Application.Database.PersonNotifications.getAll()
+                            .stream()
+                            .filter(x -> x.getPersonId() == Application.getCurrentlyLoggedInPerson().getId())
+                            .collect(Collectors.toList())));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
