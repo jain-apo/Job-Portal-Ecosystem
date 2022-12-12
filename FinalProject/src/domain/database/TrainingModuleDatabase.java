@@ -47,7 +47,7 @@ public class TrainingModuleDatabase extends BaseDatabase<models.TrainingModule> 
 
     @Override
     public models.TrainingModule getById(int id) throws SQLException {
-        return null;
+        return getAll().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
     }
 
     @Override
